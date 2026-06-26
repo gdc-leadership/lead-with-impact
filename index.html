@@ -6,86 +6,38 @@
 <title>Lead with Impact — Leadership Effectiveness Survey</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f0f4f8; min-height: 100vh; color: #1a202c; }
 
-  body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: #f0f4f8;
-    min-height: 100vh;
-    color: #1a202c;
-  }
-
-  .header {
-    background: linear-gradient(135deg, #0176d3 0%, #032d60 100%);
-    color: white;
-    padding: 32px 24px 28px;
-    text-align: center;
-  }
+  .header { background: linear-gradient(135deg, #0176d3 0%, #032d60 100%); color: white; padding: 32px 24px 28px; text-align: center; }
   .header h1 { font-size: 1.7rem; font-weight: 700; margin-bottom: 6px; }
   .header p { font-size: 0.95rem; opacity: 0.85; max-width: 520px; margin: 0 auto; }
+  .progress-bar-wrap { background: rgba(255,255,255,0.2); border-radius: 99px; height: 6px; margin: 20px auto 0; max-width: 400px; overflow: hidden; }
+  .progress-bar-fill { background: #4ade80; height: 100%; border-radius: 99px; transition: width 0.5s ease; width: 0%; }
+  .progress-label { font-size: 0.78rem; opacity: 0.75; margin-top: 6px; }
 
-  .progress-bar-wrap {
-    background: rgba(255,255,255,0.2);
-    border-radius: 99px;
-    height: 6px;
-    margin: 20px auto 0;
-    max-width: 400px;
-    overflow: hidden;
-  }
-  .progress-bar-fill {
-    background: #4ade80;
-    height: 100%;
-    border-radius: 99px;
-    transition: width 0.5s ease;
-    width: 0%;
-  }
-  .progress-label {
-    font-size: 0.78rem;
-    opacity: 0.75;
-    margin-top: 6px;
-    text-align: center;
-  }
+  .container { max-width: 720px; margin: 0 auto; padding: 28px 20px 60px; }
 
-  .container {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 28px 20px 60px;
-  }
-
-  /* Config screen */
-  .config-card {
-    background: white;
-    border-radius: 14px;
-    padding: 32px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-    margin-bottom: 24px;
-  }
-  .config-card h2 { font-size: 1.1rem; color: #032d60; margin-bottom: 18px; }
-  .config-card label { display: block; font-size: 0.85rem; font-weight: 600; color: #444; margin-bottom: 6px; margin-top: 16px; }
-  .config-card input, .config-card select {
-    width: 100%;
-    padding: 10px 14px;
-    border: 1.5px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .config-card input:focus, .config-card select:focus { border-color: #0176d3; }
+  .card { background: white; border-radius: 14px; padding: 36px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); margin-bottom: 24px; }
+  .card h2 { font-size: 1.15rem; color: #032d60; margin-bottom: 8px; }
+  .card .subtitle { font-size: 0.9rem; color: #6b7280; margin-bottom: 24px; line-height: 1.6; }
+  .card label { display: block; font-size: 0.85rem; font-weight: 600; color: #444; margin-bottom: 6px; margin-top: 20px; }
+  .card input[type=url] { width: 100%; padding: 10px 14px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+  .card input[type=url]:focus { border-color: #0176d3; }
   .config-note { font-size: 0.78rem; color: #6b7280; margin-top: 5px; }
+  .info-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 14px 16px; font-size: 0.85rem; color: #1e40af; margin-top: 20px; line-height: 1.6; }
+
+  /* Role selector */
+  .role-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin-top: 8px; }
+  .role-tile { border: 2px solid #e5e7eb; border-radius: 12px; padding: 16px 12px; text-align: center; cursor: pointer; transition: all 0.18s; user-select: none; }
+  .role-tile:hover { border-color: #93c5fd; background: #f0f9ff; }
+  .role-tile.selected { border-color: #0176d3; background: #eff6ff; }
+  .role-tile .role-icon { font-size: 1.5rem; margin-bottom: 6px; }
+  .role-tile .role-name { font-size: 0.88rem; font-weight: 700; color: #1a202c; }
+  .role-tile .role-desc { font-size: 0.72rem; color: #6b7280; margin-top: 3px; line-height: 1.4; }
+  .role-tile.selected .role-name { color: #0176d3; }
 
   /* Buttons */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border-radius: 8px; font-size: 0.95rem; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; }
   .btn-primary { background: #0176d3; color: white; }
   .btn-primary:hover { background: #0165b8; }
   .btn-primary:disabled { background: #93c5fd; cursor: not-allowed; }
@@ -94,172 +46,53 @@
   .btn-success { background: #16a34a; color: white; }
   .btn-success:hover { background: #15803d; }
 
-  /* Chat / Question area */
-  .chat-card {
-    background: white;
-    border-radius: 14px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-    overflow: hidden;
-  }
-
-  .question-block {
-    padding: 28px 28px 0;
-    border-bottom: 1px solid #f3f4f6;
-    margin-bottom: 0;
-    animation: fadeIn 0.4s ease;
-  }
+  /* Survey chat */
+  .chat-card { background: white; border-radius: 14px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); overflow: hidden; }
+  .answered-block { padding: 20px 28px; border-bottom: 1px solid #f3f4f6; animation: fadeIn 0.3s ease; }
+  .question-block { padding: 28px 28px 0; animation: fadeIn 0.4s ease; }
   @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 
-  .question-meta {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-  .q-badge {
-    background: #e0f2fe;
-    color: #0176d3;
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 99px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
+  .question-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+  .q-badge { background: #e0f2fe; color: #0176d3; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.04em; }
   .q-badge.followup { background: #fef3c7; color: #d97706; }
+  .q-badge.role-q { background: #f0fdf4; color: #16a34a; }
+  .q-badge.initiative { background: #fdf4ff; color: #9333ea; }
   .q-number { font-size: 0.8rem; color: #9ca3af; }
 
-  .question-text {
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: #1a202c;
-    line-height: 1.5;
-    margin-bottom: 16px;
-  }
-
-  .answer-area {
-    width: 100%;
-    min-height: 110px;
-    padding: 12px 14px;
-    border: 1.5px solid #d1d5db;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    resize: vertical;
-    outline: none;
-    transition: border-color 0.2s;
-    font-family: inherit;
-    color: #1a202c;
-  }
+  .question-text { font-size: 1.05rem; font-weight: 600; color: #1a202c; line-height: 1.5; margin-bottom: 16px; }
+  .answer-area { width: 100%; min-height: 120px; padding: 12px 14px; border: 1.5px solid #d1d5db; border-radius: 10px; font-size: 0.95rem; line-height: 1.6; resize: vertical; outline: none; transition: border-color 0.2s; font-family: inherit; color: #1a202c; }
   .answer-area:focus { border-color: #0176d3; }
   .answer-area::placeholder { color: #9ca3af; }
+  .char-hint { font-size: 0.75rem; color: #9ca3af; margin-top: 6px; text-align: right; }
 
-  .question-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    padding: 16px 28px 20px;
-  }
+  .question-actions { display: flex; justify-content: space-between; align-items: center; padding: 16px 28px 24px; }
+  .question-actions .hint { font-size: 0.78rem; color: #9ca3af; }
 
-  /* AI typing indicator */
-  .ai-thinking {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 20px 28px;
-    animation: fadeIn 0.3s ease;
-  }
-  .ai-avatar {
-    width: 36px; height: 36px;
-    background: linear-gradient(135deg, #0176d3, #032d60);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 0.9rem;
-    flex-shrink: 0;
-  }
-  .dots { display: flex; gap: 5px; }
-  .dots span {
-    width: 7px; height: 7px;
-    background: #cbd5e1;
-    border-radius: 50%;
-    animation: bounce 1.2s infinite;
-  }
-  .dots span:nth-child(2) { animation-delay: 0.2s; }
-  .dots span:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes bounce {
-    0%, 80%, 100% { transform: scale(0.8); background: #cbd5e1; }
-    40% { transform: scale(1.2); background: #0176d3; }
-  }
-  .ai-thinking-text { font-size: 0.85rem; color: #6b7280; }
-
-  /* Completion screen */
-  .complete-card {
-    background: white;
-    border-radius: 14px;
-    padding: 48px 32px;
-    text-align: center;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-    animation: fadeIn 0.5s ease;
-  }
+  /* Complete */
+  .complete-card { background: white; border-radius: 14px; padding: 48px 32px; text-align: center; box-shadow: 0 2px 16px rgba(0,0,0,0.08); animation: fadeIn 0.5s ease; }
   .complete-icon { font-size: 3rem; margin-bottom: 16px; }
   .complete-card h2 { font-size: 1.4rem; color: #032d60; margin-bottom: 10px; }
-  .complete-card p { color: #6b7280; font-size: 0.95rem; max-width: 420px; margin: 0 auto 28px; line-height: 1.6; }
+  .complete-card p { color: #6b7280; font-size: 0.95rem; max-width: 440px; margin: 0 auto 28px; line-height: 1.6; }
   .complete-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-
-  /* Summary accordion */
-  .summary-section { margin-top: 28px; text-align: left; }
-  .summary-section h3 { font-size: 0.85rem; font-weight: 700; color: #374151; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; }
+  .summary-section { margin-top: 32px; text-align: left; }
+  .summary-section h3 { font-size: 0.82rem; font-weight: 700; color: #374151; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
   .summary-item { border: 1px solid #e5e7eb; border-radius: 10px; margin-bottom: 8px; overflow: hidden; }
-  .summary-q {
-    background: #f9fafb;
-    padding: 12px 16px;
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: #374151;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  .summary-q { background: #f9fafb; padding: 12px 16px; font-size: 0.88rem; font-weight: 600; color: #374151; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
   .summary-q:hover { background: #f3f4f6; }
-  .summary-a {
-    padding: 12px 16px;
-    font-size: 0.88rem;
-    color: #4b5563;
-    line-height: 1.6;
-    display: none;
-    border-top: 1px solid #e5e7eb;
-    white-space: pre-wrap;
-  }
+  .summary-chevron { flex-shrink: 0; transition: transform 0.2s; }
+  .summary-chevron.open { transform: rotate(180deg); }
+  .summary-a { padding: 12px 16px; font-size: 0.88rem; color: #4b5563; line-height: 1.6; display: none; border-top: 1px solid #e5e7eb; white-space: pre-wrap; }
   .summary-a.open { display: block; }
 
-  /* Error toast */
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #dc2626;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 0.88rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    z-index: 999;
-    animation: fadeIn 0.3s ease;
-    max-width: 480px;
-    text-align: center;
-  }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #dc2626; color: white; padding: 12px 20px; border-radius: 8px; font-size: 0.88rem; box-shadow: 0 4px 20px rgba(0,0,0,0.2); z-index: 999; animation: fadeIn 0.3s ease; max-width: 480px; text-align: center; }
   .toast.success { background: #16a34a; }
 
-  /* Responsive */
   @media (max-width: 520px) {
     .question-block { padding: 20px 16px 0; }
-    .question-actions { padding: 12px 16px 16px; }
-    .ai-thinking { padding: 16px; }
+    .question-actions { padding: 12px 16px 18px; flex-direction: column; gap: 10px; align-items: stretch; }
+    .answered-block { padding: 16px; }
+    .complete-card { padding: 32px 20px; }
+    .role-grid { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
@@ -268,447 +101,452 @@
 <div class="header">
   <h1>Lead with Impact</h1>
   <p>Leadership Effectiveness Survey — GDC Directors</p>
-  <div class="progress-bar-wrap">
-    <div class="progress-bar-fill" id="progressFill"></div>
-  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill"></div></div>
   <div class="progress-label" id="progressLabel">Not started</div>
 </div>
 
 <div class="container" id="app"></div>
 
 <script>
-// ─── Configuration ──────────────────────────────────────────────────────────
+// ─── Role Definitions ─────────────────────────────────────────────────────────
+const ROLES = [
+  { id: 'BP',    name: 'BP',     icon: '🤝', desc: 'Business Partner' },
+  { id: 'CL',    name: 'CL',     icon: '☁️', desc: 'Cloud Leader' },
+  { id: 'DP',    name: 'DP',     icon: '🚀', desc: 'Delivery Partner' },
+  { id: 'OTHER', name: 'Other',  icon: '➕', desc: 'Other / Initiative Lead' }
+];
+
+// Role-specific follow-up questions (one per role, injected after Q1 if role selected)
+const ROLE_FOLLOWUPS = {
+  BP: {
+    label: 'BP Role',
+    badge: 'role-q',
+    text: 'As a Business Partner, how much of your current week is spent on GTM and pre-sales activities — and how does that compare to what you feel is the right investment?'
+  },
+  CL: {
+    label: 'CL Role',
+    badge: 'role-q',
+    text: 'As a Cloud Leader, what does your delivery governance involvement currently look like — and where do you feel you should be spending that time instead?'
+  },
+  DP: {
+    label: 'DP Role',
+    badge: 'role-q',
+    text: 'As a Delivery Partner, where do you feel the biggest gap between the advisory value you can provide and how you are currently utilised on engagements?'
+  },
+  OTHER: {
+    label: 'Other Role / Initiative',
+    badge: 'role-q',
+    text: 'For the other roles or initiatives you are involved in — which one takes the most time, and is that proportional to the impact it delivers?'
+  }
+};
+
+// ─── Core Questions ───────────────────────────────────────────────────────────
 const CORE_QUESTIONS = [
   {
-    id: "high_value",
-    label: "High-Value Activities",
-    text: "What according to you are the high-value activities? Where do you feel you create the most value for the GDC?"
+    id: 'high_value', label: 'High-Value Activities',
+    text: 'What according to you are the high-value activities where you create the most impact for the GDC?'
   },
   {
-    id: "ideal_allocation",
-    label: "Ideal Time Allocation",
-    text: "If you had complete control over your work and calendar, what would your ideal time allocation look like across different activities?"
+    id: 'ideal_allocation', label: 'Ideal Time Allocation',
+    text: 'If you had complete control over your calendar, what would your ideal time allocation look like across different activities?'
   },
   {
-    id: "time_sinks",
-    label: "Time Sinks",
-    text: "What are your top 2–3 'time sinks' — activities that feel least productive but are currently unavoidable?"
+    id: 'time_sinks', label: 'Time Sinks',
+    text: 'What are your top 2–3 "time sinks" — activities that feel least productive but are currently unavoidable?'
   },
   {
-    id: "barriers",
-    label: "Barriers to Impact",
-    text: "What are the biggest barriers stopping you from spending more time on high-value, outcome-driven activities?"
+    id: 'barriers', label: 'Barriers to Impact',
+    text: 'What are the biggest barriers stopping you from spending more time on high-value, outcome-driven activities?'
   },
   {
-    id: "one_change",
-    label: "One Thing to Change",
-    text: "If you could change one thing about how work is structured or managed at the GDC to make you more effective, what would it be?"
+    id: 'one_change', label: 'One Thing to Change',
+    text: 'If you could change one thing about how work is structured or managed at the GDC to make you more effective, what would it be?'
   },
   {
-    id: "mentoring",
-    label: "Mentoring",
-    text: "If you had dedicated time, how would you mentor or groom your next level of leadership?"
+    id: 'mentoring', label: 'Mentoring',
+    text: 'If you had dedicated time, how would you mentor or groom your next level of leadership?'
   },
   {
-    id: "strategic_leadership",
-    label: "Strategic Leadership",
-    text: "What do you consider the defining trait of a strategic leader? And if there's one trait you personally want to develop further, what would it be?"
+    id: 'strategic_leadership', label: 'Strategic Leadership',
+    text: 'What do you consider the defining trait of a strategic leader — and if there is one trait you personally want to develop further, what would it be?'
   }
 ];
 
-// ─── App State ───────────────────────────────────────────────────────────────
+// Generic follow-ups (shown after each core answer)
+const GENERIC_FOLLOWUPS = {
+  high_value:           'Can you share a specific example from the last month where you felt you made the highest impact — what were you doing, and why did it matter?',
+  ideal_allocation:     'Which one recurring meeting or obligation would you eliminate or hand off first if your ideal calendar became reality tomorrow — and to whom?',
+  time_sinks:           'For the biggest time sink you mentioned — what would need to change (process, ownership, or decision authority) to remove it from your plate entirely?',
+  barriers:             'Of the barriers you mentioned, which one is most within your direct control to change right now — and what has stopped you from acting on it so far?',
+  one_change:           'If that change were implemented, what would you spend noticeably more time on, and what would fall away from your week?',
+  mentoring:            'Think of one person on your team with the most potential — what is the one growth conversation you have been meaning to have with them but have not had yet?',
+  strategic_leadership: 'What is one concrete action you could take in the next 30 days to actively develop the leadership trait you want to work on?'
+};
+
+// Initiative capture question — injected if any initiative keyword detected
+const INITIATIVE_KEYWORDS = ['agentforce','ai','initiative','program','project','drive','launch','rollout','campaign','transformation','gssp','one salesforce','talent','enablement','toastmaster','mcc'];
+
+const INITIATIVE_QUESTION = {
+  id: 'initiatives', label: 'Initiatives', badge: 'initiative',
+  text: 'You mentioned one or more initiatives. Can you name the key initiatives you are currently involved in, estimate the time each takes per week, and rate whether that investment is delivering the expected impact (High / Medium / Low)?'
+};
+
+// ─── State ────────────────────────────────────────────────────────────────────
 let state = {
-  screen: 'config',       // config | survey | complete
-  directorName: '',
-  claudeApiKey: '',
+  screen: 'config',         // config | roles | survey | complete
+  respondentId: '',
   sheetsWebhookUrl: '',
-  currentCoreIdx: 0,
-  followUpQueue: [],      // [{text, forCoreId}]
-  allQA: [],              // [{question, answer, type:'core'|'followup', coreId}]
-  awaitingFollowUp: false,
+  selectedRoles: [],        // array of role IDs
+  queue: [],                // full ordered question queue built at survey start
+  queueIdx: 0,
+  allQA: [],
+  initiativeCaptured: false,
   submitting: false
 };
 
-// ─── Render ──────────────────────────────────────────────────────────────────
+// ─── Queue Builder ────────────────────────────────────────────────────────────
+function buildQueue() {
+  const q = [];
+  CORE_QUESTIONS.forEach((cq, i) => {
+    q.push({ ...cq, type: 'core', badge: '' });
+
+    // After Q1 (high_value), inject one follow-up per selected role
+    if (cq.id === 'high_value') {
+      state.selectedRoles.forEach(roleId => {
+        if (ROLE_FOLLOWUPS[roleId]) {
+          q.push({ ...ROLE_FOLLOWUPS[roleId], id: 'role_' + roleId, type: 'followup', forCoreId: 'high_value' });
+        }
+      });
+    }
+
+    // Generic follow-up for every core question
+    q.push({
+      id: cq.id + '_fu', label: cq.label, badge: 'followup',
+      type: 'followup', forCoreId: cq.id,
+      text: GENERIC_FOLLOWUPS[cq.id]
+    });
+  });
+  return q;
+}
+
+// ─── Initiative Detection ─────────────────────────────────────────────────────
+function detectInitiative(answer) {
+  if (state.initiativeCaptured) return false;
+  const lower = answer.toLowerCase();
+  return INITIATIVE_KEYWORDS.some(kw => lower.includes(kw));
+}
+
+function injectInitiativeQuestion() {
+  if (state.initiativeCaptured) return;
+  state.initiativeCaptured = true;
+  // Insert initiative question right after current position
+  state.queue.splice(state.queueIdx + 1, 0, { ...INITIATIVE_QUESTION, type: 'initiative' });
+}
+
+// ─── Render ───────────────────────────────────────────────────────────────────
 function render() {
   const app = document.getElementById('app');
-  if (state.screen === 'config') app.innerHTML = renderConfig();
-  else if (state.screen === 'survey') app.innerHTML = renderSurvey();
+  if      (state.screen === 'config')   app.innerHTML = renderConfig();
+  else if (state.screen === 'roles')    app.innerHTML = renderRoles();
+  else if (state.screen === 'survey')   app.innerHTML = renderSurvey();
   else if (state.screen === 'complete') app.innerHTML = renderComplete();
   updateProgress();
   bindEvents();
+  if (state.screen === 'survey') {
+    const block = document.getElementById('currentBlock');
+    if (block) setTimeout(() => block.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 60);
+  }
 }
 
 function renderConfig() {
   return `
-    <div class="config-card">
-      <h2>Survey Setup</h2>
-      <label>Claude API Key *</label>
-      <input type="password" id="cfgKey" placeholder="sk-ant-..." value="${esc(state.claudeApiKey)}" />
-      <p class="config-note">Your key stays in the browser — never sent anywhere except Anthropic's API.</p>
-
-      <label>Google Sheets Webhook URL *</label>
+    <div class="card">
+      <h2>Welcome</h2>
+      <p class="subtitle">This survey takes about 10–15 minutes. Your responses are fully anonymous — no name is collected at any point.</p>
+      <label>Google Sheets Webhook URL <span style="font-weight:400;color:#9ca3af">(optional)</span></label>
       <input type="url" id="cfgSheets" placeholder="https://script.google.com/macros/s/.../exec" value="${esc(state.sheetsWebhookUrl)}" />
-      <p class="config-note">Paste the URL from the Google Apps Script deployment (see setup guide below).</p>
-
+      <p class="config-note">Paste the URL shared by your admin. If you don't have it, you can download responses as JSON at the end.</p>
+      <div class="info-box">Your responses are anonymous. A random ID is generated locally — no name or email is ever collected.</div>
       <div style="margin-top:28px">
-        <button class="btn btn-primary" id="startBtn">Begin Survey →</button>
+        <button class="btn btn-primary" id="startBtn">Next: Select Your Roles →</button>
       </div>
     </div>
 
-    <div class="config-card" style="font-size:0.88rem; color:#374151; line-height:1.7;">
-      <h2 style="margin-bottom:14px;">📋 Google Sheets Setup (one-time)</h2>
+    <div class="card" style="font-size:0.88rem;color:#374151;line-height:1.7;">
+      <h2 style="margin-bottom:14px;">Admin: Google Sheets Setup</h2>
       <ol style="padding-left:20px;">
-        <li>Create a new Google Sheet.</li>
-        <li>Go to <strong>Extensions → Apps Script</strong>.</li>
-        <li>Paste the Apps Script code below and click <strong>Deploy → New deployment → Web app → Anyone</strong>.</li>
-        <li>Copy the web app URL and paste it above.</li>
+        <li>Create a Google Sheet named <strong>Leadership Survey Responses</strong>.</li>
+        <li>Go to <strong>Extensions → Apps Script</strong>, delete existing code, paste the script below.</li>
+        <li>Click <strong>Save → Deploy → New deployment → Web app</strong>.<br>Set <em>Execute as: Me</em> and <em>Who has access: Anyone</em>.</li>
+        <li>Authorize and copy the web app URL. Share it with all directors.</li>
       </ol>
       <details style="margin-top:14px;">
-        <summary style="cursor:pointer; font-weight:600; color:#0176d3;">Show Apps Script Code</summary>
+        <summary style="cursor:pointer;font-weight:600;color:#0176d3;">Show Apps Script Code</summary>
         <pre style="background:#f9fafb;padding:14px;border-radius:8px;margin-top:10px;overflow-x:auto;font-size:0.8rem;white-space:pre-wrap;">function doPost(e) {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   const data = JSON.parse(e.postData.contents);
-
-  // Write header row if empty
   if (sheet.getLastRow() === 0) {
-    const headers = ['Timestamp','Director','Q_ID','Q_Label','Type','Question','Answer'];
-    sheet.appendRow(headers);
+    sheet.appendRow(['Timestamp','Respondent_ID','Roles','Q_ID','Q_Label','Type','Question','Answer']);
   }
-
   const ts = new Date().toISOString();
+  const roles = (data.roles || []).join(', ');
   data.responses.forEach(function(r) {
-    sheet.appendRow([ts, data.director, r.coreId, r.label, r.type, r.question, r.answer]);
+    sheet.appendRow([ts, data.respondentId, roles, r.coreId, r.label, r.type, r.question, r.answer]);
   });
-
-  return ContentService
-    .createTextOutput(JSON.stringify({status:'ok'}))
-    .setMimeType(ContentService.MimeType.JSON);
+  return ContentService.createTextOutput(JSON.stringify({status:'ok'})).setMimeType(ContentService.MimeType.JSON);
 }</pre>
       </details>
-    </div>
-  `;
+    </div>`;
+}
+
+function renderRoles() {
+  return `
+    <div class="card">
+      <h2>What roles do you currently hold?</h2>
+      <p class="subtitle">Select all that apply. This helps us ask you the right follow-up questions.</p>
+      <div class="role-grid" id="roleGrid">
+        ${ROLES.map(r => `
+          <div class="role-tile ${state.selectedRoles.includes(r.id) ? 'selected' : ''}"
+               data-role="${r.id}" id="tile-${r.id}">
+            <div class="role-icon">${r.icon}</div>
+            <div class="role-name">${r.name}</div>
+            <div class="role-desc">${r.desc}</div>
+          </div>
+        `).join('')}
+      </div>
+      <p class="config-note" style="margin-top:14px;">You can select multiple roles. Click a tile to select/deselect.</p>
+      <div style="margin-top:28px;display:flex;gap:12px;">
+        <button class="btn btn-secondary" id="backBtn">← Back</button>
+        <button class="btn btn-primary" id="beginBtn">Begin Survey →</button>
+      </div>
+    </div>`;
 }
 
 function renderSurvey() {
-  const allAnswered = state.allQA;
-  const currentQ = getCurrentQuestion();
-  if (!currentQ) return renderComplete();
+  const currentQ = state.queue[state.queueIdx];
+  if (!currentQ) { state.screen = 'complete'; return renderComplete(); }
 
   const isFollowUp = currentQ.type === 'followup';
-  const qNumber = allAnswered.length + 1;
+  const isRoleQ    = currentQ.badge === 'role-q';
+  const isInitiative = currentQ.type === 'initiative';
+  const total = state.queue.length;
+
+  let badgeClass = '';
+  let badgeText = currentQ.label;
+  if (isRoleQ)      { badgeClass = 'role-q';    badgeText = currentQ.label; }
+  else if (isInitiative) { badgeClass = 'initiative'; badgeText = 'Initiatives'; }
+  else if (isFollowUp)   { badgeClass = 'followup';   badgeText = currentQ.label + ' · Follow-up'; }
 
   return `
     <div class="chat-card">
-      ${allAnswered.length > 0 ? renderAnsweredQA() : ''}
+      ${state.allQA.map(qa => `
+        <div class="answered-block">
+          <div class="question-meta">
+            <span class="q-badge ${qa.badgeClass || ''}">${qa.label}</span>
+          </div>
+          <div style="font-size:0.9rem;font-weight:600;color:#374151;margin-bottom:6px;">${esc(qa.question)}</div>
+          <div style="font-size:0.9rem;color:#4b5563;background:#f9fafb;padding:10px 12px;border-radius:8px;line-height:1.6;white-space:pre-wrap;">${esc(qa.answer)}</div>
+        </div>
+      `).join('')}
 
       <div class="question-block" id="currentBlock">
         <div class="question-meta">
-          <span class="q-badge ${isFollowUp ? 'followup' : ''}">${isFollowUp ? 'Follow-up' : currentQ.label}</span>
-          <span class="q-number">Question ${qNumber}</span>
+          <span class="q-badge ${badgeClass}">${badgeText}</span>
+          <span class="q-number">Question ${state.queueIdx + 1} of ${total}</span>
         </div>
         <div class="question-text">${esc(currentQ.text)}</div>
-        <textarea
-          class="answer-area"
-          id="answerInput"
-          placeholder="Type your answer here…"
-          rows="5"
-        ></textarea>
+        <textarea class="answer-area" id="answerInput"
+          placeholder="Type your answer here… (Cmd+Enter or Ctrl+Enter to submit)"
+          rows="5" autofocus></textarea>
+        <div class="char-hint" id="charHint">0 characters</div>
       </div>
 
-      ${state.awaitingFollowUp ? `
-        <div class="ai-thinking">
-          <div class="ai-avatar">AI</div>
-          <div>
-            <div class="dots"><span></span><span></span><span></span></div>
-            <div class="ai-thinking-text">Generating follow-up question…</div>
-          </div>
-        </div>
-      ` : `
-        <div class="question-actions">
+      <div class="question-actions">
+        <span class="hint">Cmd/Ctrl + Enter to continue</span>
+        <div style="display:flex;gap:10px;">
           <button class="btn btn-secondary" id="skipBtn">Skip</button>
           <button class="btn btn-primary" id="nextBtn">
-            ${isLastQuestion() ? 'Finish Survey' : 'Next →'}
+            ${state.queueIdx === state.queue.length - 1 ? 'Finish Survey' : 'Next →'}
           </button>
         </div>
-      `}
-    </div>
-  `;
-}
-
-function renderAnsweredQA() {
-  return state.allQA.map((qa, i) => `
-    <div style="padding:20px 28px;border-bottom:1px solid #f3f4f6;animation:fadeIn 0.3s ease;">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-        <span class="q-badge ${qa.type === 'followup' ? 'followup' : ''}">${qa.type === 'followup' ? 'Follow-up' : qa.label || 'Core'}</span>
       </div>
-      <div style="font-size:0.9rem;font-weight:600;color:#374151;margin-bottom:6px;">${esc(qa.question)}</div>
-      <div style="font-size:0.9rem;color:#4b5563;background:#f9fafb;padding:10px 12px;border-radius:8px;line-height:1.6;white-space:pre-wrap;">${esc(qa.answer)}</div>
-    </div>
-  `).join('');
+    </div>`;
 }
 
 function renderComplete() {
-  state.screen = 'complete';
   return `
     <div class="complete-card">
       <div class="complete-icon">✅</div>
-      <h2>Survey Complete</h2>
-      <p>Thank you! Your responses have been recorded anonymously. These insights will help shape how we structure leadership effectiveness at GDC.</p>
+      <h2>Thank you!</h2>
+      <p>Your responses have been recorded anonymously. These insights will directly shape how leadership effectiveness is structured at GDC.</p>
       <div class="complete-actions">
         <button class="btn btn-success" id="submitBtn" ${state.submitting ? 'disabled' : ''}>
           ${state.submitting ? 'Submitting…' : '📤 Submit to Google Sheets'}
         </button>
         <button class="btn btn-secondary" id="downloadBtn">⬇ Download JSON</button>
       </div>
-
       <div class="summary-section">
         <h3>Your Responses</h3>
         ${state.allQA.map((qa, i) => `
           <div class="summary-item">
             <div class="summary-q" onclick="toggleSummary(${i})">
-              <span>${esc(qa.question.length > 80 ? qa.question.slice(0,80)+'…' : qa.question)}</span>
-              <span>▼</span>
+              <span>${esc(qa.question.length > 80 ? qa.question.slice(0,80) + '…' : qa.question)}</span>
+              <span class="summary-chevron" id="chev-${i}">▼</span>
             </div>
             <div class="summary-a" id="sum-${i}">${esc(qa.answer)}</div>
           </div>
         `).join('')}
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
 function updateProgress() {
   const fill = document.getElementById('progressFill');
   const label = document.getElementById('progressLabel');
   if (!fill) return;
-  const total = CORE_QUESTIONS.length;
-  const done = state.currentCoreIdx;
-  const pct = Math.round((done / total) * 100);
+  let pct = 0, text = 'Not started';
+  if (state.screen === 'roles')    { pct = 5;   text = 'Step 1 of 2 — Select roles'; }
+  else if (state.screen === 'survey') {
+    const total = state.queue.length || 1;
+    pct = Math.round((state.queueIdx / total) * 100);
+    const coresDone = CORE_QUESTIONS.filter(cq => state.allQA.some(qa => qa.coreId === cq.id && qa.type === 'core')).length;
+    text = `${coresDone} of ${CORE_QUESTIONS.length} core questions`;
+  } else if (state.screen === 'complete') { pct = 100; text = 'Complete!'; }
   fill.style.width = pct + '%';
-  label.textContent = state.screen === 'config'
-    ? 'Not started'
-    : state.screen === 'complete'
-    ? 'Complete!'
-    : `${done} of ${total} core questions`;
+  label.textContent = text;
 }
 
-// ─── Logic ───────────────────────────────────────────────────────────────────
-function getCurrentQuestion() {
-  if (state.followUpQueue.length > 0) {
-    return { ...state.followUpQueue[0], type: 'followup' };
-  }
-  if (state.currentCoreIdx < CORE_QUESTIONS.length) {
-    return { ...CORE_QUESTIONS[state.currentCoreIdx], type: 'core' };
-  }
-  return null;
-}
-
-function isLastQuestion() {
-  return state.followUpQueue.length === 0 && state.currentCoreIdx === CORE_QUESTIONS.length - 1;
-}
-
-async function submitAnswer(skip = false) {
+// ─── Logic ────────────────────────────────────────────────────────────────────
+function submitAnswer(skip) {
   const input = document.getElementById('answerInput');
   const answer = input ? input.value.trim() : '';
-  if (!skip && !answer) {
-    showToast('Please enter an answer, or click Skip.');
-    return;
-  }
+  if (!skip && !answer) { showToast('Please type an answer, or click Skip.'); return; }
 
-  const currentQ = getCurrentQuestion();
+  const currentQ = state.queue[state.queueIdx];
   if (!currentQ) return;
 
-  const qa = {
-    coreId: currentQ.id || currentQ.forCoreId,
+  const recorded = {
+    coreId: currentQ.forCoreId || currentQ.id,
     label: currentQ.label || '',
     type: currentQ.type,
+    badgeClass: currentQ.badge || '',
     question: currentQ.text,
     answer: skip ? '(skipped)' : answer
   };
-  state.allQA.push(qa);
+  state.allQA.push(recorded);
 
-  // Pop queue or advance core
-  if (state.followUpQueue.length > 0) {
-    state.followUpQueue.shift();
-  } else {
-    state.currentCoreIdx++;
+  // Detect initiative mention and inject question if needed
+  if (!skip && !state.initiativeCaptured && detectInitiative(answer)) {
+    injectInitiativeQuestion();
   }
 
-  // If we just answered a core question (not skipped), generate follow-up
-  if (!skip && qa.type === 'core' && state.claudeApiKey) {
-    state.awaitingFollowUp = true;
-    render();
-    await generateFollowUp(qa);
-    state.awaitingFollowUp = false;
-  }
+  state.queueIdx++;
 
-  // Check if done
-  const next = getCurrentQuestion();
-  if (!next) {
+  if (state.queueIdx >= state.queue.length) {
     state.screen = 'complete';
   }
 
   render();
 }
 
-async function generateFollowUp(qa) {
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': state.claudeApiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 200,
-        system: `You are facilitating a leadership effectiveness survey for GDC Directors at Salesforce.
-Your job: read a director's answer to a survey question and generate ONE short, precise follow-up question that digs deeper into something specific they mentioned.
-
-Rules:
-- One sentence only. No preamble.
-- Reference something specific from their answer (a keyword, activity, or tension they named).
-- Make it actionable and thought-provoking.
-- Do NOT repeat the original question.
-- If the answer is very brief or vague, ask them to give a concrete example.
-- If the answer is rich and detailed, pick the most interesting thread to explore.
-- Return ONLY the follow-up question text. Nothing else.`,
-        messages: [
-          {
-            role: 'user',
-            content: `Original question: "${qa.question}"\n\nDirector's answer: "${qa.answer}"\n\nGenerate one follow-up question:`
-          }
-        ]
-      })
-    });
-
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      console.error('Claude API error:', err);
-      return; // silently skip follow-up on error
-    }
-
-    const data = await res.json();
-    const followUpText = data.content?.[0]?.text?.trim();
-    if (followUpText && followUpText.length > 10) {
-      state.followUpQueue.push({
-        text: followUpText,
-        forCoreId: qa.coreId,
-        label: qa.label,
-        id: qa.coreId + '_followup'
-      });
-    }
-  } catch (err) {
-    console.error('Follow-up generation failed:', err);
-    // Silently skip — survey continues without follow-up
-  }
-}
-
 async function submitToSheets() {
-  if (!state.sheetsWebhookUrl) {
-    showToast('No Google Sheets URL configured.');
-    return;
-  }
-  state.submitting = true;
-  render();
-
+  if (!state.sheetsWebhookUrl) { showToast('No Sheets URL — please download JSON instead.'); return; }
+  state.submitting = true; render();
   try {
-    const payload = {
-      director: state.directorName,
-      responses: state.allQA
-    };
-
-    // Google Apps Script requires no-cors mode OR a CORS-enabled endpoint
     await fetch(state.sheetsWebhookUrl, {
-      method: 'POST',
-      mode: 'no-cors',
+      method: 'POST', mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({ respondentId: state.respondentId, roles: state.selectedRoles, responses: state.allQA })
     });
-
     showToast('Submitted successfully!', 'success');
-  } catch (err) {
-    showToast('Submission failed. Try downloading JSON instead.');
+  } catch (e) {
+    showToast('Submission failed — please download JSON instead.');
   } finally {
-    state.submitting = false;
-    render();
+    state.submitting = false; render();
   }
 }
 
 function downloadJSON() {
-  const data = {
-    director: state.directorName,
-    timestamp: new Date().toISOString(),
-    responses: state.allQA
-  };
+  const data = { respondentId: state.respondentId, roles: state.selectedRoles, timestamp: new Date().toISOString(), responses: state.allQA };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `survey_${state.directorName.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}.json`;
+  a.download = `survey_${state.respondentId}_${new Date().toISOString().slice(0,10)}.json`;
   a.click();
   URL.revokeObjectURL(url);
 }
 
 function toggleSummary(i) {
-  const el = document.getElementById('sum-' + i);
-  if (el) el.classList.toggle('open');
+  document.getElementById('sum-' + i)?.classList.toggle('open');
+  document.getElementById('chev-' + i)?.classList.toggle('open');
 }
 
-// ─── Event Binding ────────────────────────────────────────────────────────────
+// ─── Events ───────────────────────────────────────────────────────────────────
 function bindEvents() {
+  // Config screen
   document.getElementById('startBtn')?.addEventListener('click', () => {
-    const key = document.getElementById('cfgKey').value.trim();
-    const sheets = document.getElementById('cfgSheets').value.trim();
+    state.sheetsWebhookUrl = document.getElementById('cfgSheets').value.trim();
+    state.respondentId = 'R-' + Math.random().toString(36).slice(2, 8).toUpperCase();
+    state.screen = 'roles';
+    render();
+  });
 
-    if (!key || !key.startsWith('sk-ant-')) { showToast('Please enter a valid Claude API key (starts with sk-ant-).'); return; }
-    if (!sheets || !sheets.startsWith('https://')) { showToast('Please enter a valid Google Sheets webhook URL.'); return; }
+  // Role screen
+  document.getElementById('roleGrid')?.addEventListener('click', (e) => {
+    const tile = e.target.closest('.role-tile');
+    if (!tile) return;
+    const roleId = tile.dataset.role;
+    if (state.selectedRoles.includes(roleId)) {
+      state.selectedRoles = state.selectedRoles.filter(r => r !== roleId);
+      tile.classList.remove('selected');
+    } else {
+      state.selectedRoles.push(roleId);
+      tile.classList.add('selected');
+    }
+  });
 
-    state.directorName = 'Respondent-' + Math.random().toString(36).slice(2, 7).toUpperCase();
-    state.claudeApiKey = key;
-    state.sheetsWebhookUrl = sheets;
+  document.getElementById('backBtn')?.addEventListener('click', () => { state.screen = 'config'; render(); });
+
+  document.getElementById('beginBtn')?.addEventListener('click', () => {
+    state.queue = buildQueue();
+    state.queueIdx = 0;
     state.screen = 'survey';
     render();
   });
 
+  // Survey
+  const answerInput = document.getElementById('answerInput');
+  answerInput?.addEventListener('input', () => {
+    const hint = document.getElementById('charHint');
+    if (hint) hint.textContent = answerInput.value.length + ' characters';
+  });
+  answerInput?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) submitAnswer(false);
+  });
   document.getElementById('nextBtn')?.addEventListener('click', () => submitAnswer(false));
   document.getElementById('skipBtn')?.addEventListener('click', () => submitAnswer(true));
 
-  document.getElementById('answerInput')?.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-      submitAnswer(false);
-    }
-  });
-
+  // Complete
   document.getElementById('submitBtn')?.addEventListener('click', submitToSheets);
   document.getElementById('downloadBtn')?.addEventListener('click', downloadJSON);
 }
 
-// ─── Utilities ────────────────────────────────────────────────────────────────
+// ─── Utils ────────────────────────────────────────────────────────────────────
 function esc(str) {
-  return String(str || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-
 let toastTimer;
 function showToast(msg, type = 'error') {
-  const existing = document.querySelector('.toast');
-  if (existing) existing.remove();
+  document.querySelector('.toast')?.remove();
   clearTimeout(toastTimer);
   const el = document.createElement('div');
-  el.className = `toast ${type === 'success' ? 'success' : ''}`;
+  el.className = 'toast' + (type === 'success' ? ' success' : '');
   el.textContent = msg;
   document.body.appendChild(el);
   toastTimer = setTimeout(() => el.remove(), 4000);
 }
 
-// ─── Boot ─────────────────────────────────────────────────────────────────────
 render();
 </script>
 </body>
