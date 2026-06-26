@@ -4,88 +4,119 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lead with Impact — Leadership Effectiveness Survey</title>
+<link href="https://fonts.googleapis.com/css2?family=Salesforce+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f0f4f8; min-height: 100vh; color: #1a202c; }
+  body { font-family: 'Salesforce Sans', 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f3f3f3; min-height: 100vh; color: #181818; }
 
-  .header { background: linear-gradient(135deg, #0176d3 0%, #032d60 100%); color: white; padding: 32px 24px 28px; text-align: center; }
-  .header h1 { font-size: 1.7rem; font-weight: 700; margin-bottom: 6px; }
-  .header p { font-size: 0.95rem; opacity: 0.85; max-width: 520px; margin: 0 auto; }
-  .progress-bar-wrap { background: rgba(255,255,255,0.2); border-radius: 99px; height: 6px; margin: 20px auto 0; max-width: 400px; overflow: hidden; }
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #0176d3 0%, #032d60 100%);
+    color: white;
+    padding: 0 0 28px;
+    text-align: center;
+  }
+
+  /* Top nav bar */
+  .sf-topbar {
+    background: #032d60;
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .sf-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .sf-logo svg { width: 36px; height: 36px; }
+  .sf-logo-text { color: white; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.02em; opacity: 0.9; }
+  .sf-topbar-right { font-size: 0.75rem; color: rgba(255,255,255,0.55); letter-spacing: 0.04em; text-transform: uppercase; }
+
+  .header-body { padding: 28px 24px 8px; }
+  .header-body h1 { font-size: 1.65rem; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.01em; }
+  .header-body p { font-size: 0.92rem; opacity: 0.82; max-width: 480px; margin: 0 auto; line-height: 1.5; }
+
+  .progress-bar-wrap { background: rgba(255,255,255,0.18); border-radius: 99px; height: 5px; margin: 22px auto 0; max-width: 400px; overflow: hidden; }
   .progress-bar-fill { background: #4ade80; height: 100%; border-radius: 99px; transition: width 0.5s ease; width: 0%; }
-  .progress-label { font-size: 0.78rem; opacity: 0.75; margin-top: 6px; }
+  .progress-label { font-size: 0.75rem; opacity: 0.7; margin-top: 7px; }
 
   .container { max-width: 720px; margin: 0 auto; padding: 28px 20px 60px; }
 
-  .card { background: white; border-radius: 14px; padding: 36px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); margin-bottom: 24px; }
-  .card h2 { font-size: 1.15rem; color: #032d60; margin-bottom: 8px; }
+  /* ── Cards ── */
+  .card { background: white; border-radius: 8px; padding: 36px; box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05); margin-bottom: 20px; }
+  .card h2 { font-size: 1.15rem; color: #032d60; margin-bottom: 8px; font-weight: 700; }
   .card .subtitle { font-size: 0.9rem; color: #6b7280; margin-bottom: 24px; line-height: 1.6; }
-  .card label { display: block; font-size: 0.85rem; font-weight: 600; color: #444; margin-bottom: 6px; margin-top: 20px; }
-  .card input[type=url] { width: 100%; padding: 10px 14px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
-  .card input[type=url]:focus { border-color: #0176d3; }
-  .config-note { font-size: 0.78rem; color: #6b7280; margin-top: 5px; }
-  .info-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 14px 16px; font-size: 0.85rem; color: #1e40af; margin-top: 20px; line-height: 1.6; }
+  .card label { display: block; font-size: 0.8rem; font-weight: 700; color: #3e3e3c; margin-bottom: 4px; margin-top: 20px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .card input[type=url] { width: 100%; padding: 10px 14px; border: 1px solid #dddbda; border-radius: 4px; font-size: 0.95rem; outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
+  .card input[type=url]:focus { border-color: #0176d3; box-shadow: 0 0 0 3px rgba(1,118,211,0.25); }
+  .config-note { font-size: 0.75rem; color: #706e6b; margin-top: 4px; }
+  .info-box { background: #f0f9ff; border-left: 4px solid #0176d3; border-radius: 4px; padding: 12px 16px; font-size: 0.85rem; color: #032d60; margin-top: 20px; line-height: 1.6; }
 
-  /* Role selector */
-  .role-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin-top: 8px; }
-  .role-tile { border: 2px solid #e5e7eb; border-radius: 12px; padding: 16px 12px; text-align: center; cursor: pointer; transition: all 0.18s; user-select: none; }
-  .role-tile:hover { border-color: #93c5fd; background: #f0f9ff; }
-  .role-tile.selected { border-color: #0176d3; background: #eff6ff; }
-  .role-tile .role-icon { font-size: 1.5rem; margin-bottom: 6px; }
-  .role-tile .role-name { font-size: 0.88rem; font-weight: 700; color: #1a202c; }
-  .role-tile .role-desc { font-size: 0.72rem; color: #6b7280; margin-top: 3px; line-height: 1.4; }
+  /* ── Role selector ── */
+  .role-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 12px; margin-top: 10px; }
+  .role-tile { border: 2px solid #dddbda; border-radius: 8px; padding: 18px 12px; text-align: center; cursor: pointer; transition: all 0.15s; user-select: none; background: white; }
+  .role-tile:hover { border-color: #0176d3; background: #f0f9ff; box-shadow: 0 0 0 2px rgba(1,118,211,0.15); }
+  .role-tile.selected { border-color: #0176d3; background: #e8f4fd; box-shadow: 0 0 0 2px rgba(1,118,211,0.3); }
+  .role-tile .role-icon { font-size: 1.6rem; margin-bottom: 8px; }
+  .role-tile .role-name { font-size: 0.9rem; font-weight: 700; color: #181818; }
+  .role-tile .role-desc { font-size: 0.72rem; color: #706e6b; margin-top: 3px; line-height: 1.4; }
   .role-tile.selected .role-name { color: #0176d3; }
+  .role-tile.selected .role-icon::after { content: ' ✓'; font-size: 0.8rem; }
 
-  /* Buttons */
-  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border-radius: 8px; font-size: 0.95rem; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; }
-  .btn-primary { background: #0176d3; color: white; }
-  .btn-primary:hover { background: #0165b8; }
-  .btn-primary:disabled { background: #93c5fd; cursor: not-allowed; }
-  .btn-secondary { background: #f3f4f6; color: #374151; }
-  .btn-secondary:hover { background: #e5e7eb; }
-  .btn-success { background: #16a34a; color: white; }
-  .btn-success:hover { background: #15803d; }
+  /* ── Buttons (SLDS style) ── */
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; border-radius: 4px; font-size: 0.9rem; font-weight: 700; border: 1px solid transparent; cursor: pointer; transition: all 0.15s; letter-spacing: 0.01em; }
+  .btn-primary { background: #0176d3; color: white; border-color: #0176d3; }
+  .btn-primary:hover { background: #0165b8; border-color: #0165b8; box-shadow: 0 0 6px rgba(1,118,211,0.4); }
+  .btn-primary:disabled { background: #c9c7c5; border-color: #c9c7c5; cursor: not-allowed; }
+  .btn-secondary { background: white; color: #0176d3; border-color: #0176d3; }
+  .btn-secondary:hover { background: #f0f9ff; }
+  .btn-success { background: #2e844a; color: white; border-color: #2e844a; }
+  .btn-success:hover { background: #27713f; box-shadow: 0 0 6px rgba(46,132,74,0.4); }
 
   /* Survey chat */
-  .chat-card { background: white; border-radius: 14px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); overflow: hidden; }
-  .answered-block { padding: 20px 28px; border-bottom: 1px solid #f3f4f6; animation: fadeIn 0.3s ease; }
+  /* ── Survey chat ── */
+  .chat-card { background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05); overflow: hidden; }
+  .answered-block { padding: 20px 28px; border-bottom: 1px solid #f3f2f2; animation: fadeIn 0.3s ease; }
   .question-block { padding: 28px 28px 0; animation: fadeIn 0.4s ease; }
   @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 
   .question-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
-  .q-badge { background: #e0f2fe; color: #0176d3; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.04em; }
-  .q-badge.followup { background: #fef3c7; color: #d97706; }
-  .q-badge.role-q { background: #f0fdf4; color: #16a34a; }
-  .q-badge.initiative { background: #fdf4ff; color: #9333ea; }
-  .q-number { font-size: 0.8rem; color: #9ca3af; }
+  .q-badge { background: #e8f4fd; color: #0176d3; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .q-badge.followup { background: #fef3c7; color: #b45309; }
+  .q-badge.role-q { background: #eaf5ea; color: #2e844a; }
+  .q-badge.initiative { background: #f3e8ff; color: #7c3aed; }
+  .q-number { font-size: 0.78rem; color: #a8a29e; }
 
-  .question-text { font-size: 1.05rem; font-weight: 600; color: #1a202c; line-height: 1.5; margin-bottom: 16px; }
-  .answer-area { width: 100%; min-height: 120px; padding: 12px 14px; border: 1.5px solid #d1d5db; border-radius: 10px; font-size: 0.95rem; line-height: 1.6; resize: vertical; outline: none; transition: border-color 0.2s; font-family: inherit; color: #1a202c; }
-  .answer-area:focus { border-color: #0176d3; }
-  .answer-area::placeholder { color: #9ca3af; }
-  .char-hint { font-size: 0.75rem; color: #9ca3af; margin-top: 6px; text-align: right; }
+  .question-text { font-size: 1.05rem; font-weight: 600; color: #181818; line-height: 1.55; margin-bottom: 16px; }
+  .answer-area { width: 100%; min-height: 120px; padding: 12px 14px; border: 1px solid #dddbda; border-radius: 4px; font-size: 0.95rem; line-height: 1.6; resize: vertical; outline: none; transition: border-color 0.15s, box-shadow 0.15s; font-family: inherit; color: #181818; }
+  .answer-area:focus { border-color: #0176d3; box-shadow: 0 0 0 3px rgba(1,118,211,0.2); }
+  .answer-area::placeholder { color: #a8a29e; }
+  .char-hint { font-size: 0.72rem; color: #a8a29e; margin-top: 5px; text-align: right; }
 
-  .question-actions { display: flex; justify-content: space-between; align-items: center; padding: 16px 28px 24px; }
-  .question-actions .hint { font-size: 0.78rem; color: #9ca3af; }
+  .question-actions { display: flex; justify-content: space-between; align-items: center; padding: 16px 28px 24px; border-top: 1px solid #f3f2f2; margin-top: 16px; }
+  .question-actions .hint { font-size: 0.75rem; color: #a8a29e; }
 
-  /* Complete */
-  .complete-card { background: white; border-radius: 14px; padding: 48px 32px; text-align: center; box-shadow: 0 2px 16px rgba(0,0,0,0.08); animation: fadeIn 0.5s ease; }
+  /* ── Footer ── */
+  .sf-footer { text-align: center; padding: 24px; font-size: 0.75rem; color: #a8a29e; }
+  .sf-footer a { color: #0176d3; text-decoration: none; }
+
+  /* ── Complete ── */
+  .complete-card { background: white; border-radius: 8px; padding: 48px 32px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); animation: fadeIn 0.5s ease; }
   .complete-icon { font-size: 3rem; margin-bottom: 16px; }
-  .complete-card h2 { font-size: 1.4rem; color: #032d60; margin-bottom: 10px; }
-  .complete-card p { color: #6b7280; font-size: 0.95rem; max-width: 440px; margin: 0 auto 28px; line-height: 1.6; }
+  .complete-card h2 { font-size: 1.4rem; color: #032d60; margin-bottom: 10px; font-weight: 700; }
+  .complete-card p { color: #706e6b; font-size: 0.95rem; max-width: 440px; margin: 0 auto 28px; line-height: 1.6; }
   .complete-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   .summary-section { margin-top: 32px; text-align: left; }
-  .summary-section h3 { font-size: 0.82rem; font-weight: 700; color: #374151; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
-  .summary-item { border: 1px solid #e5e7eb; border-radius: 10px; margin-bottom: 8px; overflow: hidden; }
-  .summary-q { background: #f9fafb; padding: 12px 16px; font-size: 0.88rem; font-weight: 600; color: #374151; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-  .summary-q:hover { background: #f3f4f6; }
-  .summary-chevron { flex-shrink: 0; transition: transform 0.2s; }
+  .summary-section h3 { font-size: 0.75rem; font-weight: 700; color: #3e3e3c; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
+  .summary-item { border: 1px solid #dddbda; border-radius: 4px; margin-bottom: 8px; overflow: hidden; }
+  .summary-q { background: #fafaf9; padding: 12px 16px; font-size: 0.88rem; font-weight: 600; color: #3e3e3c; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .summary-q:hover { background: #f3f2f2; }
+  .summary-chevron { flex-shrink: 0; transition: transform 0.2s; color: #706e6b; }
   .summary-chevron.open { transform: rotate(180deg); }
-  .summary-a { padding: 12px 16px; font-size: 0.88rem; color: #4b5563; line-height: 1.6; display: none; border-top: 1px solid #e5e7eb; white-space: pre-wrap; }
+  .summary-a { padding: 12px 16px; font-size: 0.88rem; color: #706e6b; line-height: 1.6; display: none; border-top: 1px solid #dddbda; white-space: pre-wrap; }
   .summary-a.open { display: block; }
 
-  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #dc2626; color: white; padding: 12px 20px; border-radius: 8px; font-size: 0.88rem; box-shadow: 0 4px 20px rgba(0,0,0,0.2); z-index: 999; animation: fadeIn 0.3s ease; max-width: 480px; text-align: center; }
-  .toast.success { background: #16a34a; }
+  /* ── Toast ── */
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #c23934; color: white; padding: 12px 20px; border-radius: 4px; font-size: 0.88rem; box-shadow: 0 4px 20px rgba(0,0,0,0.2); z-index: 999; animation: fadeIn 0.3s ease; max-width: 480px; text-align: center; }
+  .toast.success { background: #2e844a; }
 
   @media (max-width: 520px) {
     .question-block { padding: 20px 16px 0; }
@@ -99,13 +130,29 @@
 <body>
 
 <div class="header">
-  <h1>Lead with Impact</h1>
-  <p>Leadership Effectiveness Survey — GDC Directors</p>
-  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill"></div></div>
-  <div class="progress-label" id="progressLabel">Not started</div>
+  <div class="sf-topbar">
+    <a class="sf-logo" href="https://www.salesforce.com" target="_blank">
+      <!-- Salesforce Cloud Logo SVG -->
+      <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M41.6 13.4a18.2 18.2 0 0 1 13-5.4c6.6 0 12.4 3.5 15.7 8.8a20.4 20.4 0 0 1 8.3-1.8c11.3 0 20.4 9.2 20.4 20.6S89.9 56.2 78.6 56.2H24.2C13.6 56.2 5 47.6 5 37c0-9.8 7.2-17.8 16.6-19.1a21.3 21.3 0 0 1 20-4.5z" fill="white"/>
+      </svg>
+      <span class="sf-logo-text">Salesforce</span>
+    </a>
+    <div class="sf-topbar-right">GDC Internal</div>
+  </div>
+  <div class="header-body">
+    <h1>Lead with Impact</h1>
+    <p>Leadership Effectiveness Survey — GDC Directors</p>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill"></div></div>
+    <div class="progress-label" id="progressLabel">Not started</div>
+  </div>
 </div>
 
 <div class="container" id="app"></div>
+<div class="sf-footer">
+  &copy; 2026 Salesforce, Inc. &nbsp;|&nbsp; GDC Internal Use Only &nbsp;|&nbsp;
+  <a href="https://www.salesforce.com/company/privacy/" target="_blank">Privacy</a>
+</div>
 
 <script>
 // ─── Config (hardcoded) ───────────────────────────────────────────────────────
