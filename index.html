@@ -108,8 +108,9 @@
 <div class="container" id="app"></div>
 
 <script>
-// ─── API Key ──────────────────────────────────────────────────────────────────
+// ─── Config (hardcoded) ───────────────────────────────────────────────────────
 const CLAUDE_API_KEY = 'sk-RwtTJqMgDAuGNF2bXizrhw';
+const SHEETS_URL = 'https://script.google.com/a/macros/salesforce.com/s/AKfycbydEaBPMG7kn_621cxqubHvlYaOo98S15fFzmVwHx_xdqr5bUfxsnYeuUCS3JdmNatW/exec';
 
 // ─── Role Definitions ─────────────────────────────────────────────────────────
 const ROLES = [
@@ -196,9 +197,9 @@ const INITIATIVE_QUESTION = {
 
 // ─── State ────────────────────────────────────────────────────────────────────
 let state = {
-  screen: 'config',         // config | roles | survey | complete
-  respondentId: '',
-  sheetsWebhookUrl: '',
+  screen: 'roles',          // roles | survey | complete
+  respondentId: 'R-' + Math.random().toString(36).slice(2, 8).toUpperCase(),
+  sheetsWebhookUrl: SHEETS_URL,
   selectedRoles: [],        // array of role IDs
   queue: [],                // full ordered question queue built at survey start
   queueIdx: 0,
@@ -249,8 +250,7 @@ function injectInitiativeQuestion() {
 // ─── Render ───────────────────────────────────────────────────────────────────
 function render() {
   const app = document.getElementById('app');
-  if      (state.screen === 'config')   app.innerHTML = renderConfig();
-  else if (state.screen === 'roles')    app.innerHTML = renderRoles();
+  if      (state.screen === 'roles')    app.innerHTML = renderRoles();
   else if (state.screen === 'survey')   app.innerHTML = renderSurvey();
   else if (state.screen === 'complete') app.innerHTML = renderComplete();
   updateProgress();
@@ -318,8 +318,7 @@ function renderRoles() {
         `).join('')}
       </div>
       <p class="config-note" style="margin-top:14px;">You can select multiple roles. Click a tile to select/deselect.</p>
-      <div style="margin-top:28px;display:flex;gap:12px;">
-        <button class="btn btn-secondary" id="backBtn">← Back</button>
+      <div style="margin-top:28px;">
         <button class="btn btn-primary" id="beginBtn">Begin Survey →</button>
       </div>
     </div>`;
@@ -487,14 +486,6 @@ function toggleSummary(i) {
 
 // ─── Events ───────────────────────────────────────────────────────────────────
 function bindEvents() {
-  // Config screen
-  document.getElementById('startBtn')?.addEventListener('click', () => {
-    state.sheetsWebhookUrl = document.getElementById('cfgSheets').value.trim();
-    state.respondentId = 'R-' + Math.random().toString(36).slice(2, 8).toUpperCase();
-    state.screen = 'roles';
-    render();
-  });
-
   // Role screen
   document.getElementById('roleGrid')?.addEventListener('click', (e) => {
     const tile = e.target.closest('.role-tile');
@@ -508,8 +499,6 @@ function bindEvents() {
       tile.classList.add('selected');
     }
   });
-
-  document.getElementById('backBtn')?.addEventListener('click', () => { state.screen = 'config'; render(); });
 
   document.getElementById('beginBtn')?.addEventListener('click', () => {
     state.queue = buildQueue();
