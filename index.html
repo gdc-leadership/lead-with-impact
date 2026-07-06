@@ -29,30 +29,30 @@
   .intro-hero {
     background: #032d60;
     color: white;
-    min-height: calc(100vh - 60px);
+    height: calc(100vh - 48px);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
   .intro-hero-split {
     display: grid;
     grid-template-columns: 1fr 1fr;
     flex: 1;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 64px 48px;
+    max-width: 100%;
+    padding: 32px 64px;
     gap: 48px;
     width: 100%;
   }
   .intro-left {}
   .intro-eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
-    font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
-    color: #4ade80; margin-bottom: 20px;
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    color: #4ade80; margin-bottom: 14px;
   }
-  .intro-eyebrow .star { font-size: 1rem; }
+  .intro-eyebrow .star { font-size: 0.9rem; }
   .intro-left h1 {
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
     font-weight: 800;
     line-height: 1.15;
     letter-spacing: -0.02em;
@@ -62,10 +62,10 @@
 
   .intro-right {}
   .intro-right p {
-    font-size: 1rem; line-height: 1.75; color: rgba(255,255,255,0.8);
-    margin-bottom: 28px; max-width: 460px;
+    font-size: 0.92rem; line-height: 1.7; color: rgba(255,255,255,0.8);
+    margin-bottom: 20px; max-width: 460px;
   }
-  .intro-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 36px; }
+  .intro-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
   .btn-cta-primary {
     padding: 13px 28px; border-radius: 4px; font-size: 0.92rem; font-weight: 700;
     background: #0176d3; color: white; border: none; cursor: pointer;
@@ -91,37 +91,38 @@
   /* ── Dark card grid (bottom of hero) ── */
   .intro-cards-strip {
     background: #0a1f3d;
-    padding: 48px;
+    padding: 24px 64px 28px;
     border-top: 1px solid rgba(255,255,255,0.06);
   }
-  .intro-cards-inner { max-width: 1200px; margin: 0 auto; }
+  .intro-cards-inner { max-width: 100%; }
   .intro-cards-title {
-    font-size: 1.4rem; font-weight: 800; color: white; text-align: center;
-    margin-bottom: 6px; letter-spacing: -0.01em;
+    font-size: 1.1rem; font-weight: 800; color: white; text-align: center;
+    margin-bottom: 4px; letter-spacing: -0.01em;
   }
   .intro-cards-sub {
-    font-size: 0.9rem; color: rgba(255,255,255,0.55); text-align: center;
-    margin-bottom: 32px;
+    font-size: 0.8rem; color: rgba(255,255,255,0.5); text-align: center;
+    margin-bottom: 18px;
   }
   .intro-card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
   }
   .intro-card {
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 10px;
-    padding: 22px 18px;
+    border-radius: 8px;
+    padding: 16px 14px;
     transition: background 0.2s, border-color 0.2s, transform 0.2s;
     cursor: default;
   }
   .intro-card:hover { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.18); transform: translateY(-2px); }
-  .intro-card-icon { font-size: 1.5rem; margin-bottom: 12px; }
-  .intro-card h4 { font-size: 0.88rem; font-weight: 700; color: white; margin-bottom: 6px; }
-  .intro-card p { font-size: 0.78rem; color: rgba(255,255,255,0.5); line-height: 1.55; }
+  .intro-card-icon { font-size: 1.3rem; margin-bottom: 8px; }
+  .intro-card h4 { font-size: 0.82rem; font-weight: 700; color: white; margin-bottom: 4px; }
+  .intro-card p { font-size: 0.72rem; color: rgba(255,255,255,0.5); line-height: 1.5; }
 
   .container { max-width: 720px; margin: 0 auto; padding: 28px 20px 60px; }
+  .container.full-bleed { max-width: 100%; padding: 0; margin: 0; }
 
   /* ── Cards ── */
   .card { background: white; border-radius: 8px; padding: 36px; box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05); margin-bottom: 20px; }
@@ -234,9 +235,11 @@
   .sf-footer { text-align: center; padding: 24px; font-size: 0.75rem; color: #a8a29e; }
   .sf-footer a { color: #0176d3; text-decoration: none; }
 
-  @media (max-width: 768px) {
-    .intro-hero-split { grid-template-columns: 1fr; padding: 40px 24px; gap: 32px; }
-    .intro-cards-strip { padding: 36px 24px; }
+  @media (max-width: 900px) {
+    .intro-hero { height: auto; }
+    .intro-hero-split { grid-template-columns: 1fr; padding: 32px 24px; gap: 24px; }
+    .intro-cards-strip { padding: 24px; }
+    .intro-card-grid { grid-template-columns: repeat(3, 1fr); }
     .sf-topbar { padding: 12px 20px; }
   }
   @media (max-width: 520px) {
@@ -270,7 +273,7 @@
   </div>
 </div>
 
-<div class="container" id="app"></div>
+<div id="app"></div>
 <div class="sf-footer">
   &copy; 2026 Salesforce, Inc. &nbsp;|&nbsp; GDC Internal Use Only &nbsp;|&nbsp;
   <a href="https://www.salesforce.com/company/privacy/" target="_blank">Privacy</a>
@@ -395,8 +398,10 @@ function render() {
   const header = document.getElementById('surveyHeader');
   if (state.screen === 'intro') {
     if (header) header.style.display = 'none';
+    app.className = 'full-bleed';
     app.innerHTML = renderIntro();
   } else {
+    app.className = 'container';
     if (header) header.style.display = 'block';
     if      (state.screen === 'roles')    app.innerHTML = renderRoles();
     else if (state.screen === 'survey')   app.innerHTML = renderSurvey();
