@@ -620,6 +620,14 @@ function renderSurvey() {
         <div class="question-text">${esc(currentQ.text)}</div>
         ${currentQ.helpText ? `<div style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:14px;">${esc(currentQ.helpText)}</div>` : ''}
         ${renderInput(currentQ)}
+        ${currentQ.type !== 'allocation' && currentQ.type !== 'number' ? `
+        <div style="margin-top:16px;border-top:1px solid rgba(255,255,255,0.06);padding-top:14px;">
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:7px;">Share a specific example <span style="font-weight:400;text-transform:none;color:rgba(255,255,255,0.2);">(optional)</span></div>
+          <textarea id="exampleInput" rows="2" placeholder="e.g. 'In Q1 most of my Fridays were absorbed by…'"
+            style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;color:rgba(255,255,255,0.65);font-size:0.83rem;padding:10px 12px;resize:vertical;font-family:inherit;outline:none;line-height:1.55;transition:border 0.15s;"
+            onfocus="this.style.borderColor='rgba(1,118,211,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'"
+          >${esc(state.allQA.find(a => a.qid === currentQ.id)?.exampleText || '')}</textarea>
+        </div>` : ''}
       </div>
       <div class="question-actions">
         <button class="btn btn-secondary" id="backBtn">← Back</button>
@@ -799,7 +807,10 @@ function renderReview() {
               <span class="summary-chevron" id="chev-${idx}">▼</span>
             </div>
           </div>
-          <div class="summary-a" id="sum-${idx}" style="font-size:0.88rem;color:rgba(255,255,255,0.65);">${esc(qa.answer)}</div>
+          <div class="summary-a" id="sum-${idx}" style="font-size:0.88rem;color:rgba(255,255,255,0.65);">
+            ${esc(qa.answer)}
+            ${qa.exampleText ? `<div style="margin-top:8px;padding:8px 10px;background:rgba(255,255,255,0.04);border-left:2px solid rgba(1,118,211,0.5);border-radius:0 4px 4px 0;font-size:0.82rem;color:rgba(255,255,255,0.45);font-style:italic;">"${esc(qa.exampleText)}"</div>` : ''}
+          </div>
         </div>`;
     });
   });
@@ -859,12 +870,13 @@ function updateProgress() {
 
 // ─── Collect answer from DOM ──────────────────────────────────────────────────
 function collectAnswer(q) {
+  const exampleText = document.getElementById('exampleInput')?.value.trim() || '';
+
   if (q.type === 'allocation') {
     const buckets = {};
     document.querySelectorAll('.alloc-input').forEach(inp => {
       buckets[inp.dataset.bucket] = parseFloat(inp.value) || 0;
     });
-    // Collect overtime extras if shown
     const overtimeReasons = [...document.querySelectorAll('input[name="overtime_reasons"]:checked')].map(el => el.value);
     const overtimeOffload = document.querySelector('input[name="overtime_offload"]:checked')?.value || '';
     const total = Object.values(buckets).reduce((s, v) => s + v, 0);
@@ -875,31 +887,32 @@ function collectAnswer(q) {
     return {
       rawValue: { buckets, overtimeReasons, overtimeOffload },
       answer: `Total: ${total}h. ` + summary + (overtimeReasons.length ? `. Overtime areas: ${overtimeReasons.join(', ')}` : '') + (overtimeOffload ? `. Would offload: ${overtimeOffload}` : ''),
-      displayAnswer: `${total}h total`
+      displayAnswer: `${total}h total`,
+      exampleText: ''
     };
   }
   if (q.type === 'slider') {
     const val = parseFloat(document.getElementById('sliderInput')?.value || q.min);
-    return { rawValue: val, answer: `${val}${q.unit || ''}`, displayAnswer: `${val}${q.unit || ''}` };
+    return { rawValue: val, answer: `${val}${q.unit || ''}`, displayAnswer: `${val}${q.unit || ''}`, exampleText };
   }
   if (q.type === 'radio') {
     const val = document.querySelector('input[name="radioQ"]:checked')?.value || '';
-    return { rawValue: val, answer: val, displayAnswer: val };
+    return { rawValue: val, answer: val, displayAnswer: val, exampleText };
   }
   if (q.type === 'multiselect') {
     const vals = [...document.querySelectorAll('input[name="multiQ"]:checked')].map(el => el.value);
-    return { rawValue: vals, answer: vals.join(', '), displayAnswer: vals.join(', ') };
+    return { rawValue: vals, answer: vals.join(', '), displayAnswer: vals.join(', '), exampleText };
   }
   if (q.type === 'rating') {
     const val = parseInt(document.querySelector('.rating-btn.selected')?.dataset.val || 0);
     const lbl = val ? q.labels[val - 1] : '';
-    return { rawValue: val, answer: `${val} — ${lbl}`, displayAnswer: `${val}/5 — ${lbl}` };
+    return { rawValue: val, answer: `${val} — ${lbl}`, displayAnswer: `${val}/5 — ${lbl}`, exampleText };
   }
   if (q.type === 'number') {
     const val = parseFloat(document.getElementById('numberInput')?.value || 0);
-    return { rawValue: val, answer: `${val} ${q.unit || ''}`, displayAnswer: `${val} ${q.unit || ''}` };
+    return { rawValue: val, answer: `${val} ${q.unit || ''}`, displayAnswer: `${val} ${q.unit || ''}`, exampleText: '' };
   }
-  return { rawValue: null, answer: '', displayAnswer: '' };
+  return { rawValue: null, answer: '', displayAnswer: '', exampleText: '' };
 }
 
 // ─── Navigation ───────────────────────────────────────────────────────────────
@@ -907,13 +920,13 @@ function goNext() {
   const currentQ = state.queue[state.queueIdx];
   if (!currentQ) { state.screen = 'review'; render(); return; }
 
-  const { rawValue, answer, displayAnswer } = collectAnswer(currentQ);
+  const { rawValue, answer, displayAnswer, exampleText } = collectAnswer(currentQ);
   if (!rawValue && rawValue !== 0 && rawValue !== '') {
     showToast('Please make a selection before continuing.'); return;
   }
 
   const existingIdx = state.allQA.findIndex(a => a.qid === currentQ.id);
-  const entry = { qid: currentQ.id, sectionId: currentQ.section, sectionCls: currentQ.sectionMeta.cls, label: currentQ.label, question: currentQ.text, answer, displayAnswer, rawValue };
+  const entry = { qid: currentQ.id, sectionId: currentQ.section, sectionCls: currentQ.sectionMeta.cls, label: currentQ.label, question: currentQ.text, answer, displayAnswer, rawValue, exampleText };
   if (existingIdx >= 0) state.allQA[existingIdx] = entry;
   else state.allQA.push(entry);
 
@@ -943,7 +956,7 @@ async function submitToSheets() {
       respondentId: state.respondentId,
       roles: state.selectedRoles,
       timeAllocation: state.timeAllocation,
-      responses: state.allQA.map(({ qid, sectionId, label, question, answer }) => ({ qid, sectionId, label, question, answer }))
+      responses: state.allQA.map(({ qid, sectionId, label, question, answer, exampleText }) => ({ qid, sectionId, label, question, answer, example: exampleText || '' }))
     };
     await fetch(SHEETS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     state.screen = 'complete';
