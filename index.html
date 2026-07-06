@@ -255,7 +255,7 @@ const QUESTION_BANK = [
 
 // ─── State ────────────────────────────────────────────────────────────────────
 let state = {
-  screen: 'roles',
+  screen: 'intro',
   respondentId: 'R-' + Math.random().toString(36).slice(2, 8).toUpperCase(),
   selectedRoles: [],
   queue: [],
@@ -287,7 +287,8 @@ function getActiveSections() {
 // ─── Render ───────────────────────────────────────────────────────────────────
 function render() {
   const app = document.getElementById('app');
-  if      (state.screen === 'roles')    app.innerHTML = renderRoles();
+  if      (state.screen === 'intro')    app.innerHTML = renderIntro();
+  else if (state.screen === 'roles')    app.innerHTML = renderRoles();
   else if (state.screen === 'survey')   app.innerHTML = renderSurvey();
   else if (state.screen === 'complete') app.innerHTML = renderComplete();
   updateProgress();
@@ -296,6 +297,58 @@ function render() {
     const block = document.getElementById('currentBlock');
     if (block) setTimeout(() => block.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 60);
   }
+}
+
+function renderIntro() {
+  return `
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+        <div style="font-size:2rem;">🎯</div>
+        <div>
+          <h2 style="margin-bottom:2px;">Lead with Impact</h2>
+          <p style="font-size:0.8rem;color:#0176d3;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">GDC Directors Effectiveness Survey · 2026</p>
+        </div>
+      </div>
+
+      <p style="font-size:0.95rem;color:#374151;line-height:1.75;margin-bottom:20px;">
+        As GDC leaders, you drive some of the most complex and high-value Salesforce engagements globally.
+        This survey is designed to understand <strong>how you are currently investing your time</strong> — where you
+        are creating the most impact, what is getting in the way, and how we can better structure leadership
+        effectiveness across the GDC.
+      </p>
+      <p style="font-size:0.95rem;color:#374151;line-height:1.75;margin-bottom:24px;">
+        Your candid input will directly shape decisions on how we evolve our operating model, invest in AI-led
+        capabilities, and unlock more strategic time for GDC leaders.
+      </p>
+
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px;">
+        <div style="display:flex;align-items:flex-start;gap:12px;background:#f0f9ff;border-radius:6px;padding:14px 16px;">
+          <span style="font-size:1.1rem;flex-shrink:0;">🔒</span>
+          <div>
+            <div style="font-size:0.88rem;font-weight:700;color:#032d60;margin-bottom:2px;">Fully Confidential</div>
+            <div style="font-size:0.83rem;color:#374151;line-height:1.55;">No names, emails, or personal identifiers are collected at any point. Responses are assigned a random anonymous ID generated locally in your browser.</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;background:#eaf5ea;border-radius:6px;padding:14px 16px;">
+          <span style="font-size:1.1rem;flex-shrink:0;">📋</span>
+          <div>
+            <div style="font-size:0.88rem;font-weight:700;color:#032d60;margin-bottom:2px;">7–11 Questions · ~10 Minutes</div>
+            <div style="font-size:0.83rem;color:#374151;line-height:1.55;">The survey is tailored to your role — only sections relevant to you are shown. You can skip any question and return to it later.</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;background:#fef3c7;border-radius:6px;padding:14px 16px;">
+          <span style="font-size:1.1rem;flex-shrink:0;">📊</span>
+          <div>
+            <div style="font-size:0.88rem;font-weight:700;color:#032d60;margin-bottom:2px;">Aggregated Insights Only</div>
+            <div style="font-size:0.83rem;color:#374151;line-height:1.55;">Results will be shared as aggregated themes and patterns — never as individual responses. No response will be attributed to any specific person.</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" id="introNextBtn" style="width:100%;justify-content:center;padding:13px 24px;font-size:0.95rem;">
+        Start Survey →
+      </button>
+    </div>`;
 }
 
 function renderRoles() {
@@ -444,7 +497,9 @@ function updateProgress() {
   const label = document.getElementById('progressLabel');
   if (!fill) return;
   let pct = 0, text = 'Not started';
-  if (state.screen === 'roles') {
+  if (state.screen === 'intro') {
+    pct = 0; text = 'Welcome';
+  } else if (state.screen === 'roles') {
     pct = 5; text = 'Step 1 — Select your roles';
   } else if (state.screen === 'survey') {
     const total = state.queue.length || 1;
@@ -518,6 +573,11 @@ function toggleSummary(i) {
 
 // ─── Events ───────────────────────────────────────────────────────────────────
 function bindEvents() {
+  document.getElementById('introNextBtn')?.addEventListener('click', () => {
+    state.screen = 'roles';
+    render();
+  });
+
   document.getElementById('roleGrid')?.addEventListener('click', (e) => {
     const tile = e.target.closest('.role-tile');
     if (!tile) return;
