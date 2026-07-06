@@ -9,19 +9,117 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Salesforce Sans', 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f3f3f3; min-height: 100vh; color: #181818; }
 
-  /* ── Header ── */
-  .header { background: linear-gradient(135deg, #0176d3 0%, #032d60 100%); color: white; padding: 0 0 28px; text-align: center; }
-  .sf-topbar { background: #032d60; padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; }
+  /* ── Topbar ── */
+  .sf-topbar { background: #032d60; padding: 12px 48px; display: flex; align-items: center; justify-content: space-between; }
   .sf-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
   .sf-logo svg { width: 36px; height: 36px; }
-  .sf-logo-text { color: white; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.02em; opacity: 0.9; }
-  .sf-topbar-right { font-size: 0.75rem; color: rgba(255,255,255,0.55); letter-spacing: 0.04em; text-transform: uppercase; }
+  .sf-logo-text { color: white; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.02em; }
+  .sf-topbar-right { font-size: 0.75rem; color: rgba(255,255,255,0.5); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* ── Survey header (non-intro screens) ── */
+  .header { background: linear-gradient(135deg, #0176d3 0%, #032d60 100%); color: white; padding: 0 0 28px; text-align: center; }
   .header-body { padding: 28px 24px 8px; }
-  .header-body h1 { font-size: 1.65rem; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.01em; }
-  .header-body p { font-size: 0.92rem; opacity: 0.82; max-width: 480px; margin: 0 auto; line-height: 1.5; }
+  .header-body h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
+  .header-body p { font-size: 0.9rem; opacity: 0.8; max-width: 480px; margin: 0 auto; line-height: 1.5; }
   .progress-bar-wrap { background: rgba(255,255,255,0.18); border-radius: 99px; height: 5px; margin: 22px auto 0; max-width: 400px; overflow: hidden; }
   .progress-bar-fill { background: #4ade80; height: 100%; border-radius: 99px; transition: width 0.5s ease; width: 0%; }
   .progress-label { font-size: 0.75rem; opacity: 0.7; margin-top: 7px; }
+
+  /* ── INTRO HERO (Salesforce India style) ── */
+  .intro-hero {
+    background: #032d60;
+    color: white;
+    min-height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+  }
+  .intro-hero-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    flex: 1;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 64px 48px;
+    gap: 48px;
+    width: 100%;
+  }
+  .intro-left {}
+  .intro-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    color: #4ade80; margin-bottom: 20px;
+  }
+  .intro-eyebrow .star { font-size: 1rem; }
+  .intro-left h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 0;
+  }
+  .intro-left h1 span { color: #4ade80; }
+
+  .intro-right {}
+  .intro-right p {
+    font-size: 1rem; line-height: 1.75; color: rgba(255,255,255,0.8);
+    margin-bottom: 28px; max-width: 460px;
+  }
+  .intro-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 36px; }
+  .btn-cta-primary {
+    padding: 13px 28px; border-radius: 4px; font-size: 0.92rem; font-weight: 700;
+    background: #0176d3; color: white; border: none; cursor: pointer;
+    transition: background 0.15s, transform 0.15s; font-family: inherit;
+  }
+  .btn-cta-primary:hover { background: #0165b8; transform: translateY(-1px); }
+  .btn-cta-outline {
+    padding: 12px 28px; border-radius: 4px; font-size: 0.92rem; font-weight: 700;
+    background: transparent; color: white; border: 1px solid rgba(255,255,255,0.4);
+    cursor: pointer; transition: border-color 0.15s, background 0.15s; font-family: inherit;
+  }
+  .btn-cta-outline:hover { border-color: white; background: rgba(255,255,255,0.06); }
+
+  .intro-trust {
+    display: flex; gap: 20px; flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 0.8rem; color: rgba(255,255,255,0.6);
+  }
+  .trust-item .ti-icon { color: #4ade80; font-size: 0.9rem; }
+
+  /* ── Dark card grid (bottom of hero) ── */
+  .intro-cards-strip {
+    background: #0a1f3d;
+    padding: 48px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .intro-cards-inner { max-width: 1200px; margin: 0 auto; }
+  .intro-cards-title {
+    font-size: 1.4rem; font-weight: 800; color: white; text-align: center;
+    margin-bottom: 6px; letter-spacing: -0.01em;
+  }
+  .intro-cards-sub {
+    font-size: 0.9rem; color: rgba(255,255,255,0.55); text-align: center;
+    margin-bottom: 32px;
+  }
+  .intro-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+  }
+  .intro-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 22px 18px;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    cursor: default;
+  }
+  .intro-card:hover { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.18); transform: translateY(-2px); }
+  .intro-card-icon { font-size: 1.5rem; margin-bottom: 12px; }
+  .intro-card h4 { font-size: 0.88rem; font-weight: 700; color: white; margin-bottom: 6px; }
+  .intro-card p { font-size: 0.78rem; color: rgba(255,255,255,0.5); line-height: 1.55; }
 
   .container { max-width: 720px; margin: 0 auto; padding: 28px 20px 60px; }
 
@@ -136,27 +234,34 @@
   .sf-footer { text-align: center; padding: 24px; font-size: 0.75rem; color: #a8a29e; }
   .sf-footer a { color: #0176d3; text-decoration: none; }
 
+  @media (max-width: 768px) {
+    .intro-hero-split { grid-template-columns: 1fr; padding: 40px 24px; gap: 32px; }
+    .intro-cards-strip { padding: 36px 24px; }
+    .sf-topbar { padding: 12px 20px; }
+  }
   @media (max-width: 520px) {
     .question-block, .section-pills { padding: 20px 16px 0; }
     .answered-block, .section-divider { padding: 16px; }
     .question-actions { padding: 12px 16px 18px; flex-direction: column; gap: 10px; align-items: stretch; }
     .complete-card { padding: 32px 20px; }
     .role-grid { grid-template-columns: 1fr 1fr; }
+    .intro-card-grid { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="sf-topbar">
-    <a class="sf-logo" href="https://www.salesforce.com" target="_blank">
-      <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M41.6 13.4a18.2 18.2 0 0 1 13-5.4c6.6 0 12.4 3.5 15.7 8.8a20.4 20.4 0 0 1 8.3-1.8c11.3 0 20.4 9.2 20.4 20.6S89.9 56.2 78.6 56.2H24.2C13.6 56.2 5 47.6 5 37c0-9.8 7.2-17.8 16.6-19.1a21.3 21.3 0 0 1 20-4.5z" fill="white"/>
-      </svg>
-      <span class="sf-logo-text">Salesforce</span>
-    </a>
-    <div class="sf-topbar-right">GDC Internal</div>
-  </div>
+<div id="globalTopbar" class="sf-topbar">
+  <a class="sf-logo" href="https://www.salesforce.com" target="_blank">
+    <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M41.6 13.4a18.2 18.2 0 0 1 13-5.4c6.6 0 12.4 3.5 15.7 8.8a20.4 20.4 0 0 1 8.3-1.8c11.3 0 20.4 9.2 20.4 20.6S89.9 56.2 78.6 56.2H24.2C13.6 56.2 5 47.6 5 37c0-9.8 7.2-17.8 16.6-19.1a21.3 21.3 0 0 1 20-4.5z" fill="white"/>
+    </svg>
+    <span class="sf-logo-text">Salesforce</span>
+  </a>
+  <div class="sf-topbar-right">GDC Internal</div>
+</div>
+
+<div id="surveyHeader" class="header" style="display:none">
   <div class="header-body">
     <h1>Lead with Impact</h1>
     <p>Leadership Effectiveness Survey — GDC Directors</p>
@@ -287,10 +392,16 @@ function getActiveSections() {
 // ─── Render ───────────────────────────────────────────────────────────────────
 function render() {
   const app = document.getElementById('app');
-  if      (state.screen === 'intro')    app.innerHTML = renderIntro();
-  else if (state.screen === 'roles')    app.innerHTML = renderRoles();
-  else if (state.screen === 'survey')   app.innerHTML = renderSurvey();
-  else if (state.screen === 'complete') app.innerHTML = renderComplete();
+  const header = document.getElementById('surveyHeader');
+  if (state.screen === 'intro') {
+    if (header) header.style.display = 'none';
+    app.innerHTML = renderIntro();
+  } else {
+    if (header) header.style.display = 'block';
+    if      (state.screen === 'roles')    app.innerHTML = renderRoles();
+    else if (state.screen === 'survey')   app.innerHTML = renderSurvey();
+    else if (state.screen === 'complete') app.innerHTML = renderComplete();
+  }
   updateProgress();
   bindEvents();
   if (state.screen === 'survey') {
@@ -300,54 +411,69 @@ function render() {
 }
 
 function renderIntro() {
+  // Hide survey header, show full-bleed hero
+  document.getElementById('surveyHeader').style.display = 'none';
   return `
-    <div class="card">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
-        <div style="font-size:2rem;">🎯</div>
-        <div>
-          <h2 style="margin-bottom:2px;">Lead with Impact</h2>
-          <p style="font-size:0.8rem;color:#0176d3;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">GDC Directors Effectiveness Survey · 2026</p>
+    <div class="intro-hero">
+      <!-- Split hero -->
+      <div class="intro-hero-split">
+        <div class="intro-left">
+          <div class="intro-eyebrow"><span class="star">★</span> GDC Leadership · 2026</div>
+          <h1>Lead with Impact.<br><span>How are you investing your 40 hours?</span></h1>
         </div>
-      </div>
-
-      <p style="font-size:0.95rem;color:#374151;line-height:1.75;margin-bottom:20px;">
-        As GDC leaders, you drive some of the most complex and high-value Salesforce engagements globally.
-        This survey is designed to understand <strong>how you are currently investing your time</strong> — where you
-        are creating the most impact, what is getting in the way, and how we can better structure leadership
-        effectiveness across the GDC.
-      </p>
-      <p style="font-size:0.95rem;color:#374151;line-height:1.75;margin-bottom:24px;">
-        Your candid input will directly shape decisions on how we evolve our operating model, invest in AI-led
-        capabilities, and unlock more strategic time for GDC leaders.
-      </p>
-
-      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px;">
-        <div style="display:flex;align-items:flex-start;gap:12px;background:#f0f9ff;border-radius:6px;padding:14px 16px;">
-          <span style="font-size:1.1rem;flex-shrink:0;">🔒</span>
-          <div>
-            <div style="font-size:0.88rem;font-weight:700;color:#032d60;margin-bottom:2px;">Fully Confidential</div>
-            <div style="font-size:0.83rem;color:#374151;line-height:1.55;">No names, emails, or personal identifiers are collected at any point. Responses are assigned a random anonymous ID generated locally in your browser.</div>
+        <div class="intro-right">
+          <p>As GDC Directors, you drive some of Salesforce's most complex and high-value engagements globally. This survey helps us understand where you are creating the most impact, what is getting in the way, and how we can unlock more strategic time for GDC leaders.<br><br>Your candid input will directly shape decisions on AI-led capabilities, operating model evolution, and leadership effectiveness across GDC.</p>
+          <div class="intro-cta-row">
+            <button class="btn-cta-primary" id="introNextBtn">Start Survey →</button>
+            <button class="btn-cta-outline" onclick="document.getElementById('introCardsStrip').scrollIntoView({behavior:'smooth'})">What's covered</button>
           </div>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:12px;background:#eaf5ea;border-radius:6px;padding:14px 16px;">
-          <span style="font-size:1.1rem;flex-shrink:0;">📋</span>
-          <div>
-            <div style="font-size:0.88rem;font-weight:700;color:#032d60;margin-bottom:2px;">7–11 Questions · ~10 Minutes</div>
-            <div style="font-size:0.83rem;color:#374151;line-height:1.55;">The survey is tailored to your role — only sections relevant to you are shown. You can skip any question and return to it later.</div>
-          </div>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:12px;background:#fef3c7;border-radius:6px;padding:14px 16px;">
-          <span style="font-size:1.1rem;flex-shrink:0;">📊</span>
-          <div>
-            <div style="font-size:0.88rem;font-weight:700;color:#032d60;margin-bottom:2px;">Aggregated Insights Only</div>
-            <div style="font-size:0.83rem;color:#374151;line-height:1.55;">Results will be shared as aggregated themes and patterns — never as individual responses. No response will be attributed to any specific person.</div>
+          <div class="intro-trust">
+            <div class="trust-item"><span class="ti-icon">🔒</span> Fully anonymous</div>
+            <div class="trust-item"><span class="ti-icon">⏱</span> ~10 minutes</div>
+            <div class="trust-item"><span class="ti-icon">📊</span> Aggregated insights only</div>
           </div>
         </div>
       </div>
 
-      <button class="btn btn-primary" id="introNextBtn" style="width:100%;justify-content:center;padding:13px 24px;font-size:0.95rem;">
-        Start Survey →
-      </button>
+      <!-- Dark card grid -->
+      <div class="intro-cards-strip" id="introCardsStrip">
+        <div class="intro-cards-inner">
+          <div class="intro-cards-title">Become a High-Impact GDC Leader</div>
+          <div class="intro-cards-sub">Six focus areas — tailored to your role. Only sections relevant to you are shown.</div>
+          <div class="intro-card-grid">
+            <div class="intro-card">
+              <div class="intro-card-icon">🤝</div>
+              <h4>Business Partner</h4>
+              <p>GTM, pre-sales investment and account growth priorities.</p>
+            </div>
+            <div class="intro-card">
+              <div class="intro-card-icon">☁️</div>
+              <h4>Cloud Leader</h4>
+              <p>Delivery governance vs strategic advisory balance.</p>
+            </div>
+            <div class="intro-card">
+              <div class="intro-card-icon">🚀</div>
+              <h4>Delivery Partner</h4>
+              <p>Advisory leadership vs hands-on delivery utilisation.</p>
+            </div>
+            <div class="intro-card">
+              <div class="intro-card-icon">🏢</div>
+              <h4>GDC Initiatives</h4>
+              <p>Org-level programs — time spent and business impact.</p>
+            </div>
+            <div class="intro-card">
+              <div class="intro-card-icon">🎯</div>
+              <h4>Strategic Thinking</h4>
+              <p>Weekly strategic time, ideal calendar design.</p>
+            </div>
+            <div class="intro-card">
+              <div class="intro-card-icon">🧠</div>
+              <h4>AI & Upskilling</h4>
+              <p>AI-led activities, Agentforce adoption and learning investment.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>`;
 }
 
