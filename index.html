@@ -10,30 +10,15 @@
   body { font-family: 'Salesforce Sans', 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f3f3f3; min-height: 100vh; color: #181818; }
 
   /* ── Header ── */
-  .header {
-    background: linear-gradient(135deg, #0176d3 0%, #032d60 100%);
-    color: white;
-    padding: 0 0 28px;
-    text-align: center;
-  }
-
-  /* Top nav bar */
-  .sf-topbar {
-    background: #032d60;
-    padding: 10px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+  .header { background: linear-gradient(135deg, #0176d3 0%, #032d60 100%); color: white; padding: 0 0 28px; text-align: center; }
+  .sf-topbar { background: #032d60; padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; }
   .sf-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
   .sf-logo svg { width: 36px; height: 36px; }
   .sf-logo-text { color: white; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.02em; opacity: 0.9; }
   .sf-topbar-right { font-size: 0.75rem; color: rgba(255,255,255,0.55); letter-spacing: 0.04em; text-transform: uppercase; }
-
   .header-body { padding: 28px 24px 8px; }
   .header-body h1 { font-size: 1.65rem; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.01em; }
   .header-body p { font-size: 0.92rem; opacity: 0.82; max-width: 480px; margin: 0 auto; line-height: 1.5; }
-
   .progress-bar-wrap { background: rgba(255,255,255,0.18); border-radius: 99px; height: 5px; margin: 22px auto 0; max-width: 400px; overflow: hidden; }
   .progress-bar-fill { background: #4ade80; height: 100%; border-radius: 99px; transition: width 0.5s ease; width: 0%; }
   .progress-label { font-size: 0.75rem; opacity: 0.7; margin-top: 7px; }
@@ -44,11 +29,6 @@
   .card { background: white; border-radius: 8px; padding: 36px; box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05); margin-bottom: 20px; }
   .card h2 { font-size: 1.15rem; color: #032d60; margin-bottom: 8px; font-weight: 700; }
   .card .subtitle { font-size: 0.9rem; color: #6b7280; margin-bottom: 24px; line-height: 1.6; }
-  .card label { display: block; font-size: 0.8rem; font-weight: 700; color: #3e3e3c; margin-bottom: 4px; margin-top: 20px; text-transform: uppercase; letter-spacing: 0.04em; }
-  .card input[type=url] { width: 100%; padding: 10px 14px; border: 1px solid #dddbda; border-radius: 4px; font-size: 0.95rem; outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
-  .card input[type=url]:focus { border-color: #0176d3; box-shadow: 0 0 0 3px rgba(1,118,211,0.25); }
-  .config-note { font-size: 0.75rem; color: #706e6b; margin-top: 4px; }
-  .info-box { background: #f0f9ff; border-left: 4px solid #0176d3; border-radius: 4px; padding: 12px 16px; font-size: 0.85rem; color: #032d60; margin-top: 20px; line-height: 1.6; }
 
   /* ── Role selector ── */
   .role-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 12px; margin-top: 10px; }
@@ -59,9 +39,8 @@
   .role-tile .role-name { font-size: 0.9rem; font-weight: 700; color: #181818; }
   .role-tile .role-desc { font-size: 0.72rem; color: #706e6b; margin-top: 3px; line-height: 1.4; }
   .role-tile.selected .role-name { color: #0176d3; }
-  .role-tile.selected .role-icon::after { content: ' ✓'; font-size: 0.8rem; }
 
-  /* ── Buttons (SLDS style) ── */
+  /* ── Buttons ── */
   .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; border-radius: 4px; font-size: 0.9rem; font-weight: 700; border: 1px solid transparent; cursor: pointer; transition: all 0.15s; letter-spacing: 0.01em; }
   .btn-primary { background: #0176d3; color: white; border-color: #0176d3; }
   .btn-primary:hover { background: #0165b8; border-color: #0165b8; box-shadow: 0 0 6px rgba(1,118,211,0.4); }
@@ -71,18 +50,45 @@
   .btn-success { background: #2e844a; color: white; border-color: #2e844a; }
   .btn-success:hover { background: #27713f; box-shadow: 0 0 6px rgba(46,132,74,0.4); }
 
-  /* Survey chat */
-  /* ── Survey chat ── */
+  /* ── Chat ── */
   .chat-card { background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05); overflow: hidden; }
   .answered-block { padding: 20px 28px; border-bottom: 1px solid #f3f2f2; animation: fadeIn 0.3s ease; }
   .question-block { padding: 28px 28px 0; animation: fadeIn 0.4s ease; }
   @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 
+  /* ── Section divider ── */
+  .section-divider {
+    display: flex; align-items: center; gap: 14px;
+    padding: 18px 28px;
+    background: linear-gradient(90deg, #f0f9ff 0%, #e8f4fd 100%);
+    border-bottom: 1px solid #c9e0f5;
+    border-top: 1px solid #c9e0f5;
+    animation: fadeIn 0.3s ease;
+  }
+  .section-divider-icon {
+    width: 40px; height: 40px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+  .section-divider-text h4 { font-size: 0.88rem; font-weight: 700; color: #032d60; margin-bottom: 2px; }
+  .section-divider-text p { font-size: 0.75rem; color: #0176d3; }
+
+  .section-divider-icon.bp     { background: #e8f4fd; }
+  .section-divider-icon.cl     { background: #e6f6f6; }
+  .section-divider-icon.dp     { background: #eaf5ea; }
+  .section-divider-icon.init   { background: #fef3c7; }
+  .section-divider-icon.strat  { background: #f3e8ff; }
+  .section-divider-icon.upsk   { background: #fef2f2; }
+
+  /* ── Badges ── */
   .question-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
-  .q-badge { background: #e8f4fd; color: #0176d3; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
-  .q-badge.followup { background: #fef3c7; color: #b45309; }
-  .q-badge.role-q { background: #eaf5ea; color: #2e844a; }
-  .q-badge.initiative { background: #f3e8ff; color: #7c3aed; }
+  .q-badge { font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .q-badge.bp       { background: #e8f4fd; color: #0176d3; }
+  .q-badge.cl       { background: #e6f6f6; color: #0b827c; }
+  .q-badge.dp       { background: #eaf5ea; color: #2e844a; }
+  .q-badge.init     { background: #fef3c7; color: #b45309; }
+  .q-badge.strat    { background: #f3e8ff; color: #7c3aed; }
+  .q-badge.upsk     { background: #fef2f2; color: #ba0517; }
   .q-number { font-size: 0.78rem; color: #a8a29e; }
 
   .question-text { font-size: 1.05rem; font-weight: 600; color: #181818; line-height: 1.55; margin-bottom: 16px; }
@@ -94,9 +100,17 @@
   .question-actions { display: flex; justify-content: space-between; align-items: center; padding: 16px 28px 24px; border-top: 1px solid #f3f2f2; margin-top: 16px; }
   .question-actions .hint { font-size: 0.75rem; color: #a8a29e; }
 
-  /* ── Footer ── */
-  .sf-footer { text-align: center; padding: 24px; font-size: 0.75rem; color: #a8a29e; }
-  .sf-footer a { color: #0176d3; text-decoration: none; }
+  /* ── Section progress pills ── */
+  .section-pills {
+    display: flex; gap: 6px; flex-wrap: wrap; padding: 14px 28px 0; margin-bottom: 0;
+  }
+  .section-pill {
+    padding: 4px 12px; border-radius: 99px; font-size: 0.7rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    border: 1px solid #dddbda; background: white; color: #a8a29e;
+  }
+  .section-pill.done    { background: #eaf5ea; color: #2e844a; border-color: #a3d9a5; }
+  .section-pill.current { background: #e8f4fd; color: #0176d3; border-color: #a8d4f5; }
 
   /* ── Complete ── */
   .complete-card { background: white; border-radius: 8px; padding: 48px 32px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); animation: fadeIn 0.5s ease; }
@@ -106,6 +120,7 @@
   .complete-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   .summary-section { margin-top: 32px; text-align: left; }
   .summary-section h3 { font-size: 0.75rem; font-weight: 700; color: #3e3e3c; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
+  .summary-group-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #a8a29e; padding: 14px 0 6px; }
   .summary-item { border: 1px solid #dddbda; border-radius: 4px; margin-bottom: 8px; overflow: hidden; }
   .summary-q { background: #fafaf9; padding: 12px 16px; font-size: 0.88rem; font-weight: 600; color: #3e3e3c; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
   .summary-q:hover { background: #f3f2f2; }
@@ -118,10 +133,13 @@
   .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #c23934; color: white; padding: 12px 20px; border-radius: 4px; font-size: 0.88rem; box-shadow: 0 4px 20px rgba(0,0,0,0.2); z-index: 999; animation: fadeIn 0.3s ease; max-width: 480px; text-align: center; }
   .toast.success { background: #2e844a; }
 
+  .sf-footer { text-align: center; padding: 24px; font-size: 0.75rem; color: #a8a29e; }
+  .sf-footer a { color: #0176d3; text-decoration: none; }
+
   @media (max-width: 520px) {
-    .question-block { padding: 20px 16px 0; }
+    .question-block, .section-pills { padding: 20px 16px 0; }
+    .answered-block, .section-divider { padding: 16px; }
     .question-actions { padding: 12px 16px 18px; flex-direction: column; gap: 10px; align-items: stretch; }
-    .answered-block { padding: 16px; }
     .complete-card { padding: 32px 20px; }
     .role-grid { grid-template-columns: 1fr 1fr; }
   }
@@ -132,7 +150,6 @@
 <div class="header">
   <div class="sf-topbar">
     <a class="sf-logo" href="https://www.salesforce.com" target="_blank">
-      <!-- Salesforce Cloud Logo SVG -->
       <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M41.6 13.4a18.2 18.2 0 0 1 13-5.4c6.6 0 12.4 3.5 15.7 8.8a20.4 20.4 0 0 1 8.3-1.8c11.3 0 20.4 9.2 20.4 20.6S89.9 56.2 78.6 56.2H24.2C13.6 56.2 5 47.6 5 37c0-9.8 7.2-17.8 16.6-19.1a21.3 21.3 0 0 1 20-4.5z" fill="white"/>
       </svg>
@@ -155,143 +172,116 @@
 </div>
 
 <script>
-// ─── Config (hardcoded) ───────────────────────────────────────────────────────
-const CLAUDE_API_KEY = 'sk-RwtTJqMgDAuGNF2bXizrhw';
+// ─── Config ──────────────────────────────────────────────────────────────────
 const SHEETS_URL = 'https://script.google.com/a/macros/salesforce.com/s/AKfycbydEaBPMG7kn_621cxqubHvlYaOo98S15fFzmVwHx_xdqr5bUfxsnYeuUCS3JdmNatW/exec';
 
-// ─── Role Definitions ─────────────────────────────────────────────────────────
+// ─── Roles ───────────────────────────────────────────────────────────────────
 const ROLES = [
-  { id: 'BP',    name: 'BP',     icon: '🤝', desc: 'Business Partner' },
-  { id: 'CL',    name: 'CL',     icon: '☁️', desc: 'Cloud Leader' },
-  { id: 'DP',    name: 'DP',     icon: '🚀', desc: 'Delivery Partner' },
-  { id: 'OTHER', name: 'Other',  icon: '➕', desc: 'Other / Initiative Lead' }
+  { id: 'BP',    name: 'BP',    icon: '🤝', desc: 'Business Partner' },
+  { id: 'CL',    name: 'CL',    icon: '☁️', desc: 'Cloud Leader' },
+  { id: 'DP',    name: 'DP',    icon: '🚀', desc: 'Delivery Partner' },
+  { id: 'OTHER', name: 'Other', icon: '➕', desc: 'Other / Initiative Lead' }
 ];
 
-// Role-specific follow-up questions (one per role, injected after Q1 if role selected)
-const ROLE_FOLLOWUPS = {
-  BP: {
-    label: 'BP Role',
-    badge: 'role-q',
-    text: 'As a Business Partner, how much of your current week is spent on GTM and pre-sales activities — and how does that compare to what you feel is the right investment?'
-  },
-  CL: {
-    label: 'CL Role',
-    badge: 'role-q',
-    text: 'As a Cloud Leader, what does your delivery governance involvement currently look like — and where do you feel you should be spending that time instead?'
-  },
-  DP: {
-    label: 'DP Role',
-    badge: 'role-q',
-    text: 'As a Delivery Partner, where do you feel the biggest gap between the advisory value you can provide and how you are currently utilised on engagements?'
-  },
-  OTHER: {
-    label: 'Other Role / Initiative',
-    badge: 'role-q',
-    text: 'For the other roles or initiatives you are involved in — which one takes the most time, and is that proportional to the impact it delivers?'
-  }
-};
-
-// ─── Core Questions ───────────────────────────────────────────────────────────
-const CORE_QUESTIONS = [
-  {
-    id: 'high_value', label: 'High-Value Activities',
-    text: 'What according to you are the high-value activities where you create the most impact for the GDC?'
-  },
-  {
-    id: 'ideal_allocation', label: 'Ideal Time Allocation',
-    text: 'If you had complete control over your calendar, what would your ideal time allocation look like across different activities?'
-  },
-  {
-    id: 'time_sinks', label: 'Time Sinks',
-    text: 'What are your top 2–3 "time sinks" — activities that feel least productive but are currently unavoidable?'
-  },
-  {
-    id: 'barriers', label: 'Barriers to Impact',
-    text: 'What are the biggest barriers stopping you from spending more time on high-value, outcome-driven activities?'
-  },
-  {
-    id: 'one_change', label: 'One Thing to Change',
-    text: 'If you could change one thing about how work is structured or managed at the GDC to make you more effective, what would it be?'
-  },
-  {
-    id: 'mentoring', label: 'Mentoring',
-    text: 'If you had dedicated time, how would you mentor or groom your next level of leadership?'
-  },
-  {
-    id: 'strategic_leadership', label: 'Strategic Leadership',
-    text: 'What do you consider the defining trait of a strategic leader — and if there is one trait you personally want to develop further, what would it be?'
-  }
+// ─── Sections ────────────────────────────────────────────────────────────────
+const SECTIONS = [
+  { id: 'bp',          label: 'Business Partner',       icon: '🤝', cls: 'bp',   roleRequired: 'BP' },
+  { id: 'cl',          label: 'Cloud Leader',           icon: '☁️', cls: 'cl',   roleRequired: 'CL' },
+  { id: 'dp',          label: 'Delivery Partner',       icon: '🚀', cls: 'dp',   roleRequired: 'DP' },
+  { id: 'initiatives', label: 'GDC Org Initiatives',    icon: '🏢', cls: 'init', roleRequired: null },
+  { id: 'strategic',   label: 'Strategic Thinking',     icon: '🎯', cls: 'strat',roleRequired: null },
+  { id: 'upskilling',  label: 'Upskilling & Upgrading', icon: '🧠', cls: 'upsk', roleRequired: null }
 ];
 
-// Generic follow-ups (shown after each core answer)
-const GENERIC_FOLLOWUPS = {
-  high_value:           'Can you share a specific example from the last month where you felt you made the highest impact — what were you doing, and why did it matter?',
-  ideal_allocation:     'Which one recurring meeting or obligation would you eliminate or hand off first if your ideal calendar became reality tomorrow — and to whom?',
-  time_sinks:           'For the biggest time sink you mentioned — what would need to change (process, ownership, or decision authority) to remove it from your plate entirely?',
-  barriers:             'Of the barriers you mentioned, which one is most within your direct control to change right now — and what has stopped you from acting on it so far?',
-  one_change:           'If that change were implemented, what would you spend noticeably more time on, and what would fall away from your week?',
-  mentoring:            'Think of one person on your team with the most potential — what is the one growth conversation you have been meaning to have with them but have not had yet?',
-  strategic_leadership: 'What is one concrete action you could take in the next 30 days to actively develop the leadership trait you want to work on?'
-};
+// ─── Question Bank ────────────────────────────────────────────────────────────
+// Max 10 questions per respondent (2 per role section × max 3 roles + 1 initiatives + 2 strategic + 2 upskilling = 9 max)
+const QUESTION_BANK = [
+  // ── BP ──
+  {
+    id: 'bp_highvalue', section: 'bp', label: 'High-Value Activities',
+    text: 'As a Business Partner, what are your top 2–3 high-value activities — where do you create the most impact for clients and for GDC? How much of your actual week do these activities get today?'
+  },
+  {
+    id: 'bp_gtm', section: 'bp', label: 'GTM & Pre-Sales',
+    text: 'How much of your current week is genuinely spent on GTM, pre-sales, and account growth activities — and how does that compare to what you believe the right investment should be?'
+  },
 
-// Initiative capture question — injected if any initiative keyword detected
-const INITIATIVE_KEYWORDS = ['agentforce','ai','initiative','program','project','drive','launch','rollout','campaign','transformation','gssp','one salesforce','talent','enablement','toastmaster','mcc'];
+  // ── CL ──
+  {
+    id: 'cl_governance', section: 'cl', label: 'Delivery Governance',
+    text: 'As a Cloud Leader, how are you currently balancing delivery governance with practice-building and strategic advocacy for your cloud? Where does that balance feel most off?'
+  },
+  {
+    id: 'cl_gap', section: 'cl', label: 'Strategic Value Gap',
+    text: 'Where do you feel the biggest gap between the strategic value you can provide as a Cloud Leader and how you are actually being utilised today?'
+  },
 
-const INITIATIVE_QUESTION = {
-  id: 'initiatives', label: 'Initiatives', badge: 'initiative',
-  text: 'You mentioned one or more initiatives. Can you name the key initiatives you are currently involved in, estimate the time each takes per week, and rate whether that investment is delivering the expected impact (High / Medium / Low)?'
-};
+  // ── DP ──
+  {
+    id: 'dp_advisory', section: 'dp', label: 'Advisory vs. Delivery',
+    text: 'As a Delivery Partner, how effectively are you providing advisory leadership on engagements versus being pulled into operational delivery? Where is the gap most pronounced?'
+  },
+  {
+    id: 'dp_underutil', section: 'dp', label: 'Utilisation Gap',
+    text: 'In which areas are you most underutilised as a Delivery Partner — and what would need to change for that time to be redirected to higher-impact advisory work?'
+  },
+
+  // ── GDC Org Initiatives ──
+  {
+    id: 'org_initiatives', section: 'initiatives', label: 'Org Initiatives',
+    text: 'What GDC org-level initiatives are you currently contributing to? For each, roughly how much time per week does it take — and how would you rate its business impact (High / Medium / Low)?'
+  },
+
+  // ── Strategic Thinking ──
+  {
+    id: 'strategic_time', section: 'strategic', label: 'Strategic Time',
+    text: 'How much time per week do you genuinely set aside for strategic thinking, planning, and leadership work — and what most commonly crowds it out of your calendar?'
+  },
+  {
+    id: 'strategic_ideal', section: 'strategic', label: 'Ideal Week',
+    text: 'If you could redesign your week around high-impact strategic activities, what would it look like? Which recurring obligations would you change, delegate, or remove entirely?'
+  },
+
+  // ── Upskilling ──
+  {
+    id: 'ai_activities', section: 'upskilling', label: 'AI-Led Activities',
+    text: 'What AI-led activities are you currently doing in your role — using Agentforce, Einstein, AI tools, or AI-driven insights in your day-to-day work? How meaningful is the impact you are seeing on your work and your clients?'
+  },
+  {
+    id: 'upskilling_time', section: 'upskilling', label: 'Upskilling Investment',
+    text: 'How much time per week are you actively investing in upgrading yourself — AI skilling, leadership development, certifications, industry knowledge? Is that investment enough, and what typically gets in the way?'
+  }
+];
 
 // ─── State ────────────────────────────────────────────────────────────────────
 let state = {
-  screen: 'roles',          // roles | survey | complete
+  screen: 'roles',
   respondentId: 'R-' + Math.random().toString(36).slice(2, 8).toUpperCase(),
-  sheetsWebhookUrl: SHEETS_URL,
-  selectedRoles: [],        // array of role IDs
-  queue: [],                // full ordered question queue built at survey start
+  selectedRoles: [],
+  queue: [],
   queueIdx: 0,
   allQA: [],
-  initiativeCaptured: false,
   submitting: false
 };
 
 // ─── Queue Builder ────────────────────────────────────────────────────────────
 function buildQueue() {
+  const activeSections = SECTIONS.filter(s =>
+    s.roleRequired === null || state.selectedRoles.includes(s.roleRequired)
+  );
   const q = [];
-  CORE_QUESTIONS.forEach((cq, i) => {
-    q.push({ ...cq, type: 'core', badge: '' });
-
-    // After Q1 (high_value), inject one follow-up per selected role
-    if (cq.id === 'high_value') {
-      state.selectedRoles.forEach(roleId => {
-        if (ROLE_FOLLOWUPS[roleId]) {
-          q.push({ ...ROLE_FOLLOWUPS[roleId], id: 'role_' + roleId, type: 'followup', forCoreId: 'high_value' });
-        }
-      });
-    }
-
-    // Generic follow-up for every core question
-    q.push({
-      id: cq.id + '_fu', label: cq.label, badge: 'followup',
-      type: 'followup', forCoreId: cq.id,
-      text: GENERIC_FOLLOWUPS[cq.id]
+  activeSections.forEach(sec => {
+    const sectionQs = QUESTION_BANK.filter(qb => qb.section === sec.id);
+    sectionQs.forEach((qb, idx) => {
+      q.push({ ...qb, sectionMeta: sec, isFirstInSection: idx === 0 });
     });
   });
   return q;
 }
 
-// ─── Initiative Detection ─────────────────────────────────────────────────────
-function detectInitiative(answer) {
-  if (state.initiativeCaptured) return false;
-  const lower = answer.toLowerCase();
-  return INITIATIVE_KEYWORDS.some(kw => lower.includes(kw));
-}
-
-function injectInitiativeQuestion() {
-  if (state.initiativeCaptured) return;
-  state.initiativeCaptured = true;
-  // Insert initiative question right after current position
-  state.queue.splice(state.queueIdx + 1, 0, { ...INITIATIVE_QUESTION, type: 'initiative' });
+// ─── Active sections helper ───────────────────────────────────────────────────
+function getActiveSections() {
+  return SECTIONS.filter(s => s.roleRequired === null || state.selectedRoles.includes(s.roleRequired));
 }
 
 // ─── Render ───────────────────────────────────────────────────────────────────
@@ -308,63 +298,21 @@ function render() {
   }
 }
 
-function renderConfig() {
-  return `
-    <div class="card">
-      <h2>Welcome</h2>
-      <p class="subtitle">This survey takes about 10–15 minutes. Your responses are fully anonymous — no name is collected at any point.</p>
-      <label>Google Sheets Webhook URL <span style="font-weight:400;color:#9ca3af">(optional)</span></label>
-      <input type="url" id="cfgSheets" placeholder="https://script.google.com/macros/s/.../exec" value="${esc(state.sheetsWebhookUrl)}" />
-      <p class="config-note">Paste the URL shared by your admin. If you don't have it, you can download responses as JSON at the end.</p>
-      <div class="info-box">Your responses are anonymous. A random ID is generated locally — no name or email is ever collected.</div>
-      <div style="margin-top:28px">
-        <button class="btn btn-primary" id="startBtn">Next: Select Your Roles →</button>
-      </div>
-    </div>
-
-    <div class="card" style="font-size:0.88rem;color:#374151;line-height:1.7;">
-      <h2 style="margin-bottom:14px;">Admin: Google Sheets Setup</h2>
-      <ol style="padding-left:20px;">
-        <li>Create a Google Sheet named <strong>Leadership Survey Responses</strong>.</li>
-        <li>Go to <strong>Extensions → Apps Script</strong>, delete existing code, paste the script below.</li>
-        <li>Click <strong>Save → Deploy → New deployment → Web app</strong>.<br>Set <em>Execute as: Me</em> and <em>Who has access: Anyone</em>.</li>
-        <li>Authorize and copy the web app URL. Share it with all directors.</li>
-      </ol>
-      <details style="margin-top:14px;">
-        <summary style="cursor:pointer;font-weight:600;color:#0176d3;">Show Apps Script Code</summary>
-        <pre style="background:#f9fafb;padding:14px;border-radius:8px;margin-top:10px;overflow-x:auto;font-size:0.8rem;white-space:pre-wrap;">function doPost(e) {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  const data = JSON.parse(e.postData.contents);
-  if (sheet.getLastRow() === 0) {
-    sheet.appendRow(['Timestamp','Respondent_ID','Roles','Q_ID','Q_Label','Type','Question','Answer']);
-  }
-  const ts = new Date().toISOString();
-  const roles = (data.roles || []).join(', ');
-  data.responses.forEach(function(r) {
-    sheet.appendRow([ts, data.respondentId, roles, r.coreId, r.label, r.type, r.question, r.answer]);
-  });
-  return ContentService.createTextOutput(JSON.stringify({status:'ok'})).setMimeType(ContentService.MimeType.JSON);
-}</pre>
-      </details>
-    </div>`;
-}
-
 function renderRoles() {
   return `
     <div class="card">
       <h2>What roles do you currently hold?</h2>
-      <p class="subtitle">Select all that apply. This helps us ask you the right follow-up questions.</p>
+      <p class="subtitle">Select all that apply. The survey will tailor itself to your specific role context — role-specific sections are shown only to the relevant audience.</p>
       <div class="role-grid" id="roleGrid">
         ${ROLES.map(r => `
-          <div class="role-tile ${state.selectedRoles.includes(r.id) ? 'selected' : ''}"
-               data-role="${r.id}" id="tile-${r.id}">
+          <div class="role-tile ${state.selectedRoles.includes(r.id) ? 'selected' : ''}" data-role="${r.id}" id="tile-${r.id}">
             <div class="role-icon">${r.icon}</div>
             <div class="role-name">${r.name}</div>
             <div class="role-desc">${r.desc}</div>
           </div>
         `).join('')}
       </div>
-      <p class="config-note" style="margin-top:14px;">You can select multiple roles. Click a tile to select/deselect.</p>
+      <p style="font-size:0.75rem;color:#706e6b;margin-top:14px;">You can select multiple roles. All responses are fully anonymous — no name is collected.</p>
       <div style="margin-top:28px;">
         <button class="btn btn-primary" id="beginBtn">Begin Survey →</button>
       </div>
@@ -375,33 +323,49 @@ function renderSurvey() {
   const currentQ = state.queue[state.queueIdx];
   if (!currentQ) { state.screen = 'complete'; return renderComplete(); }
 
-  const isFollowUp = currentQ.type === 'followup';
-  const isRoleQ    = currentQ.badge === 'role-q';
-  const isInitiative = currentQ.type === 'initiative';
-  const total = state.queue.length;
+  const activeSections = getActiveSections();
+  const currentSectionIdx = activeSections.findIndex(s => s.id === currentQ.section);
+  const totalQs = state.queue.length;
 
-  let badgeClass = '';
-  let badgeText = currentQ.label;
-  if (isRoleQ)      { badgeClass = 'role-q';    badgeText = currentQ.label; }
-  else if (isInitiative) { badgeClass = 'initiative'; badgeText = 'Initiatives'; }
-  else if (isFollowUp)   { badgeClass = 'followup';   badgeText = currentQ.label + ' · Follow-up'; }
+  // Build section pills
+  const pills = activeSections.map((s, i) => {
+    let cls = '';
+    if (i < currentSectionIdx) cls = 'done';
+    else if (i === currentSectionIdx) cls = 'current';
+    return `<span class="section-pill ${cls}">${s.icon} ${s.label}</span>`;
+  }).join('');
+
+  // Answered blocks
+  const answeredHtml = state.allQA.map((qa, idx) => {
+    // Check if we need a section divider before this answered block
+    const prevQA = state.allQA[idx - 1];
+    let divider = '';
+    if (!prevQA || prevQA.sectionId !== qa.sectionId) {
+      const sec = SECTIONS.find(s => s.id === qa.sectionId);
+      if (sec) divider = renderSectionDivider(sec, true);
+    }
+    return `${divider}
+      <div class="answered-block">
+        <div class="question-meta">
+          <span class="q-badge ${qa.sectionCls}">${qa.label}</span>
+        </div>
+        <div style="font-size:0.9rem;font-weight:600;color:#374151;margin-bottom:6px;">${esc(qa.question)}</div>
+        <div style="font-size:0.9rem;color:#4b5563;background:#f9fafb;padding:10px 12px;border-radius:8px;line-height:1.6;white-space:pre-wrap;">${esc(qa.answer)}</div>
+      </div>`;
+  }).join('');
+
+  // Section divider before current question (only if first in section)
+  const curDivider = currentQ.isFirstInSection ? renderSectionDivider(currentQ.sectionMeta, false) : '';
 
   return `
     <div class="chat-card">
-      ${state.allQA.map(qa => `
-        <div class="answered-block">
-          <div class="question-meta">
-            <span class="q-badge ${qa.badgeClass || ''}">${qa.label}</span>
-          </div>
-          <div style="font-size:0.9rem;font-weight:600;color:#374151;margin-bottom:6px;">${esc(qa.question)}</div>
-          <div style="font-size:0.9rem;color:#4b5563;background:#f9fafb;padding:10px 12px;border-radius:8px;line-height:1.6;white-space:pre-wrap;">${esc(qa.answer)}</div>
-        </div>
-      `).join('')}
-
+      <div class="section-pills">${pills}</div>
+      ${answeredHtml}
+      ${curDivider}
       <div class="question-block" id="currentBlock">
         <div class="question-meta">
-          <span class="q-badge ${badgeClass}">${badgeText}</span>
-          <span class="q-number">Question ${state.queueIdx + 1} of ${total}</span>
+          <span class="q-badge ${currentQ.sectionMeta.cls}">${currentQ.label}</span>
+          <span class="q-number">Question ${state.queueIdx + 1} of ${totalQs}</span>
         </div>
         <div class="question-text">${esc(currentQ.text)}</div>
         <textarea class="answer-area" id="answerInput"
@@ -409,7 +373,6 @@ function renderSurvey() {
           rows="5" autofocus></textarea>
         <div class="char-hint" id="charHint">0 characters</div>
       </div>
-
       <div class="question-actions">
         <span class="hint">Cmd/Ctrl + Enter to continue</span>
         <div style="display:flex;gap:10px;">
@@ -422,7 +385,42 @@ function renderSurvey() {
     </div>`;
 }
 
+function renderSectionDivider(sec, isAnswered) {
+  const qCount = QUESTION_BANK.filter(q => q.section === sec.id).length;
+  const sub = sec.roleRequired
+    ? `${qCount} question${qCount > 1 ? 's' : ''} · ${sec.label} only`
+    : `${qCount} question${qCount > 1 ? 's' : ''} · All Directors`;
+  return `
+    <div class="section-divider">
+      <div class="section-divider-icon ${sec.cls}">${sec.icon}</div>
+      <div class="section-divider-text">
+        <h4>${sec.label}</h4>
+        <p>${sub}</p>
+      </div>
+    </div>`;
+}
+
 function renderComplete() {
+  // Group QA by section
+  const activeSections = getActiveSections();
+  let summaryHtml = '';
+  activeSections.forEach(sec => {
+    const sectionQAs = state.allQA.filter(qa => qa.sectionId === sec.id);
+    if (!sectionQAs.length) return;
+    summaryHtml += `<div class="summary-group-label">${sec.icon} ${sec.label}</div>`;
+    sectionQAs.forEach((qa, i) => {
+      const globalIdx = state.allQA.indexOf(qa);
+      summaryHtml += `
+        <div class="summary-item">
+          <div class="summary-q" onclick="toggleSummary(${globalIdx})">
+            <span>${esc(qa.question.length > 80 ? qa.question.slice(0,80) + '…' : qa.question)}</span>
+            <span class="summary-chevron" id="chev-${globalIdx}">▼</span>
+          </div>
+          <div class="summary-a" id="sum-${globalIdx}">${esc(qa.answer)}</div>
+        </div>`;
+    });
+  });
+
   return `
     <div class="complete-card">
       <div class="complete-icon">✅</div>
@@ -436,15 +434,7 @@ function renderComplete() {
       </div>
       <div class="summary-section">
         <h3>Your Responses</h3>
-        ${state.allQA.map((qa, i) => `
-          <div class="summary-item">
-            <div class="summary-q" onclick="toggleSummary(${i})">
-              <span>${esc(qa.question.length > 80 ? qa.question.slice(0,80) + '…' : qa.question)}</span>
-              <span class="summary-chevron" id="chev-${i}">▼</span>
-            </div>
-            <div class="summary-a" id="sum-${i}">${esc(qa.answer)}</div>
-          </div>
-        `).join('')}
+        ${summaryHtml}
       </div>
     </div>`;
 }
@@ -454,13 +444,20 @@ function updateProgress() {
   const label = document.getElementById('progressLabel');
   if (!fill) return;
   let pct = 0, text = 'Not started';
-  if (state.screen === 'roles')    { pct = 5;   text = 'Step 1 of 2 — Select roles'; }
-  else if (state.screen === 'survey') {
+  if (state.screen === 'roles') {
+    pct = 5; text = 'Step 1 — Select your roles';
+  } else if (state.screen === 'survey') {
     const total = state.queue.length || 1;
     pct = Math.round((state.queueIdx / total) * 100);
-    const coresDone = CORE_QUESTIONS.filter(cq => state.allQA.some(qa => qa.coreId === cq.id && qa.type === 'core')).length;
-    text = `${coresDone} of ${CORE_QUESTIONS.length} core questions`;
-  } else if (state.screen === 'complete') { pct = 100; text = 'Complete!'; }
+    const currentQ = state.queue[state.queueIdx];
+    if (currentQ) {
+      const activeSections = getActiveSections();
+      const secIdx = activeSections.findIndex(s => s.id === currentQ.section);
+      text = `${currentQ.sectionMeta.icon} ${currentQ.sectionMeta.label} · Q${state.queueIdx + 1} of ${total}`;
+    }
+  } else if (state.screen === 'complete') {
+    pct = 100; text = 'Complete!';
+  }
   fill.style.width = pct + '%';
   label.textContent = text;
 }
@@ -474,35 +471,23 @@ function submitAnswer(skip) {
   const currentQ = state.queue[state.queueIdx];
   if (!currentQ) return;
 
-  const recorded = {
-    coreId: currentQ.forCoreId || currentQ.id,
-    label: currentQ.label || '',
-    type: currentQ.type,
-    badgeClass: currentQ.badge || '',
-    question: currentQ.text,
-    answer: skip ? '(skipped)' : answer
-  };
-  state.allQA.push(recorded);
-
-  // Detect initiative mention and inject question if needed
-  if (!skip && !state.initiativeCaptured && detectInitiative(answer)) {
-    injectInitiativeQuestion();
-  }
+  state.allQA.push({
+    sectionId:   currentQ.section,
+    sectionCls:  currentQ.sectionMeta.cls,
+    label:       currentQ.label,
+    question:    currentQ.text,
+    answer:      skip ? '(skipped)' : answer
+  });
 
   state.queueIdx++;
-
-  if (state.queueIdx >= state.queue.length) {
-    state.screen = 'complete';
-  }
-
+  if (state.queueIdx >= state.queue.length) state.screen = 'complete';
   render();
 }
 
 async function submitToSheets() {
-  if (!state.sheetsWebhookUrl) { showToast('No Sheets URL — please download JSON instead.'); return; }
   state.submitting = true; render();
   try {
-    await fetch(state.sheetsWebhookUrl, {
+    await fetch(SHEETS_URL, {
       method: 'POST', mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ respondentId: state.respondentId, roles: state.selectedRoles, responses: state.allQA })
@@ -533,7 +518,6 @@ function toggleSummary(i) {
 
 // ─── Events ───────────────────────────────────────────────────────────────────
 function bindEvents() {
-  // Role screen
   document.getElementById('roleGrid')?.addEventListener('click', (e) => {
     const tile = e.target.closest('.role-tile');
     if (!tile) return;
@@ -554,7 +538,6 @@ function bindEvents() {
     render();
   });
 
-  // Survey
   const answerInput = document.getElementById('answerInput');
   answerInput?.addEventListener('input', () => {
     const hint = document.getElementById('charHint');
@@ -565,8 +548,6 @@ function bindEvents() {
   });
   document.getElementById('nextBtn')?.addEventListener('click', () => submitAnswer(false));
   document.getElementById('skipBtn')?.addEventListener('click', () => submitAnswer(true));
-
-  // Complete
   document.getElementById('submitBtn')?.addEventListener('click', submitToSheets);
   document.getElementById('downloadBtn')?.addEventListener('click', downloadJSON);
 }
