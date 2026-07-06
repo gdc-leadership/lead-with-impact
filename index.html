@@ -7,23 +7,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Salesforce+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Salesforce Sans', 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f3f3f3; min-height: 100vh; color: #181818; }
+  body { font-family: 'Salesforce Sans', 'Segoe UI', system-ui, -apple-system, sans-serif; background: #021b40; min-height: 100vh; color: #181818; }
 
   /* ── Topbar ── */
-  .sf-topbar { background: #032d60; padding: 12px 48px; display: flex; align-items: center; justify-content: space-between; }
+  .sf-topbar { background: #010e22; padding: 12px 48px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.07); }
   .sf-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
   .sf-logo svg { width: 36px; height: 36px; }
   .sf-logo-text { color: white; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.02em; }
-  .sf-topbar-right { font-size: 0.75rem; color: rgba(255,255,255,0.5); letter-spacing: 0.06em; text-transform: uppercase; }
+  .sf-topbar-right { font-size: 0.75rem; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; text-transform: uppercase; }
 
   /* ── Survey header (non-intro screens) ── */
-  .header { background: linear-gradient(135deg, #0176d3 0%, #032d60 100%); color: white; padding: 0 0 28px; text-align: center; }
-  .header-body { padding: 28px 24px 8px; }
-  .header-body h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
-  .header-body p { font-size: 0.9rem; opacity: 0.8; max-width: 480px; margin: 0 auto; line-height: 1.5; }
-  .progress-bar-wrap { background: rgba(255,255,255,0.18); border-radius: 99px; height: 5px; margin: 22px auto 0; max-width: 400px; overflow: hidden; }
+  .header { background: transparent; color: white; padding: 0 0 0; text-align: center; }
+  .header-body { padding: 28px 24px 16px; }
+  .header-body h1 { font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; color: white; }
+  .header-body p { font-size: 0.85rem; color: rgba(255,255,255,0.5); max-width: 480px; margin: 0 auto; line-height: 1.5; }
+  .progress-bar-wrap { background: rgba(255,255,255,0.1); border-radius: 99px; height: 4px; margin: 16px auto 0; max-width: 400px; overflow: hidden; }
   .progress-bar-fill { background: #4ade80; height: 100%; border-radius: 99px; transition: width 0.5s ease; width: 0%; }
-  .progress-label { font-size: 0.75rem; opacity: 0.7; margin-top: 7px; }
+  .progress-label { font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 6px; }
 
   /* ── INTRO HERO (Salesforce India style) ── */
   .intro-hero {
@@ -125,107 +125,102 @@
   .container.full-bleed { max-width: 100%; padding: 0; margin: 0; }
 
   /* ── Cards ── */
-  .card { background: white; border-radius: 8px; padding: 36px; box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05); margin-bottom: 20px; }
-  .card h2 { font-size: 1.15rem; color: #032d60; margin-bottom: 8px; font-weight: 700; }
-  .card .subtitle { font-size: 0.9rem; color: #6b7280; margin-bottom: 24px; line-height: 1.6; }
+  .card { background: #0a1f3d; border: 1px solid rgba(255,255,255,0.09); border-radius: 10px; padding: 36px; margin-bottom: 20px; }
+  .card h2 { font-size: 1.15rem; color: white; margin-bottom: 8px; font-weight: 700; }
+  .card .subtitle { font-size: 0.9rem; color: rgba(255,255,255,0.55); margin-bottom: 24px; line-height: 1.6; }
+  .card label { color: rgba(255,255,255,0.6); }
 
   /* ── Role selector ── */
   .role-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 12px; margin-top: 10px; }
-  .role-tile { border: 2px solid #dddbda; border-radius: 8px; padding: 18px 12px; text-align: center; cursor: pointer; transition: all 0.15s; user-select: none; background: white; }
-  .role-tile:hover { border-color: #0176d3; background: #f0f9ff; box-shadow: 0 0 0 2px rgba(1,118,211,0.15); }
-  .role-tile.selected { border-color: #0176d3; background: #e8f4fd; box-shadow: 0 0 0 2px rgba(1,118,211,0.3); }
+  .role-tile { border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 18px 12px; text-align: center; cursor: pointer; transition: all 0.15s; user-select: none; background: rgba(255,255,255,0.04); }
+  .role-tile:hover { border-color: #4ade80; background: rgba(74,222,128,0.07); }
+  .role-tile.selected { border-color: #4ade80; background: rgba(74,222,128,0.12); box-shadow: 0 0 0 1px #4ade80; }
   .role-tile .role-icon { font-size: 1.6rem; margin-bottom: 8px; }
-  .role-tile .role-name { font-size: 0.9rem; font-weight: 700; color: #181818; }
-  .role-tile .role-desc { font-size: 0.72rem; color: #706e6b; margin-top: 3px; line-height: 1.4; }
-  .role-tile.selected .role-name { color: #0176d3; }
+  .role-tile .role-name { font-size: 0.9rem; font-weight: 700; color: white; }
+  .role-tile .role-desc { font-size: 0.72rem; color: rgba(255,255,255,0.45); margin-top: 3px; line-height: 1.4; }
+  .role-tile.selected .role-name { color: #4ade80; }
 
   /* ── Buttons ── */
-  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; border-radius: 4px; font-size: 0.9rem; font-weight: 700; border: 1px solid transparent; cursor: pointer; transition: all 0.15s; letter-spacing: 0.01em; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; border-radius: 4px; font-size: 0.9rem; font-weight: 700; border: 1px solid transparent; cursor: pointer; transition: all 0.15s; letter-spacing: 0.01em; font-family: inherit; }
   .btn-primary { background: #0176d3; color: white; border-color: #0176d3; }
-  .btn-primary:hover { background: #0165b8; border-color: #0165b8; box-shadow: 0 0 6px rgba(1,118,211,0.4); }
-  .btn-primary:disabled { background: #c9c7c5; border-color: #c9c7c5; cursor: not-allowed; }
-  .btn-secondary { background: white; color: #0176d3; border-color: #0176d3; }
-  .btn-secondary:hover { background: #f0f9ff; }
+  .btn-primary:hover { background: #0165b8; box-shadow: 0 0 12px rgba(1,118,211,0.4); }
+  .btn-primary:disabled { background: rgba(255,255,255,0.1); border-color: transparent; color: rgba(255,255,255,0.3); cursor: not-allowed; }
+  .btn-secondary { background: transparent; color: white; border-color: rgba(255,255,255,0.3); }
+  .btn-secondary:hover { border-color: white; background: rgba(255,255,255,0.06); }
   .btn-success { background: #2e844a; color: white; border-color: #2e844a; }
-  .btn-success:hover { background: #27713f; box-shadow: 0 0 6px rgba(46,132,74,0.4); }
+  .btn-success:hover { background: #27713f; box-shadow: 0 0 12px rgba(46,132,74,0.4); }
 
   /* ── Chat ── */
-  .chat-card { background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05); overflow: hidden; }
-  .answered-block { padding: 20px 28px; border-bottom: 1px solid #f3f2f2; animation: fadeIn 0.3s ease; }
+  .chat-card { background: #0a1f3d; border: 1px solid rgba(255,255,255,0.09); border-radius: 10px; overflow: hidden; }
+  .answered-block { padding: 20px 28px; border-bottom: 1px solid rgba(255,255,255,0.06); animation: fadeIn 0.3s ease; }
   .question-block { padding: 28px 28px 0; animation: fadeIn 0.4s ease; }
   @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 
   /* ── Section divider ── */
   .section-divider {
     display: flex; align-items: center; gap: 14px;
-    padding: 18px 28px;
-    background: linear-gradient(90deg, #f0f9ff 0%, #e8f4fd 100%);
-    border-bottom: 1px solid #c9e0f5;
-    border-top: 1px solid #c9e0f5;
+    padding: 14px 28px;
+    background: rgba(1,118,211,0.12);
+    border-bottom: 1px solid rgba(1,118,211,0.2);
+    border-top: 1px solid rgba(1,118,211,0.2);
     animation: fadeIn 0.3s ease;
   }
   .section-divider-icon {
-    width: 40px; height: 40px; border-radius: 8px;
+    width: 36px; height: 36px; border-radius: 6px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.2rem; flex-shrink: 0;
+    font-size: 1.1rem; flex-shrink: 0; background: rgba(255,255,255,0.08);
   }
-  .section-divider-text h4 { font-size: 0.88rem; font-weight: 700; color: #032d60; margin-bottom: 2px; }
-  .section-divider-text p { font-size: 0.75rem; color: #0176d3; }
+  .section-divider-text h4 { font-size: 0.85rem; font-weight: 700; color: white; margin-bottom: 1px; }
+  .section-divider-text p { font-size: 0.72rem; color: #4ade80; }
 
-  .section-divider-icon.bp     { background: #e8f4fd; }
-  .section-divider-icon.cl     { background: #e6f6f6; }
-  .section-divider-icon.dp     { background: #eaf5ea; }
-  .section-divider-icon.init   { background: #fef3c7; }
-  .section-divider-icon.strat  { background: #f3e8ff; }
-  .section-divider-icon.upsk   { background: #fef2f2; }
+  .section-divider-icon.bp   { background: rgba(1,118,211,0.2); }
+  .section-divider-icon.cl   { background: rgba(11,130,124,0.2); }
+  .section-divider-icon.dp   { background: rgba(46,132,74,0.2); }
+  .section-divider-icon.init { background: rgba(180,83,9,0.2); }
+  .section-divider-icon.strat{ background: rgba(124,58,237,0.2); }
+  .section-divider-icon.upsk { background: rgba(186,5,23,0.2); }
 
   /* ── Badges ── */
   .question-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
   .q-badge { font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
-  .q-badge.bp       { background: #e8f4fd; color: #0176d3; }
-  .q-badge.cl       { background: #e6f6f6; color: #0b827c; }
-  .q-badge.dp       { background: #eaf5ea; color: #2e844a; }
-  .q-badge.init     { background: #fef3c7; color: #b45309; }
-  .q-badge.strat    { background: #f3e8ff; color: #7c3aed; }
-  .q-badge.upsk     { background: #fef2f2; color: #ba0517; }
-  .q-number { font-size: 0.78rem; color: #a8a29e; }
+  .q-badge.bp    { background: rgba(1,118,211,0.2);   color: #60b0f4; }
+  .q-badge.cl    { background: rgba(11,130,124,0.2);  color: #34d6cc; }
+  .q-badge.dp    { background: rgba(46,132,74,0.2);   color: #4ade80; }
+  .q-badge.init  { background: rgba(180,83,9,0.2);    color: #fbbf24; }
+  .q-badge.strat { background: rgba(124,58,237,0.2);  color: #c4b5fd; }
+  .q-badge.upsk  { background: rgba(186,5,23,0.2);    color: #fca5a5; }
+  .q-number { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
 
-  .question-text { font-size: 1.05rem; font-weight: 600; color: #181818; line-height: 1.55; margin-bottom: 16px; }
-  .answer-area { width: 100%; min-height: 120px; padding: 12px 14px; border: 1px solid #dddbda; border-radius: 4px; font-size: 0.95rem; line-height: 1.6; resize: vertical; outline: none; transition: border-color 0.15s, box-shadow 0.15s; font-family: inherit; color: #181818; }
-  .answer-area:focus { border-color: #0176d3; box-shadow: 0 0 0 3px rgba(1,118,211,0.2); }
-  .answer-area::placeholder { color: #a8a29e; }
-  .char-hint { font-size: 0.72rem; color: #a8a29e; margin-top: 5px; text-align: right; }
+  .question-text { font-size: 1.05rem; font-weight: 600; color: white; line-height: 1.55; margin-bottom: 16px; }
+  .answer-area { width: 100%; min-height: 120px; padding: 12px 14px; border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; font-size: 0.95rem; line-height: 1.6; resize: vertical; outline: none; transition: border-color 0.15s, box-shadow 0.15s; font-family: inherit; color: white; background: rgba(255,255,255,0.05); }
+  .answer-area:focus { border-color: #0176d3; box-shadow: 0 0 0 3px rgba(1,118,211,0.25); }
+  .answer-area::placeholder { color: rgba(255,255,255,0.25); }
+  .char-hint { font-size: 0.72rem; color: rgba(255,255,255,0.3); margin-top: 5px; text-align: right; }
 
-  .question-actions { display: flex; justify-content: space-between; align-items: center; padding: 16px 28px 24px; border-top: 1px solid #f3f2f2; margin-top: 16px; }
-  .question-actions .hint { font-size: 0.75rem; color: #a8a29e; }
+  .question-actions { display: flex; justify-content: space-between; align-items: center; padding: 16px 28px 24px; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 16px; }
+  .question-actions .hint { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
 
   /* ── Section progress pills ── */
-  .section-pills {
-    display: flex; gap: 6px; flex-wrap: wrap; padding: 14px 28px 0; margin-bottom: 0;
-  }
-  .section-pill {
-    padding: 4px 12px; border-radius: 99px; font-size: 0.7rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.04em;
-    border: 1px solid #dddbda; background: white; color: #a8a29e;
-  }
-  .section-pill.done    { background: #eaf5ea; color: #2e844a; border-color: #a3d9a5; }
-  .section-pill.current { background: #e8f4fd; color: #0176d3; border-color: #a8d4f5; }
+  .section-pills { display: flex; gap: 6px; flex-wrap: wrap; padding: 14px 28px 0; }
+  .section-pill { padding: 4px 12px; border-radius: 99px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.3); }
+  .section-pill.done    { background: rgba(46,132,74,0.2);  color: #4ade80; border-color: rgba(74,222,128,0.3); }
+  .section-pill.current { background: rgba(1,118,211,0.2);  color: #60b0f4; border-color: rgba(96,176,244,0.4); }
 
   /* ── Complete ── */
-  .complete-card { background: white; border-radius: 8px; padding: 48px 32px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); animation: fadeIn 0.5s ease; }
+  .complete-card { background: #0a1f3d; border: 1px solid rgba(255,255,255,0.09); border-radius: 10px; padding: 48px 32px; text-align: center; animation: fadeIn 0.5s ease; }
   .complete-icon { font-size: 3rem; margin-bottom: 16px; }
-  .complete-card h2 { font-size: 1.4rem; color: #032d60; margin-bottom: 10px; font-weight: 700; }
-  .complete-card p { color: #706e6b; font-size: 0.95rem; max-width: 440px; margin: 0 auto 28px; line-height: 1.6; }
+  .complete-card h2 { font-size: 1.4rem; color: white; margin-bottom: 10px; font-weight: 700; }
+  .complete-card p { color: rgba(255,255,255,0.55); font-size: 0.95rem; max-width: 440px; margin: 0 auto 28px; line-height: 1.6; }
   .complete-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   .summary-section { margin-top: 32px; text-align: left; }
-  .summary-section h3 { font-size: 0.75rem; font-weight: 700; color: #3e3e3c; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
-  .summary-group-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #a8a29e; padding: 14px 0 6px; }
-  .summary-item { border: 1px solid #dddbda; border-radius: 4px; margin-bottom: 8px; overflow: hidden; }
-  .summary-q { background: #fafaf9; padding: 12px 16px; font-size: 0.88rem; font-weight: 600; color: #3e3e3c; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-  .summary-q:hover { background: #f3f2f2; }
-  .summary-chevron { flex-shrink: 0; transition: transform 0.2s; color: #706e6b; }
+  .summary-section h3 { font-size: 0.75rem; font-weight: 700; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
+  .summary-group-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.3); padding: 14px 0 6px; }
+  .summary-item { border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; margin-bottom: 8px; overflow: hidden; }
+  .summary-q { background: rgba(255,255,255,0.04); padding: 12px 16px; font-size: 0.88rem; font-weight: 600; color: rgba(255,255,255,0.8); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .summary-q:hover { background: rgba(255,255,255,0.07); }
+  .summary-chevron { flex-shrink: 0; transition: transform 0.2s; color: rgba(255,255,255,0.4); }
   .summary-chevron.open { transform: rotate(180deg); }
-  .summary-a { padding: 12px 16px; font-size: 0.88rem; color: #706e6b; line-height: 1.6; display: none; border-top: 1px solid #dddbda; white-space: pre-wrap; }
+  .summary-a { padding: 12px 16px; font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.6; display: none; border-top: 1px solid rgba(255,255,255,0.07); white-space: pre-wrap; }
   .summary-a.open { display: block; }
 
   /* ── Toast ── */
@@ -274,9 +269,9 @@
 </div>
 
 <div id="app"></div>
-<div class="sf-footer">
+<div class="sf-footer" style="background:#010e22;color:rgba(255,255,255,0.3);border-top:1px solid rgba(255,255,255,0.06);">
   &copy; 2026 Salesforce, Inc. &nbsp;|&nbsp; GDC Internal Use Only &nbsp;|&nbsp;
-  <a href="https://www.salesforce.com/company/privacy/" target="_blank">Privacy</a>
+  <a href="https://www.salesforce.com/company/privacy/" target="_blank" style="color:rgba(255,255,255,0.4);">Privacy</a>
 </div>
 
 <script>
@@ -496,7 +491,7 @@ function renderRoles() {
           </div>
         `).join('')}
       </div>
-      <p style="font-size:0.75rem;color:#706e6b;margin-top:14px;">You can select multiple roles. All responses are fully anonymous — no name is collected.</p>
+      <p style="font-size:0.75rem;color:rgba(255,255,255,0.35);margin-top:14px;">You can select multiple roles. All responses are fully anonymous — no name is collected.</p>
       <div style="margin-top:28px;">
         <button class="btn btn-primary" id="beginBtn">Begin Survey →</button>
       </div>
@@ -533,8 +528,8 @@ function renderSurvey() {
         <div class="question-meta">
           <span class="q-badge ${qa.sectionCls}">${qa.label}</span>
         </div>
-        <div style="font-size:0.9rem;font-weight:600;color:#374151;margin-bottom:6px;">${esc(qa.question)}</div>
-        <div style="font-size:0.9rem;color:#4b5563;background:#f9fafb;padding:10px 12px;border-radius:8px;line-height:1.6;white-space:pre-wrap;">${esc(qa.answer)}</div>
+        <div style="font-size:0.9rem;font-weight:600;color:rgba(255,255,255,0.65);margin-bottom:6px;">${esc(qa.question)}</div>
+        <div style="font-size:0.9rem;color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);padding:10px 12px;border-radius:6px;line-height:1.6;white-space:pre-wrap;">${esc(qa.answer)}</div>
       </div>`;
   }).join('');
 
