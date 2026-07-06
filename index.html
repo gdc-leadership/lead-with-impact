@@ -189,6 +189,23 @@
   .q-badge.init  { background: rgba(180,83,9,0.2);    color: #fbbf24; }
   .q-badge.strat { background: rgba(124,58,237,0.2);  color: #c4b5fd; }
   .q-badge.upsk  { background: rgba(186,5,23,0.2);    color: #fca5a5; }
+  .q-badge.alloc { background: rgba(255,255,255,0.1); color: #e2e8f0; }
+
+  /* ── Time allocation widget ── */
+  .alloc-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .alloc-row { display: flex; align-items: center; gap: 12px; }
+  .alloc-label { flex: 1; font-size: 0.88rem; color: rgba(255,255,255,0.75); display: flex; align-items: center; gap: 8px; }
+  .alloc-icon { font-size: 1rem; width: 20px; }
+  .alloc-input { width: 64px; padding: 6px 10px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; color: white; font-size: 0.95rem; font-weight: 700; text-align: center; outline: none; font-family: inherit; }
+  .alloc-input:focus { border-color: #0176d3; box-shadow: 0 0 0 2px rgba(1,118,211,0.25); }
+  .alloc-bar-track { flex: 1; background: rgba(255,255,255,0.07); border-radius: 99px; height: 6px; overflow: hidden; max-width: 180px; }
+  .alloc-bar-fill { height: 100%; border-radius: 99px; background: #0176d3; transition: width 0.3s ease; }
+  .alloc-total-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0 0; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 4px; }
+  .alloc-total-label { font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+  .alloc-total-num { font-size: 1.2rem; font-weight: 800; }
+  .alloc-total-num.ok   { color: #4ade80; }
+  .alloc-total-num.over { color: #f87171; }
+  .alloc-total-num.under{ color: #fbbf24; }
   .q-number { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
 
   .question-text { font-size: 1.05rem; font-weight: 600; color: white; line-height: 1.55; margin-bottom: 16px; }
@@ -288,6 +305,7 @@ const ROLES = [
 
 // ─── Sections ────────────────────────────────────────────────────────────────
 const SECTIONS = [
+  { id: 'allocation',  label: '40hr Allocation',        icon: '⏱',  cls: 'alloc',roleRequired: null },
   { id: 'bp',          label: 'Business Partner',       icon: '🤝', cls: 'bp',   roleRequired: 'BP' },
   { id: 'cl',          label: 'Cloud Leader',           icon: '☁️', cls: 'cl',   roleRequired: 'CL' },
   { id: 'dp',          label: 'Delivery Partner',       icon: '🚀', cls: 'dp',   roleRequired: 'DP' },
@@ -296,63 +314,131 @@ const SECTIONS = [
   { id: 'upskilling',  label: 'Upskilling & Upgrading', icon: '🧠', cls: 'upsk', roleRequired: null }
 ];
 
-// ─── Question Bank ────────────────────────────────────────────────────────────
-// Max 10 questions per respondent (2 per role section × max 3 roles + 1 initiatives + 2 strategic + 2 upskilling = 9 max)
+// ─── Time Allocation Question (always first, special type) ───────────────────
+const TIME_ALLOCATION_QUESTION = {
+  id: 'time_allocation', section: 'allocation', label: 'Weekly Time Allocation',
+  type: 'allocation',
+  text: 'Thinking about a typical week, how do you spend your ~40 hours? Drag or type hours for each area — the total will update as you go.',
+  buckets: [
+    { id: 'client_delivery',   label: 'Client-Facing Delivery',         icon: '💼' },
+    { id: 'gtm_presales',      label: 'GTM & Pre-Sales',                icon: '🤝' },
+    { id: 'internal_meetings', label: 'Internal Meetings & Admin',       icon: '📅' },
+    { id: 'people_mgmt',       label: 'People & Team Management',       icon: '👥' },
+    { id: 'strategic',         label: 'Strategic Planning & Leadership', icon: '🎯' },
+    { id: 'learning',          label: 'Learning & Upskilling (incl. AI)',icon: '🧠' },
+    { id: 'gdc_initiatives',   label: 'GDC Org Initiatives',            icon: '🏢' },
+    { id: 'other',             label: 'Other',                          icon: '➕' }
+  ]
+};
+
+// ─── Question Bank (structured — no open-ended) ───────────────────────────────
+// Types: slider, radio, multiselect, rating, number
 const QUESTION_BANK = [
+
   // ── BP ──
   {
     id: 'bp_highvalue', section: 'bp', label: 'High-Value Activities',
-    text: 'As a Business Partner, what are your top 2–3 high-value activities — where do you create the most impact for clients and for GDC? How much of your actual week do these activities get today?'
+    type: 'multiselect', required: true,
+    text: 'As a Business Partner, which activities create the most impact for clients and GDC? (Select all that apply)',
+    options: ['Client relationship building','GTM & pre-sales','Account strategy & planning','Executive stakeholder engagement','Opportunity qualification','Product/Cloud advisory','Internal alignment & governance','Team development']
   },
   {
-    id: 'bp_gtm', section: 'bp', label: 'GTM & Pre-Sales',
-    text: 'How much of your current week is genuinely spent on GTM, pre-sales, and account growth activities — and how does that compare to what you believe the right investment should be?'
+    id: 'bp_gtm_hrs', section: 'bp', label: 'GTM Time Investment',
+    type: 'slider', required: true,
+    text: 'What % of your week is genuinely spent on GTM and pre-sales activities?',
+    min: 0, max: 100, step: 5, unit: '%', ideal: 30
   },
 
   // ── CL ──
   {
-    id: 'cl_governance', section: 'cl', label: 'Delivery Governance',
-    text: 'As a Cloud Leader, how are you currently balancing delivery governance with practice-building and strategic advocacy for your cloud? Where does that balance feel most off?'
+    id: 'cl_balance', section: 'cl', label: 'Time Balance',
+    type: 'slider', required: true,
+    text: 'Of your Cloud Leader time, what % goes to delivery governance vs strategic practice-building?',
+    min: 0, max: 100, step: 5, unit: '% governance', ideal: 40,
+    helpText: '0% = all strategy  ·  100% = all governance'
   },
   {
-    id: 'cl_gap', section: 'cl', label: 'Strategic Value Gap',
-    text: 'Where do you feel the biggest gap between the strategic value you can provide as a Cloud Leader and how you are actually being utilised today?'
+    id: 'cl_gap', section: 'cl', label: 'Biggest Gap',
+    type: 'radio', required: true,
+    text: 'Where do you feel the biggest gap in how you are utilised as a Cloud Leader?',
+    options: ['Too much delivery governance, not enough strategy','Not enough client-facing advisory time','Innovation and product feedback not actioned','Limited time for practice/community building','Insufficient visibility with regional leadership']
   },
 
   // ── DP ──
   {
-    id: 'dp_advisory', section: 'dp', label: 'Advisory vs. Delivery',
-    text: 'As a Delivery Partner, how effectively are you providing advisory leadership on engagements versus being pulled into operational delivery? Where is the gap most pronounced?'
+    id: 'dp_advisory_pct', section: 'dp', label: 'Advisory vs Delivery',
+    type: 'slider', required: true,
+    text: 'What % of your Delivery Partner time is spent in a true advisory/leadership capacity vs hands-on operational delivery?',
+    min: 0, max: 100, step: 5, unit: '% advisory', ideal: 60,
+    helpText: '0% = all hands-on delivery  ·  100% = all advisory'
   },
   {
-    id: 'dp_underutil', section: 'dp', label: 'Utilisation Gap',
-    text: 'In which areas are you most underutilised as a Delivery Partner — and what would need to change for that time to be redirected to higher-impact advisory work?'
+    id: 'dp_gap', section: 'dp', label: 'Utilisation Gap',
+    type: 'radio', required: true,
+    text: 'Where are you most underutilised as a Delivery Partner?',
+    options: ['Executive sponsor / escalation point','Delivery quality & first-time-right coaching','Client relationship & trust building','Pre-sales & solution advisory','Innovation and new delivery approaches','People leadership & talent development']
   },
 
-  // ── GDC Org Initiatives ──
+  // ── Initiatives ──
   {
-    id: 'org_initiatives', section: 'initiatives', label: 'Org Initiatives',
-    text: 'What GDC org-level initiatives are you currently contributing to? For each, roughly how much time per week does it take — and how would you rate its business impact (High / Medium / Low)?'
+    id: 'init_count', section: 'initiatives', label: 'Active Initiatives',
+    type: 'number', required: true,
+    text: 'How many GDC org-level initiatives are you currently contributing to?',
+    min: 0, max: 20, unit: 'initiatives'
+  },
+  {
+    id: 'init_hrs', section: 'initiatives', label: 'Initiative Time',
+    type: 'slider', required: true,
+    text: 'How many hours per week do these org initiatives consume in total?',
+    min: 0, max: 20, step: 1, unit: 'hrs/week', ideal: 4
+  },
+  {
+    id: 'init_impact', section: 'initiatives', label: 'Initiative Impact',
+    type: 'radio', required: true,
+    text: 'Overall, how would you rate the business impact of the GDC initiatives you are involved in?',
+    options: ['High — clear measurable outcomes','Medium — some impact, could be sharper','Low — unclear ROI on time invested','Mixed — varies by initiative']
   },
 
-  // ── Strategic Thinking ──
+  // ── Strategic ──
   {
-    id: 'strategic_time', section: 'strategic', label: 'Strategic Time',
-    text: 'How much time per week do you genuinely set aside for strategic thinking, planning, and leadership work — and what most commonly crowds it out of your calendar?'
+    id: 'strategic_hrs', section: 'strategic', label: 'Strategic Time',
+    type: 'slider', required: true,
+    text: 'How many hours per week do you genuinely set aside for strategic thinking, planning, and leadership?',
+    min: 0, max: 20, step: 1, unit: 'hrs/week', ideal: 6
   },
   {
-    id: 'strategic_ideal', section: 'strategic', label: 'Ideal Week',
-    text: 'If you could redesign your week around high-impact strategic activities, what would it look like? Which recurring obligations would you change, delegate, or remove entirely?'
+    id: 'strategic_blockers', section: 'strategic', label: 'Strategic Blockers',
+    type: 'multiselect', required: true,
+    text: 'What most commonly crowds strategic time out of your calendar? (Select top 3)',
+    options: ['Escalations & firefighting','Internal meetings','Client delivery demands','Admin & reporting','Staffing & people issues','Initiative overload','Reactive communications','Lack of delegation / next-line support']
+  },
+  {
+    id: 'next_line', section: 'strategic', label: 'Next-Line Leadership',
+    type: 'rating', required: true,
+    text: 'Do you have enough next-line leadership support to rely on and delegate to?',
+    scale: 5,
+    labels: ['Not at all','Rarely','Somewhat','Mostly','Fully supported']
   },
 
   // ── Upskilling ──
   {
-    id: 'ai_activities', section: 'upskilling', label: 'AI-Led Activities',
-    text: 'What AI-led activities are you currently doing in your role — using Agentforce, Einstein, AI tools, or AI-driven insights in your day-to-day work? How meaningful is the impact you are seeing on your work and your clients?'
+    id: 'ai_usage', section: 'upskilling', label: 'AI Tool Usage',
+    type: 'multiselect', required: true,
+    text: 'Which AI tools or capabilities are you actively using in your role? (Select all that apply)',
+    options: ['Agentforce','Einstein Copilot / AI features in Salesforce','ChatGPT / Claude / other LLMs','AI for client delivery / proposals','AI for internal reporting / analysis','Tableau / data analytics with AI','None yet']
   },
   {
-    id: 'upskilling_time', section: 'upskilling', label: 'Upskilling Investment',
-    text: 'How much time per week are you actively investing in upgrading yourself — AI skilling, leadership development, certifications, industry knowledge? Is that investment enough, and what typically gets in the way?'
+    id: 'ai_impact', section: 'upskilling', label: 'AI Impact',
+    type: 'rating', required: true,
+    text: 'How meaningful is the impact of AI on your day-to-day work and client outcomes?',
+    scale: 5,
+    labels: ['No impact yet','Minimal','Moderate','Significant','Transformative']
+  },
+  {
+    id: 'upskill_hrs', section: 'upskilling', label: 'Upskilling Investment',
+    type: 'slider', required: true,
+    text: 'How many hours per week do you actively invest in upgrading yourself (AI skilling, leadership, certs, industry knowledge)?',
+    min: 0, max: 10, step: 0.5, unit: 'hrs/week', ideal: 2
   }
 ];
 
@@ -364,6 +450,7 @@ let state = {
   queue: [],
   queueIdx: 0,
   allQA: [],
+  timeAllocation: {},   // bucket id → hours
   submitting: false
 };
 
@@ -374,6 +461,11 @@ function buildQueue() {
   );
   const q = [];
   activeSections.forEach(sec => {
+    if (sec.id === 'allocation') {
+      // Inject the special time-allocation question
+      q.push({ ...TIME_ALLOCATION_QUESTION, sectionMeta: sec, isFirstInSection: true });
+      return;
+    }
     const sectionQs = QUESTION_BANK.filter(qb => qb.section === sec.id);
     sectionQs.forEach((qb, idx) => {
       q.push({ ...qb, sectionMeta: sec, isFirstInSection: idx === 0 });
@@ -400,14 +492,12 @@ function render() {
     if (header) header.style.display = 'block';
     if      (state.screen === 'roles')    app.innerHTML = renderRoles();
     else if (state.screen === 'survey')   app.innerHTML = renderSurvey();
+    else if (state.screen === 'review')   app.innerHTML = renderReview();
     else if (state.screen === 'complete') app.innerHTML = renderComplete();
   }
   updateProgress();
   bindEvents();
-  if (state.screen === 'survey') {
-    const block = document.getElementById('currentBlock');
-    if (block) setTimeout(() => block.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 60);
-  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function renderIntro() {
@@ -480,18 +570,21 @@ function renderIntro() {
 function renderRoles() {
   return `
     <div class="card">
-      <h2>What roles do you currently hold?</h2>
-      <p class="subtitle">Select all that apply. The survey will tailor itself to your specific role context — role-specific sections are shown only to the relevant audience.</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+        <h2>What roles do you currently hold?</h2>
+        <button class="btn btn-secondary" style="padding:6px 14px;font-size:0.8rem;" id="backToIntroBtn">← Back</button>
+      </div>
+      <p class="subtitle">Select all that apply. The survey will tailor itself to your role — only relevant sections are shown.</p>
       <div class="role-grid" id="roleGrid">
         ${ROLES.map(r => `
-          <div class="role-tile ${state.selectedRoles.includes(r.id) ? 'selected' : ''}" data-role="${r.id}" id="tile-${r.id}">
+          <div class="role-tile ${state.selectedRoles.includes(r.id) ? 'selected' : ''}" data-role="${r.id}">
             <div class="role-icon">${r.icon}</div>
             <div class="role-name">${r.name}</div>
             <div class="role-desc">${r.desc}</div>
           </div>
         `).join('')}
       </div>
-      <p style="font-size:0.75rem;color:rgba(255,255,255,0.35);margin-top:14px;">You can select multiple roles. All responses are fully anonymous — no name is collected.</p>
+      <p style="font-size:0.75rem;color:rgba(255,255,255,0.35);margin-top:14px;">All responses are fully anonymous — no name is collected.</p>
       <div style="margin-top:28px;">
         <button class="btn btn-primary" id="beginBtn">Begin Survey →</button>
       </div>
@@ -500,13 +593,12 @@ function renderRoles() {
 
 function renderSurvey() {
   const currentQ = state.queue[state.queueIdx];
-  if (!currentQ) { state.screen = 'complete'; return renderComplete(); }
+  if (!currentQ) { state.screen = 'review'; return renderReview(); }
 
   const activeSections = getActiveSections();
   const currentSectionIdx = activeSections.findIndex(s => s.id === currentQ.section);
   const totalQs = state.queue.length;
 
-  // Build section pills
   const pills = activeSections.map((s, i) => {
     let cls = '';
     if (i < currentSectionIdx) cls = 'done';
@@ -514,32 +606,11 @@ function renderSurvey() {
     return `<span class="section-pill ${cls}">${s.icon} ${s.label}</span>`;
   }).join('');
 
-  // Answered blocks
-  const answeredHtml = state.allQA.map((qa, idx) => {
-    // Check if we need a section divider before this answered block
-    const prevQA = state.allQA[idx - 1];
-    let divider = '';
-    if (!prevQA || prevQA.sectionId !== qa.sectionId) {
-      const sec = SECTIONS.find(s => s.id === qa.sectionId);
-      if (sec) divider = renderSectionDivider(sec, true);
-    }
-    return `${divider}
-      <div class="answered-block">
-        <div class="question-meta">
-          <span class="q-badge ${qa.sectionCls}">${qa.label}</span>
-        </div>
-        <div style="font-size:0.9rem;font-weight:600;color:rgba(255,255,255,0.65);margin-bottom:6px;">${esc(qa.question)}</div>
-        <div style="font-size:0.9rem;color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);padding:10px 12px;border-radius:6px;line-height:1.6;white-space:pre-wrap;">${esc(qa.answer)}</div>
-      </div>`;
-  }).join('');
-
-  // Section divider before current question (only if first in section)
-  const curDivider = currentQ.isFirstInSection ? renderSectionDivider(currentQ.sectionMeta, false) : '';
+  const curDivider = currentQ.isFirstInSection ? renderSectionDivider(currentQ.sectionMeta) : '';
 
   return `
     <div class="chat-card">
       <div class="section-pills">${pills}</div>
-      ${answeredHtml}
       ${curDivider}
       <div class="question-block" id="currentBlock">
         <div class="question-meta">
@@ -547,73 +618,222 @@ function renderSurvey() {
           <span class="q-number">Question ${state.queueIdx + 1} of ${totalQs}</span>
         </div>
         <div class="question-text">${esc(currentQ.text)}</div>
-        <textarea class="answer-area" id="answerInput"
-          placeholder="Type your answer here… (Cmd+Enter or Ctrl+Enter to submit)"
-          rows="5" autofocus></textarea>
-        <div class="char-hint" id="charHint">0 characters</div>
+        ${currentQ.helpText ? `<div style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:14px;">${esc(currentQ.helpText)}</div>` : ''}
+        ${renderInput(currentQ)}
       </div>
       <div class="question-actions">
-        <span class="hint">Cmd/Ctrl + Enter to continue</span>
-        <div style="display:flex;gap:10px;">
-          <button class="btn btn-secondary" id="skipBtn">Skip</button>
-          <button class="btn btn-primary" id="nextBtn">
-            ${state.queueIdx === state.queue.length - 1 ? 'Finish Survey' : 'Next →'}
-          </button>
-        </div>
+        <button class="btn btn-secondary" id="backBtn">← Back</button>
+        <button class="btn btn-primary" id="nextBtn">
+          ${state.queueIdx === state.queue.length - 1 ? 'Review Answers →' : 'Next →'}
+        </button>
       </div>
     </div>`;
 }
 
-function renderSectionDivider(sec, isAnswered) {
-  const qCount = QUESTION_BANK.filter(q => q.section === sec.id).length;
+function renderInput(q) {
+  const saved = state.allQA.find(a => a.qid === q.id);
+  const savedVal = saved ? saved.rawValue : null;
+
+  if (q.type === 'allocation') {
+    const buckets = q.buckets;
+    const total = buckets.reduce((s, b) => s + (state.timeAllocation[b.id] || 0), 0);
+    const cls = total === 40 ? 'ok' : total > 40 ? 'over' : 'under';
+    return `
+      <div class="alloc-grid" id="allocGrid">
+        ${buckets.map(b => {
+          const hrs = state.timeAllocation[b.id] || 0;
+          const barW = Math.min(100, Math.round((hrs / 40) * 100));
+          return `<div class="alloc-row">
+            <div class="alloc-label"><span class="alloc-icon">${b.icon}</span>${b.label}</div>
+            <input class="alloc-input" type="number" min="0" max="40" step="0.5" data-bucket="${b.id}" value="${hrs}" />
+            <div class="alloc-bar-track"><div class="alloc-bar-fill" id="bar-${b.id}" style="width:${barW}%"></div></div>
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="alloc-total-row">
+        <span class="alloc-total-label">Total hours</span>
+        <span class="alloc-total-num ${cls}" id="allocTotal">${total} / 40</span>
+      </div>
+      <div id="allocOvertime" style="${total > 40 ? '' : 'display:none'}">
+        <div style="margin-top:16px;padding:14px;background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.2);border-radius:6px;">
+          <div style="font-size:0.85rem;font-weight:700;color:#fca5a5;margin-bottom:10px;">⚠️ You are working more than 40 hrs/week — what is taking the extra time?</div>
+          ${renderMultiselect('overtime_reasons', ['Client escalations & firefighting','Understaffing / resource gaps','Initiative overload','Internal admin & reporting','People & HR issues','Strategic work spilling over','Market / pre-sales pressure','Other'], savedVal && savedVal.overtimeReasons ? savedVal.overtimeReasons : [])}
+          <div style="margin-top:10px;font-size:0.85rem;font-weight:700;color:#fca5a5;margin-bottom:8px;">What would you offload first if you could?</div>
+          ${renderRadioInline('overtime_offload', ['Client escalations','Internal admin & reporting','Initiative responsibilities','Delivery governance','People management tasks','Other'], savedVal && savedVal.overtimeOffload ? savedVal.overtimeOffload : null)}
+        </div>
+      </div>`;
+  }
+
+  if (q.type === 'slider') {
+    const val = savedVal !== null ? savedVal : q.min;
+    return `
+      <div style="padding:8px 0 16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <span style="font-size:0.8rem;color:rgba(255,255,255,0.4);">${q.min}${q.unit || ''}</span>
+          <span style="font-size:1.6rem;font-weight:800;color:#4ade80;" id="sliderVal">${val}${q.unit || ''}</span>
+          <span style="font-size:0.8rem;color:rgba(255,255,255,0.4);">${q.max}${q.unit || ''}</span>
+        </div>
+        <input type="range" id="sliderInput" min="${q.min}" max="${q.max}" step="${q.step || 1}" value="${val}"
+          style="width:100%;accent-color:#0176d3;cursor:pointer;" />
+        ${q.ideal !== undefined ? `<div style="font-size:0.75rem;color:rgba(255,255,255,0.3);text-align:center;margin-top:8px;">Suggested target: ${q.ideal}${q.unit || ''}</div>` : ''}
+      </div>`;
+  }
+
+  if (q.type === 'radio') {
+    return `<div id="radioGroup" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+      ${q.options.map((opt, i) => `
+        <label style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:6px;border:1px solid ${savedVal===opt?'#0176d3':'rgba(255,255,255,0.1)'};background:${savedVal===opt?'rgba(1,118,211,0.15)':'rgba(255,255,255,0.03)'};cursor:pointer;transition:all 0.15s;">
+          <input type="radio" name="radioQ" value="${esc(opt)}" ${savedVal===opt?'checked':''} style="accent-color:#0176d3;width:16px;height:16px;flex-shrink:0;" />
+          <span style="font-size:0.9rem;color:rgba(255,255,255,0.85);">${esc(opt)}</span>
+        </label>`).join('')}
+    </div>`;
+  }
+
+  if (q.type === 'multiselect') {
+    const sel = savedVal || [];
+    return renderMultiselect('multiQ', q.options, sel);
+  }
+
+  if (q.type === 'rating') {
+    const sel = savedVal;
+    return `<div id="ratingGroup" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;">
+      ${q.labels.map((lbl, i) => {
+        const val = i + 1;
+        const isSelected = sel === val;
+        return `<button class="rating-btn${isSelected?' selected':''}" data-val="${val}" style="flex:1;min-width:80px;padding:14px 8px;border-radius:6px;border:1px solid ${isSelected?'#4ade80':'rgba(255,255,255,0.12)'};background:${isSelected?'rgba(74,222,128,0.15)':'rgba(255,255,255,0.04)'};color:${isSelected?'#4ade80':'rgba(255,255,255,0.7)'};font-weight:700;font-size:0.85rem;cursor:pointer;transition:all 0.15s;font-family:inherit;line-height:1.3;">
+          <div style="font-size:1.4rem;margin-bottom:4px;">${['😔','😐','🙂','😊','🤩'][i]}</div>
+          <div>${val}</div>
+          <div style="font-size:0.68rem;font-weight:400;opacity:0.7;margin-top:2px;">${esc(lbl)}</div>
+        </button>`;
+      }).join('')}
+    </div>`;
+  }
+
+  if (q.type === 'number') {
+    const val = savedVal !== null ? savedVal : '';
+    return `<div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+      <input type="number" id="numberInput" min="${q.min||0}" max="${q.max||100}" value="${val}"
+        style="width:100px;padding:12px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:4px;color:white;font-size:1.4rem;font-weight:800;text-align:center;outline:none;font-family:inherit;" />
+      <span style="font-size:0.9rem;color:rgba(255,255,255,0.5);">${q.unit || ''}</span>
+    </div>`;
+  }
+
+  return '';
+}
+
+function renderMultiselect(name, options, selected) {
+  return `<div id="multiGroup-${name}" data-name="${name}" style="display:flex;flex-direction:column;gap:6px;">
+    ${options.map((opt, i) => {
+      const isSel = selected.includes(opt);
+      return `<label style="display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:6px;border:1px solid ${isSel?'#0176d3':'rgba(255,255,255,0.1)'};background:${isSel?'rgba(1,118,211,0.15)':'rgba(255,255,255,0.03)'};cursor:pointer;transition:all 0.15s;">
+        <input type="checkbox" name="${name}" value="${esc(opt)}" ${isSel?'checked':''} style="accent-color:#0176d3;width:16px;height:16px;flex-shrink:0;" />
+        <span style="font-size:0.88rem;color:rgba(255,255,255,0.85);">${esc(opt)}</span>
+      </label>`;
+    }).join('')}
+  </div>`;
+}
+
+function renderRadioInline(name, options, selected) {
+  return `<div style="display:flex;flex-direction:column;gap:6px;">
+    ${options.map(opt => `<label style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:6px;border:1px solid ${selected===opt?'rgba(248,113,113,0.5)':'rgba(255,255,255,0.08)'};background:${selected===opt?'rgba(248,113,113,0.08)':'rgba(255,255,255,0.02)'};cursor:pointer;">
+      <input type="radio" name="${name}" value="${esc(opt)}" ${selected===opt?'checked':''} style="accent-color:#f87171;" />
+      <span style="font-size:0.82rem;color:rgba(255,255,255,0.75);">${esc(opt)}</span>
+    </label>`).join('')}
+  </div>`;
+}
+
+function renderSectionDivider(sec) {
+  const qCount = sec.id === 'allocation' ? 1 : QUESTION_BANK.filter(q => q.section === sec.id).length;
   const sub = sec.roleRequired
     ? `${qCount} question${qCount > 1 ? 's' : ''} · ${sec.label} only`
     : `${qCount} question${qCount > 1 ? 's' : ''} · All Directors`;
   return `
     <div class="section-divider">
       <div class="section-divider-icon ${sec.cls}">${sec.icon}</div>
-      <div class="section-divider-text">
-        <h4>${sec.label}</h4>
-        <p>${sub}</p>
-      </div>
+      <div class="section-divider-text"><h4>${sec.label}</h4><p>${sub}</p></div>
     </div>`;
 }
 
-function renderComplete() {
-  // Group QA by section
-  const activeSections = getActiveSections();
-  let summaryHtml = '';
+function renderReview() {
+  // Build time allocation summary
+  const allocEntries = TIME_ALLOCATION_QUESTION.buckets
+    .map(b => ({ label: b.label, icon: b.icon, hrs: state.timeAllocation[b.id] || 0 }))
+    .filter(b => b.hrs > 0);
+  const totalHrs = allocEntries.reduce((s, b) => s + b.hrs, 0);
+
+  const allocHtml = allocEntries.length ? `
+    <div class="summary-group-label">⏱ 40hr Weekly Allocation</div>
+    <div class="summary-item">
+      <div style="padding:14px 16px;">
+        ${allocEntries.map(b => `
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+            <span style="width:20px;text-align:center;">${b.icon}</span>
+            <span style="flex:1;font-size:0.85rem;color:rgba(255,255,255,0.75);">${esc(b.label)}</span>
+            <span style="font-weight:700;color:#4ade80;font-size:0.9rem;">${b.hrs}h</span>
+            <div style="width:80px;background:rgba(255,255,255,0.08);border-radius:99px;height:5px;overflow:hidden;">
+              <div style="width:${Math.min(100,Math.round((b.hrs/40)*100))}%;height:100%;background:#0176d3;border-radius:99px;"></div>
+            </div>
+          </div>`).join('')}
+        <div style="padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:0.82rem;color:rgba(255,255,255,0.4);">Total</span>
+          <span style="font-weight:800;font-size:1rem;color:${totalHrs===40?'#4ade80':totalHrs>40?'#f87171':'#fbbf24'}">${totalHrs}h / 40h</span>
+        </div>
+      </div>
+    </div>` : '';
+
+  // Answers grouped by section
+  const activeSections = getActiveSections().filter(s => s.id !== 'allocation');
+  let answersHtml = '';
   activeSections.forEach(sec => {
-    const sectionQAs = state.allQA.filter(qa => qa.sectionId === sec.id);
-    if (!sectionQAs.length) return;
-    summaryHtml += `<div class="summary-group-label">${sec.icon} ${sec.label}</div>`;
-    sectionQAs.forEach((qa, i) => {
-      const globalIdx = state.allQA.indexOf(qa);
-      summaryHtml += `
+    const sQAs = state.allQA.filter(a => a.sectionId === sec.id);
+    if (!sQAs.length) return;
+    answersHtml += `<div class="summary-group-label">${sec.icon} ${sec.label}</div>`;
+    sQAs.forEach((qa, i) => {
+      const idx = state.allQA.indexOf(qa);
+      answersHtml += `
         <div class="summary-item">
-          <div class="summary-q" onclick="toggleSummary(${globalIdx})">
-            <span>${esc(qa.question.length > 80 ? qa.question.slice(0,80) + '…' : qa.question)}</span>
-            <span class="summary-chevron" id="chev-${globalIdx}">▼</span>
+          <div class="summary-q" onclick="toggleSummary(${idx})">
+            <span style="font-size:0.85rem;">${esc(qa.label)}</span>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="font-size:0.8rem;color:rgba(255,255,255,0.5);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(qa.displayAnswer || qa.answer)}</span>
+              <span class="summary-chevron" id="chev-${idx}">▼</span>
+            </div>
           </div>
-          <div class="summary-a" id="sum-${globalIdx}">${esc(qa.answer)}</div>
+          <div class="summary-a" id="sum-${idx}" style="font-size:0.88rem;color:rgba(255,255,255,0.65);">${esc(qa.answer)}</div>
         </div>`;
     });
   });
 
   return `
     <div class="complete-card">
-      <div class="complete-icon">✅</div>
-      <h2>Thank you!</h2>
-      <p>Your responses have been recorded anonymously. These insights will directly shape how leadership effectiveness is structured at GDC.</p>
-      <div class="complete-actions">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <div>
+          <h2 style="margin-bottom:4px;">Review Your Answers</h2>
+          <p style="font-size:0.85rem;color:rgba(255,255,255,0.45);margin:0;">Check everything looks right before submitting.</p>
+        </div>
+        <button class="btn btn-secondary" id="backToSurveyBtn" style="padding:8px 16px;font-size:0.82rem;">← Edit Answers</button>
+      </div>
+      <div class="summary-section">
+        ${allocHtml}
+        ${answersHtml}
+      </div>
+      <div style="margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
         <button class="btn btn-success" id="submitBtn" ${state.submitting ? 'disabled' : ''}>
-          ${state.submitting ? 'Submitting…' : '📤 Submit to Google Sheets'}
+          ${state.submitting ? 'Submitting…' : '📤 Submit Responses'}
         </button>
         <button class="btn btn-secondary" id="downloadBtn">⬇ Download JSON</button>
       </div>
-      <div class="summary-section">
-        <h3>Your Responses</h3>
-        ${summaryHtml}
+    </div>`;
+}
+
+function renderComplete() {
+  return `
+    <div class="complete-card">
+      <div class="complete-icon">✅</div>
+      <h2>Thank you!</h2>
+      <p>Your responses have been submitted anonymously. These insights will directly shape how leadership effectiveness is structured at GDC.</p>
+      <div style="margin-top:24px;padding:16px;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.2);border-radius:8px;font-size:0.85rem;color:rgba(255,255,255,0.65);line-height:1.7;">
+        Results will be shared as aggregated themes across all GDC Directors — never as individual responses.
       </div>
     </div>`;
 }
@@ -623,73 +843,124 @@ function updateProgress() {
   const label = document.getElementById('progressLabel');
   if (!fill) return;
   let pct = 0, text = 'Not started';
-  if (state.screen === 'intro') {
-    pct = 0; text = 'Welcome';
-  } else if (state.screen === 'roles') {
-    pct = 5; text = 'Step 1 — Select your roles';
-  } else if (state.screen === 'survey') {
+  if (state.screen === 'intro')    { pct = 0;   text = 'Welcome'; }
+  else if (state.screen === 'roles')    { pct = 5;   text = 'Step 1 — Select your roles'; }
+  else if (state.screen === 'review')   { pct = 95;  text = 'Review your answers'; }
+  else if (state.screen === 'complete') { pct = 100; text = 'Submitted!'; }
+  else if (state.screen === 'survey') {
     const total = state.queue.length || 1;
-    pct = Math.round((state.queueIdx / total) * 100);
+    pct = Math.round(((state.queueIdx + 1) / (total + 1)) * 90) + 5;
     const currentQ = state.queue[state.queueIdx];
-    if (currentQ) {
-      const activeSections = getActiveSections();
-      const secIdx = activeSections.findIndex(s => s.id === currentQ.section);
-      text = `${currentQ.sectionMeta.icon} ${currentQ.sectionMeta.label} · Q${state.queueIdx + 1} of ${total}`;
-    }
-  } else if (state.screen === 'complete') {
-    pct = 100; text = 'Complete!';
+    if (currentQ) text = `${currentQ.sectionMeta.icon} ${currentQ.sectionMeta.label} · Q${state.queueIdx + 1} of ${total}`;
   }
   fill.style.width = pct + '%';
   label.textContent = text;
 }
 
-// ─── Logic ────────────────────────────────────────────────────────────────────
-function submitAnswer(skip) {
-  const input = document.getElementById('answerInput');
-  const answer = input ? input.value.trim() : '';
-  if (!skip && !answer) { showToast('Please type an answer, or click Skip.'); return; }
+// ─── Collect answer from DOM ──────────────────────────────────────────────────
+function collectAnswer(q) {
+  if (q.type === 'allocation') {
+    const buckets = {};
+    document.querySelectorAll('.alloc-input').forEach(inp => {
+      buckets[inp.dataset.bucket] = parseFloat(inp.value) || 0;
+    });
+    // Collect overtime extras if shown
+    const overtimeReasons = [...document.querySelectorAll('input[name="overtime_reasons"]:checked')].map(el => el.value);
+    const overtimeOffload = document.querySelector('input[name="overtime_offload"]:checked')?.value || '';
+    const total = Object.values(buckets).reduce((s, v) => s + v, 0);
+    state.timeAllocation = buckets;
+    const summary = TIME_ALLOCATION_QUESTION.buckets
+      .filter(b => buckets[b.id] > 0)
+      .map(b => `${b.label}: ${buckets[b.id]}h`).join(', ');
+    return {
+      rawValue: { buckets, overtimeReasons, overtimeOffload },
+      answer: `Total: ${total}h. ` + summary + (overtimeReasons.length ? `. Overtime areas: ${overtimeReasons.join(', ')}` : '') + (overtimeOffload ? `. Would offload: ${overtimeOffload}` : ''),
+      displayAnswer: `${total}h total`
+    };
+  }
+  if (q.type === 'slider') {
+    const val = parseFloat(document.getElementById('sliderInput')?.value || q.min);
+    return { rawValue: val, answer: `${val}${q.unit || ''}`, displayAnswer: `${val}${q.unit || ''}` };
+  }
+  if (q.type === 'radio') {
+    const val = document.querySelector('input[name="radioQ"]:checked')?.value || '';
+    return { rawValue: val, answer: val, displayAnswer: val };
+  }
+  if (q.type === 'multiselect') {
+    const vals = [...document.querySelectorAll('input[name="multiQ"]:checked')].map(el => el.value);
+    return { rawValue: vals, answer: vals.join(', '), displayAnswer: vals.join(', ') };
+  }
+  if (q.type === 'rating') {
+    const val = parseInt(document.querySelector('.rating-btn.selected')?.dataset.val || 0);
+    const lbl = val ? q.labels[val - 1] : '';
+    return { rawValue: val, answer: `${val} — ${lbl}`, displayAnswer: `${val}/5 — ${lbl}` };
+  }
+  if (q.type === 'number') {
+    const val = parseFloat(document.getElementById('numberInput')?.value || 0);
+    return { rawValue: val, answer: `${val} ${q.unit || ''}`, displayAnswer: `${val} ${q.unit || ''}` };
+  }
+  return { rawValue: null, answer: '', displayAnswer: '' };
+}
 
+// ─── Navigation ───────────────────────────────────────────────────────────────
+function goNext() {
   const currentQ = state.queue[state.queueIdx];
-  if (!currentQ) return;
+  if (!currentQ) { state.screen = 'review'; render(); return; }
 
-  state.allQA.push({
-    sectionId:   currentQ.section,
-    sectionCls:  currentQ.sectionMeta.cls,
-    label:       currentQ.label,
-    question:    currentQ.text,
-    answer:      skip ? '(skipped)' : answer
-  });
+  const { rawValue, answer, displayAnswer } = collectAnswer(currentQ);
+  if (!rawValue && rawValue !== 0 && rawValue !== '') {
+    showToast('Please make a selection before continuing.'); return;
+  }
+
+  const existingIdx = state.allQA.findIndex(a => a.qid === currentQ.id);
+  const entry = { qid: currentQ.id, sectionId: currentQ.section, sectionCls: currentQ.sectionMeta.cls, label: currentQ.label, question: currentQ.text, answer, displayAnswer, rawValue };
+  if (existingIdx >= 0) state.allQA[existingIdx] = entry;
+  else state.allQA.push(entry);
 
   state.queueIdx++;
-  if (state.queueIdx >= state.queue.length) state.screen = 'complete';
+  if (state.queueIdx >= state.queue.length) state.screen = 'review';
   render();
+}
+
+function goBack() {
+  if (state.screen === 'survey' && state.queueIdx > 0) {
+    state.queueIdx--;
+    render();
+  } else if (state.screen === 'survey' && state.queueIdx === 0) {
+    state.screen = 'roles';
+    render();
+  } else if (state.screen === 'review') {
+    state.screen = 'survey';
+    state.queueIdx = state.queue.length - 1;
+    render();
+  }
 }
 
 async function submitToSheets() {
   state.submitting = true; render();
   try {
-    await fetch(SHEETS_URL, {
-      method: 'POST', mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ respondentId: state.respondentId, roles: state.selectedRoles, responses: state.allQA })
-    });
-    showToast('Submitted successfully!', 'success');
+    const payload = {
+      respondentId: state.respondentId,
+      roles: state.selectedRoles,
+      timeAllocation: state.timeAllocation,
+      responses: state.allQA.map(({ qid, sectionId, label, question, answer }) => ({ qid, sectionId, label, question, answer }))
+    };
+    await fetch(SHEETS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    state.screen = 'complete';
   } catch (e) {
     showToast('Submission failed — please download JSON instead.');
-  } finally {
-    state.submitting = false; render();
+    state.submitting = false;
   }
+  render();
 }
 
 function downloadJSON() {
-  const data = { respondentId: state.respondentId, roles: state.selectedRoles, timestamp: new Date().toISOString(), responses: state.allQA };
+  const data = { respondentId: state.respondentId, roles: state.selectedRoles, timeAllocation: state.timeAllocation, timestamp: new Date().toISOString(), responses: state.allQA };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
+  const a = document.createElement('a'); a.href = url;
   a.download = `survey_${state.respondentId}_${new Date().toISOString().slice(0,10)}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
+  a.click(); URL.revokeObjectURL(url);
 }
 
 function toggleSummary(i) {
@@ -699,41 +970,91 @@ function toggleSummary(i) {
 
 // ─── Events ───────────────────────────────────────────────────────────────────
 function bindEvents() {
-  document.getElementById('introNextBtn')?.addEventListener('click', () => {
-    state.screen = 'roles';
-    render();
-  });
+  // Intro
+  document.getElementById('introNextBtn')?.addEventListener('click', () => { state.screen = 'roles'; render(); });
 
-  document.getElementById('roleGrid')?.addEventListener('click', (e) => {
-    const tile = e.target.closest('.role-tile');
-    if (!tile) return;
+  // Roles
+  document.getElementById('backToIntroBtn')?.addEventListener('click', () => { state.screen = 'intro'; render(); });
+  document.getElementById('roleGrid')?.addEventListener('click', e => {
+    const tile = e.target.closest('.role-tile'); if (!tile) return;
     const roleId = tile.dataset.role;
-    if (state.selectedRoles.includes(roleId)) {
-      state.selectedRoles = state.selectedRoles.filter(r => r !== roleId);
-      tile.classList.remove('selected');
-    } else {
-      state.selectedRoles.push(roleId);
-      tile.classList.add('selected');
-    }
+    if (state.selectedRoles.includes(roleId)) { state.selectedRoles = state.selectedRoles.filter(r => r !== roleId); tile.classList.remove('selected'); }
+    else { state.selectedRoles.push(roleId); tile.classList.add('selected'); }
   });
-
   document.getElementById('beginBtn')?.addEventListener('click', () => {
-    state.queue = buildQueue();
-    state.queueIdx = 0;
-    state.screen = 'survey';
-    render();
+    state.queue = buildQueue(); state.queueIdx = 0; state.screen = 'survey'; render();
   });
 
-  const answerInput = document.getElementById('answerInput');
-  answerInput?.addEventListener('input', () => {
-    const hint = document.getElementById('charHint');
-    if (hint) hint.textContent = answerInput.value.length + ' characters';
+  // Survey nav
+  document.getElementById('nextBtn')?.addEventListener('click', goNext);
+  document.getElementById('backBtn')?.addEventListener('click', goBack);
+  document.getElementById('backToSurveyBtn')?.addEventListener('click', goBack);
+
+  // Slider live update
+  const slider = document.getElementById('sliderInput');
+  if (slider) {
+    const valEl = document.getElementById('sliderVal');
+    const currentQ = state.queue[state.queueIdx];
+    slider.addEventListener('input', () => {
+      if (valEl) valEl.textContent = slider.value + (currentQ?.unit || '');
+    });
+  }
+
+  // Rating buttons
+  document.querySelectorAll('.rating-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.rating-btn').forEach(b => {
+        b.classList.remove('selected');
+        b.style.borderColor = 'rgba(255,255,255,0.12)';
+        b.style.background = 'rgba(255,255,255,0.04)';
+        b.style.color = 'rgba(255,255,255,0.7)';
+      });
+      btn.classList.add('selected');
+      btn.style.borderColor = '#4ade80';
+      btn.style.background = 'rgba(74,222,128,0.15)';
+      btn.style.color = '#4ade80';
+    });
   });
-  answerInput?.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) submitAnswer(false);
+
+  // Radio highlight
+  document.querySelectorAll('#radioGroup input[type=radio]').forEach(inp => {
+    inp.addEventListener('change', () => {
+      document.querySelectorAll('#radioGroup label').forEach(lbl => {
+        const isChk = lbl.querySelector('input')?.checked;
+        lbl.style.borderColor = isChk ? '#0176d3' : 'rgba(255,255,255,0.1)';
+        lbl.style.background = isChk ? 'rgba(1,118,211,0.15)' : 'rgba(255,255,255,0.03)';
+      });
+    });
   });
-  document.getElementById('nextBtn')?.addEventListener('click', () => submitAnswer(false));
-  document.getElementById('skipBtn')?.addEventListener('click', () => submitAnswer(true));
+
+  // Checkbox highlight
+  document.querySelectorAll('[id^="multiGroup"] input[type=checkbox]').forEach(inp => {
+    inp.addEventListener('change', () => {
+      const lbl = inp.closest('label');
+      lbl.style.borderColor = inp.checked ? '#0176d3' : 'rgba(255,255,255,0.1)';
+      lbl.style.background = inp.checked ? 'rgba(1,118,211,0.15)' : 'rgba(255,255,255,0.03)';
+    });
+  });
+
+  // Allocation live update
+  document.querySelectorAll('.alloc-input').forEach(inp => {
+    inp.addEventListener('input', () => {
+      const bucketId = inp.dataset.bucket;
+      const val = parseFloat(inp.value) || 0;
+      const bar = document.getElementById('bar-' + bucketId);
+      if (bar) bar.style.width = Math.min(100, Math.round((val / 40) * 100)) + '%';
+      const total = [...document.querySelectorAll('.alloc-input')].reduce((s, i) => s + (parseFloat(i.value) || 0), 0);
+      const el = document.getElementById('allocTotal');
+      if (el) {
+        el.textContent = total + ' / 40';
+        el.className = 'alloc-total-num ' + (total === 40 ? 'ok' : total > 40 ? 'over' : 'under');
+      }
+      const ot = document.getElementById('allocOvertime');
+      if (ot) ot.style.display = total > 40 ? '' : 'none';
+    });
+  });
+
+  // Submit & download
   document.getElementById('submitBtn')?.addEventListener('click', submitToSheets);
   document.getElementById('downloadBtn')?.addEventListener('click', downloadJSON);
 }
