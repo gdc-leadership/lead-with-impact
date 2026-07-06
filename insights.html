@@ -154,6 +154,105 @@
     .input-row { flex-direction: column; }
     .alloc-agg-label { width: 120px; font-size: 0.74rem; }
   }
+
+  /* ── PDF / Print styles ───────────────────────────────────────────────── */
+  .btn-pdf { background: #032d60; color: white; border: none; }
+  .btn-pdf:hover { background: #021b40; }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+    /* Hide interactive / nav chrome */
+    .sf-topbar, .setup-card, .export-row, .sf-footer,
+    #loadingState { display: none !important; }
+
+    body { background: white !important; font-size: 11pt; }
+    .container { max-width: 100% !important; padding: 0 16px 20px !important; }
+
+    /* Cover header */
+    .page-header {
+      background: linear-gradient(135deg, #021b40 0%, #032d60 60%, #0176d3 100%) !important;
+      color: white !important;
+      padding: 28px 24px !important;
+      margin-bottom: 20px;
+    }
+    .page-header h1 { font-size: 18pt !important; }
+    .page-header p { font-size: 10pt !important; }
+
+    /* Confidentiality footer on every page */
+    .page-header::after {
+      content: 'GDC Internal — Confidential · Anonymous aggregated data only · Do not distribute externally';
+      display: block; font-size: 7.5pt; opacity: 0.55; margin-top: 10px;
+    }
+
+    /* Stats row — keep on one line */
+    .stats-bar { display: flex !important; flex-wrap: wrap; gap: 10px !important; margin-bottom: 18px !important; break-inside: avoid; }
+    .stat-card { flex: 1; min-width: 100px; padding: 12px 10px !important; border: 1px solid #e2e8f0 !important; box-shadow: none !important; }
+    .stat-num { font-size: 20pt !important; }
+
+    /* Theme summary */
+    .ai-summary-card {
+      background: linear-gradient(135deg, #032d60, #0176d3) !important;
+      color: white !important;
+      break-inside: avoid;
+      margin-bottom: 16px !important;
+    }
+    .summary-sections { grid-template-columns: repeat(3, 1fr) !important; }
+    .summary-item-ai { background: rgba(255,255,255,0.12) !important; }
+    .theme-pill { background: rgba(255,255,255,0.18) !important; border: 1px solid rgba(255,255,255,0.25) !important; }
+
+    /* Role distribution card */
+    #roleDistCard { break-inside: avoid; margin-bottom: 16px !important; }
+
+    /* Section cards — 2-column grid */
+    .section-grid {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 14px !important;
+    }
+    .insight-card { break-inside: avoid; box-shadow: none !important; border: 1px solid #e2e8f0 !important; }
+    .insight-body { padding: 12px 14px !important; }
+
+    /* Bars — force colours */
+    .freq-bar-track, .role-bar-track, .alloc-agg-track, .avg-range-bar { background: #f1f5f9 !important; }
+    .freq-bar-fill   { background: #0176d3 !important; }
+    .freq-bar-fill.hi{ background: #16a34a !important; }
+    .role-bar-fill   { background: #0176d3 !important; }
+    .alloc-agg-fill  { /* color set inline, keep */ }
+    .avg-range-fill  { background: #0176d3 !important; }
+    .rating-bar      { background: #e2e8f0 !important; }
+    .rating-bar.filled { background: #0176d3 !important; }
+
+    /* Section header colours */
+    .section-alloc .insight-header { background: #1e40af !important; }
+    .section-bp    .insight-header { background: #0176d3 !important; }
+    .section-cl    .insight-header { background: #0b827c !important; }
+    .section-dp    .insight-header { background: #2e844a !important; }
+    .section-init  .insight-header { background: #b45309 !important; }
+    .section-strat .insight-header { background: #7c3aed !important; }
+    .section-upsk  .insight-header { background: #ba0517 !important; }
+
+    /* Overtime / anomaly cards */
+    .overtime-card { background: #fef2f2 !important; border: 1px solid #fecaca !important; }
+    .alloc-overtime-pill { background: #fef2f2 !important; }
+    .avg-display, .rating-display { background: #f8fafc !important; border: 1px solid #e2e8f0 !important; }
+
+    /* Page breaks */
+    .ai-summary-card { page-break-after: avoid; }
+    .section-grid    { page-break-before: auto; }
+
+    /* Fade-in removed for print */
+    .fade-in { animation: none !important; }
+
+    /* Print PDF footer line */
+    @page {
+      margin: 14mm 12mm;
+      @bottom-center {
+        content: 'Lead with Impact · GDC Leadership Effectiveness Survey 2026 · Page ' counter(page) ' of ' counter(pages);
+        font-size: 8pt; color: #94a3b8;
+      }
+    }
+  }
 </style>
 </head>
 <body>
@@ -192,6 +291,7 @@
       <span id="sampleNotice"></span>
       <span id="lastRefreshed"></span>
       <button class="btn btn-secondary" id="refreshBtn" style="display:none">↻ Refresh</button>
+      <button class="btn btn-pdf" id="pdfBtn">📄 Export PDF</button>
       <button class="btn btn-secondary" id="exportBtn">⬇ Export CSV</button>
       <button class="btn btn-secondary" id="resetBtn">← Change Data Source</button>
     </div>
@@ -760,6 +860,18 @@ function buildThemeSummary() {
   document.getElementById('aiSummary').style.display = 'block';
 }
 
+// ── PDF export ────────────────────────────────────────────────────────────────
+function printPDF() {
+  // Inject a one-time print timestamp into the header subtitle
+  const sub = document.querySelector('.page-header p');
+  const orig = sub ? sub.textContent : '';
+  const stamp = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+  if (sub) sub.textContent = `Aggregated anonymous responses from GDC Directors · Generated ${stamp}`;
+  window.print();
+  // Restore after print dialog closes
+  setTimeout(() => { if (sub) sub.textContent = orig; }, 1000);
+}
+
 // ── Export ────────────────────────────────────────────────────────────────────
 function exportCSV() {
   if (!allData.length) return;
@@ -776,6 +888,7 @@ document.getElementById('loadBtn').addEventListener('click', loadData);
 document.getElementById('csvUrl').addEventListener('keydown', e => { if (e.key === 'Enter') loadData(); });
 document.getElementById('sampleBtn').addEventListener('click', loadSampleData);
 document.getElementById('refreshBtn').addEventListener('click', () => { if (currentCsvUrl) { document.getElementById('csvUrl').value = currentCsvUrl; loadData(); } });
+document.getElementById('pdfBtn').addEventListener('click', printPDF);
 document.getElementById('exportBtn').addEventListener('click', exportCSV);
 document.getElementById('resetBtn').addEventListener('click', () => {
   allData = []; isSampleMode = false; currentCsvUrl = '';
