@@ -331,113 +331,87 @@ const TIME_ALLOCATION_QUESTION = {
   ]
 };
 
-// ─── Question Bank (structured — no open-ended) ───────────────────────────────
-// Types: slider, radio, multiselect, rating, number
+// ─── Question Bank — max 10 questions for any role combination ───────────────
+// Q1 = allocation widget (injected by buildQueue)
+// Q2 = alloc_reflection (always)
+// Q3 = BP question (BP role only)
+// Q4 = CL question (CL role only)
+// Q5 = DP question (DP role only)
+// Q6-Q10 = shared (initiatives, strategic, next-line, AI, upskilling)
 const QUESTION_BANK = [
 
-  // ── BP ──
+  // ── Allocation reflection — always, immediately after the widget ──
   {
-    id: 'bp_highvalue', section: 'bp', label: 'High-Value Activities',
-    type: 'multiselect', required: true,
-    text: 'As a Business Partner, which activities create the most impact for clients and GDC? (Select all that apply)',
-    options: ['Client relationship building','GTM & pre-sales','Account strategy & planning','Executive stakeholder engagement','Opportunity qualification','Product/Cloud advisory','Internal alignment & governance','Team development']
-  },
-  {
-    id: 'bp_gtm_hrs', section: 'bp', label: 'GTM Time Investment',
-    type: 'slider', required: true,
-    text: 'What % of your week is genuinely spent on GTM and pre-sales activities?',
-    min: 0, max: 100, step: 5, unit: '%', ideal: 30
+    id: 'alloc_reflection', section: 'allocation', label: 'Time Reflection',
+    type: 'commentary', required: true,
+    text: 'Looking at how you\'ve mapped your week — which areas feel like the best use of your time and leadership energy? And where do you feel there\'s an opportunity to shift the balance if the right conditions existed?',
+    placeholder: 'Share your honest reflection — what\'s working well, what\'s pulling you away from where you could add the most value, and what you\'d change if you could redesign your week…'
   },
 
-  // ── CL ──
+  // ── BP (shown only if BP role selected) ──
   {
-    id: 'cl_balance', section: 'cl', label: 'Time Balance',
+    id: 'bp_highvalue', section: 'bp', label: 'Business Partner',
+    type: 'multiselect', required: true,
+    text: 'As a Business Partner, which activities feel most meaningful and create the greatest impact — for your clients and for GDC? (Select all that apply)',
+    options: ['Client relationship & exec engagement','GTM & pre-sales collaboration','Account strategy & planning','Product and Cloud advisory','In-region partner enablement','Opportunity qualification & deal shaping','Team development & coaching','Internal alignment & governance']
+  },
+
+  // ── CL (shown only if CL role selected) ──
+  {
+    id: 'cl_balance', section: 'cl', label: 'Cloud Leader',
     type: 'slider', required: true,
-    text: 'Of your Cloud Leader time, what % goes to delivery governance vs strategic practice-building?',
+    text: 'Thinking about your Cloud Leader responsibilities — roughly what portion of that time goes to delivery governance vs strategic practice-building and innovation?',
     min: 0, max: 100, step: 5, unit: '% governance', ideal: 40,
-    helpText: '0% = all strategy  ·  100% = all governance'
-  },
-  {
-    id: 'cl_gap', section: 'cl', label: 'Biggest Gap',
-    type: 'radio', required: true,
-    text: 'Where do you feel the biggest gap in how you are utilised as a Cloud Leader?',
-    options: ['Too much delivery governance, not enough strategy','Not enough client-facing advisory time','Innovation and product feedback not actioned','Limited time for practice/community building','Insufficient visibility with regional leadership']
+    helpText: '0% = all strategic work  ·  100% = all delivery governance'
   },
 
-  // ── DP ──
+  // ── DP (shown only if DP role selected) ──
   {
-    id: 'dp_advisory_pct', section: 'dp', label: 'Advisory vs Delivery',
+    id: 'dp_advisory_pct', section: 'dp', label: 'Delivery Partner',
     type: 'slider', required: true,
-    text: 'What % of your Delivery Partner time is spent in a true advisory/leadership capacity vs hands-on operational delivery?',
+    text: 'In your Delivery Partner role, roughly what portion of your time is spent in a genuine advisory or leadership capacity vs hands-on operational delivery?',
     min: 0, max: 100, step: 5, unit: '% advisory', ideal: 60,
-    helpText: '0% = all hands-on delivery  ·  100% = all advisory'
-  },
-  {
-    id: 'dp_gap', section: 'dp', label: 'Utilisation Gap',
-    type: 'radio', required: true,
-    text: 'Where are you most underutilised as a Delivery Partner?',
-    options: ['Executive sponsor / escalation point','Delivery quality & first-time-right coaching','Client relationship & trust building','Pre-sales & solution advisory','Innovation and new delivery approaches','People leadership & talent development']
+    helpText: '0% = all hands-on delivery  ·  100% = all advisory & leadership'
   },
 
-  // ── Initiatives ──
+  // ── Initiatives (always) ──
   {
-    id: 'init_count', section: 'initiatives', label: 'Active Initiatives',
-    type: 'number', required: true,
-    text: 'How many GDC org-level initiatives are you currently contributing to?',
-    min: 0, max: 20, unit: 'initiatives'
-  },
-  {
-    id: 'init_hrs', section: 'initiatives', label: 'Initiative Time',
-    type: 'slider', required: true,
-    text: 'How many hours per week do these org initiatives consume in total?',
-    min: 0, max: 20, step: 1, unit: 'hrs/week', ideal: 4
-  },
-  {
-    id: 'init_impact', section: 'initiatives', label: 'Initiative Impact',
+    id: 'init_impact', section: 'initiatives', label: 'GDC Org Initiatives',
     type: 'radio', required: true,
-    text: 'Overall, how would you rate the business impact of the GDC initiatives you are involved in?',
-    options: ['High — clear measurable outcomes','Medium — some impact, could be sharper','Low — unclear ROI on time invested','Mixed — varies by initiative']
+    text: 'How would you describe the overall impact of the GDC org initiatives you are currently contributing to?',
+    options: ['High — clear outcomes I can point to','Medium — some impact, could be sharper','Low — hard to see the return on time invested','Mixed — varies significantly by initiative']
   },
 
-  // ── Strategic ──
+  // ── Strategic (always) ──
   {
-    id: 'strategic_hrs', section: 'strategic', label: 'Strategic Time',
-    type: 'slider', required: true,
-    text: 'How many hours per week do you genuinely set aside for strategic thinking, planning, and leadership?',
-    min: 0, max: 20, step: 1, unit: 'hrs/week', ideal: 6
-  },
-  {
-    id: 'strategic_blockers', section: 'strategic', label: 'Strategic Blockers',
+    id: 'strategic_blockers', section: 'strategic', label: 'Strategic Focus',
     type: 'multiselect', required: true,
-    text: 'What most commonly crowds strategic time out of your calendar? (Select top 3)',
-    options: ['Escalations & firefighting','Internal meetings','Client delivery demands','Admin & reporting','Staffing & people issues','Initiative overload','Reactive communications','Lack of delegation / next-line support']
+    text: 'What most commonly gets in the way of you spending meaningful time on strategic thinking and leadership? (Select all that apply)',
+    options: ['Escalations & firefighting','Back-to-back internal meetings','Client delivery demands','Admin & reporting overhead','Staffing & people issues','Too many active initiatives','Reactive communications','Limited next-line delegation support']
   },
+
+  // ── Next-line (always) ──
   {
-    id: 'next_line', section: 'strategic', label: 'Next-Line Leadership',
+    id: 'next_line', section: 'strategic', label: 'Next-Line Support',
     type: 'rating', required: true,
-    text: 'Do you have enough next-line leadership support to rely on and delegate to?',
+    text: 'How well-supported do you feel by your next-line leadership bench — can you genuinely rely on and delegate to them?',
     scale: 5,
     labels: ['Not at all','Rarely','Somewhat','Mostly','Fully supported']
   },
 
-  // ── Upskilling ──
+  // ── AI (always) ──
   {
-    id: 'ai_usage', section: 'upskilling', label: 'AI Tool Usage',
+    id: 'ai_usage', section: 'upskilling', label: 'AI & Innovation',
     type: 'multiselect', required: true,
     text: 'Which AI tools or capabilities are you actively using in your role? (Select all that apply)',
-    options: ['Agentforce','Einstein Copilot / AI features in Salesforce','ChatGPT / Claude / other LLMs','AI for client delivery / proposals','AI for internal reporting / analysis','Tableau / data analytics with AI','None yet']
+    options: ['Agentforce','Einstein / AI features in Salesforce','ChatGPT / Claude / other LLMs','AI for client proposals & delivery','AI for internal analysis & reporting','Tableau with AI / data analytics','Not using AI tools yet']
   },
+
+  // ── Upskilling (always) ──
   {
-    id: 'ai_impact', section: 'upskilling', label: 'AI Impact',
-    type: 'rating', required: true,
-    text: 'How meaningful is the impact of AI on your day-to-day work and client outcomes?',
-    scale: 5,
-    labels: ['No impact yet','Minimal','Moderate','Significant','Transformative']
-  },
-  {
-    id: 'upskill_hrs', section: 'upskilling', label: 'Upskilling Investment',
+    id: 'upskill_hrs', section: 'upskilling', label: 'Upskilling & Growth',
     type: 'slider', required: true,
-    text: 'How many hours per week do you actively invest in upgrading yourself (AI skilling, leadership, certs, industry knowledge)?',
+    text: 'How many hours per week do you actively invest in developing yourself — AI skilling, leadership, certifications, industry knowledge?',
     min: 0, max: 10, step: 0.5, unit: 'hrs/week', ideal: 2
   }
 ];
@@ -524,34 +498,56 @@ function buildBucketDeepDives() {
   return deepDives;
 }
 
-// ─── Queue Builder ────────────────────────────────────────────────────────────
+// ─── Queue Builder — hard cap 10 questions ───────────────────────────────────
 function buildQueue() {
-  const activeSections = SECTIONS.filter(s =>
-    s.roleRequired === null || state.selectedRoles.includes(s.roleRequired)
-  );
-  const q = [];
-  activeSections.forEach(sec => {
-    if (sec.id === 'allocation') {
-      q.push({ ...TIME_ALLOCATION_QUESTION, sectionMeta: sec, isFirstInSection: true });
-      // Deep-dive questions are injected AFTER allocation is saved — see injectDeepDives()
-      return;
-    }
-    const sectionQs = QUESTION_BANK.filter(qb => qb.section === sec.id);
-    sectionQs.forEach((qb, idx) => {
-      q.push({ ...qb, sectionMeta: sec, isFirstInSection: idx === 0 });
-    });
-  });
-  return q;
-}
+  const allocSec  = SECTIONS.find(s => s.id === 'allocation');
+  const bpSec     = SECTIONS.find(s => s.id === 'bp');
+  const clSec     = SECTIONS.find(s => s.id === 'cl');
+  const dpSec     = SECTIONS.find(s => s.id === 'dp');
+  const initSec   = SECTIONS.find(s => s.id === 'initiatives');
+  const stratSec  = SECTIONS.find(s => s.id === 'strategic');
+  const upskSec   = SECTIONS.find(s => s.id === 'upskilling');
 
-// Called right after the allocation answer is saved to inject deep-dives into queue
-function injectDeepDives() {
-  const deepDives = buildBucketDeepDives();
-  if (!deepDives.length) return;
-  // Mark first one
-  deepDives[0].isFirstInSection = false;
-  // Insert after position 0 (the allocation question itself)
-  state.queue.splice(1, 0, ...deepDives);
+  const q = [];
+
+  // Q1 — allocation widget (always)
+  q.push({ ...TIME_ALLOCATION_QUESTION, sectionMeta: allocSec, isFirstInSection: true });
+
+  // Q2 — allocation reflection (always, commentary)
+  const reflection = QUESTION_BANK.find(qb => qb.id === 'alloc_reflection');
+  q.push({ ...reflection, sectionMeta: allocSec, isFirstInSection: false });
+
+  // Q3 — BP (only if BP selected)
+  if (state.selectedRoles.includes('BP')) {
+    const bpQ = QUESTION_BANK.find(qb => qb.id === 'bp_highvalue');
+    q.push({ ...bpQ, sectionMeta: bpSec, isFirstInSection: true });
+  }
+
+  // Q4 — CL (only if CL selected)
+  if (state.selectedRoles.includes('CL')) {
+    const clQ = QUESTION_BANK.find(qb => qb.id === 'cl_balance');
+    q.push({ ...clQ, sectionMeta: clSec, isFirstInSection: true });
+  }
+
+  // Q5 — DP (only if DP selected)
+  if (state.selectedRoles.includes('DP')) {
+    const dpQ = QUESTION_BANK.find(qb => qb.id === 'dp_advisory_pct');
+    q.push({ ...dpQ, sectionMeta: dpSec, isFirstInSection: true });
+  }
+
+  // Q6-Q10 — shared questions (always)
+  [
+    { id: 'init_impact',        sec: initSec  },
+    { id: 'strategic_blockers', sec: stratSec },
+    { id: 'next_line',          sec: stratSec },
+    { id: 'ai_usage',           sec: upskSec  },
+    { id: 'upskill_hrs',        sec: upskSec  },
+  ].forEach(({ id, sec }) => {
+    const qb = QUESTION_BANK.find(q => q.id === id);
+    q.push({ ...qb, sectionMeta: sec, isFirstInSection: false });
+  });
+
+  return q;
 }
 
 // ─── Active sections helper ───────────────────────────────────────────────────
@@ -835,19 +831,13 @@ function updateWordCount(ta) {
 // ─── Per-question contextual comment box (for structured questions) ───────────
 function renderCommentBox(q) {
   const ROLE_PROMPTS = {
-    bp_highvalue:       'Think of a recent situation where you felt you were operating at your best as a Business Partner — what were you doing, and what made it impactful? What conditions enable you to do more of that?',
-    bp_gtm_hrs:         'How would you describe the quality of your GTM engagement — not just the time, but the influence you have? What would help you be even more effective in this space?',
-    cl_balance:         'How do you experience the tension between governance and strategic work in your role? What does a good week look like, and what typically makes it difficult to achieve that balance consistently?',
-    cl_gap:             'Where do you feel you have the most untapped potential as a Cloud Leader — what would you love to do more of, and what\'s currently standing in the way?',
-    dp_advisory_pct:    'What does your best contribution look like as a Delivery Partner — the moments where your experience and perspective made a real difference to an engagement or a team? What enables that?',
-    dp_gap:             'Where do you feel your skills and experience are most underutilised in your current delivery role? What would need to change for you to operate more in that space?',
-    init_hrs:           'How do you feel about the GDC initiative work you\'re involved in — what\'s going well, what feels harder than it should, and what would make it more sustainable alongside your other priorities?',
-    init_impact:        'What\'s the initiative you feel most proud of contributing to, and why? And is there one where you feel the impact could be sharper with the right changes?',
-    strategic_hrs:      'When you get space to think and lead strategically, what does that time look like and what does it produce? What conditions help you protect and use that time well?',
+    bp_highvalue:       'Think of a situation where you felt you were operating at your best as a Business Partner — what were you doing and what made it impactful? What conditions would allow you to do more of that?',
+    cl_balance:         'How do you experience the tension between governance and strategic work in your role? What does a good week look like, and what typically makes it hard to achieve that balance consistently?',
+    dp_advisory_pct:    'What does your best contribution look like as a Delivery Partner — the moments where your experience and perspective made a real difference? What enables that, and what gets in the way?',
+    init_impact:        'What\'s the initiative you feel most proud of contributing to and why? And is there one where you feel the impact could be sharper with the right changes in how it\'s run?',
     strategic_blockers: 'We know strategic time is hard to protect — what does that experience look like for you in practice, and what do you think would genuinely help shift the balance?',
-    next_line:          'How would you describe the state of your next-line leadership bench? Where are you well-supported, and where would stronger capability below you free you up to operate at a higher level?',
+    next_line:          'How would you describe the state of your next-line leadership bench? Where are you well-supported, and where would stronger capability below you free you up to lead at a higher level?',
     ai_usage:           'How has using AI tools changed the way you work, even in small ways? What\'s been the most useful application for you so far, and where do you see the biggest opportunity ahead?',
-    ai_impact:          'What\'s your honest assessment of AI\'s impact on your work and your clients\' outcomes today? What would need to be true for that impact to grow significantly over the next 12 months?',
     upskill_hrs:        'What are you most focused on developing in yourself right now, and what\'s driving that? How are you finding the time and space to grow alongside everything else on your plate?',
   };
   const prompt = ROLE_PROMPTS[q.id] || 'Share your experience and perspective on this — what does it look like in practice for you, and what would you change if you could?';
@@ -1103,12 +1093,6 @@ function goNext() {
   const entry = { qid: currentQ.id, sectionId: currentQ.section, sectionCls: currentQ.sectionMeta.cls, label: currentQ.label, question: currentQ.text, answer, displayAnswer, rawValue, exampleText };
   if (existingIdx >= 0) state.allQA[existingIdx] = entry;
   else state.allQA.push(entry);
-
-  // After allocation is saved, inject personalised bucket deep-dives into queue
-  if (currentQ.type === 'allocation' && !state.deepDivesInjected) {
-    state.deepDivesInjected = true;
-    injectDeepDives();
-  }
 
   state.queueIdx++;
   if (state.queueIdx >= state.queue.length) state.screen = 'review';
