@@ -204,17 +204,29 @@ function buildQueue() {
       unit: 'hours / week',
       min: 0, max: 80
     });
-    // Q-b: top 5 activities for this role
+    // Q-b: top 3 high-value activities
     q.push({
-      id: `${roleId}_activities`,
+      id: `${roleId}_top3`,
       type: 'textarea',
       roleId,
       badgeCls: role.badgeCls,
       badgeLabel: `${role.icon} ${role.name}`,
-      text: `In your ${role.name} role, what are the top 5 activities that make up most of your time?`,
-      sub: 'List them in your own words — be as specific as you can about what you actually do, not what the role is supposed to do.',
-      placeholder: `e.g.\n1. …\n2. …\n3. …\n4. …\n5. …`,
-      minWords: 20
+      text: `In your ${role.name} role, what are the top 3 activities where you spend most of your time and feel you add real value?`,
+      sub: 'Describe what you actually do — not the job description version.',
+      placeholder: `1. …\n2. …\n3. …`,
+      minWords: 15
+    });
+    // Q-c: 2 necessary-but-unproductive activities
+    q.push({
+      id: `${roleId}_necessary2`,
+      type: 'textarea',
+      roleId,
+      badgeCls: role.badgeCls,
+      badgeLabel: `${role.icon} ${role.name}`,
+      text: `Still in your ${role.name} role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?`,
+      sub: 'Things you can\'t easily avoid, but wish you could hand off or eliminate.',
+      placeholder: `1. …\n2. …`,
+      minWords: 10
     });
   });
   // Add general questions
