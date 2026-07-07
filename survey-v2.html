@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lead with Impact — Director Activity Survey</title>
+<link href="https://fonts.googleapis.com/css2?family=Salesforce+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Salesforce Sans', 'Segoe UI', system-ui, sans-serif; background: #021b40; color: white; min-height: 100vh; }
+
+  /* ── Top bar ── */
+  .topbar { background: #010e22; padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .topbar-logo { display: flex; align-items: center; gap: 10px; }
+  .topbar-logo svg { width: 28px; height: 28px; }
+  .topbar-logo span { font-size: 0.82rem; font-weight: 600; opacity: 0.8; }
+  .topbar-right { font-size: 0.72rem; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* ── Progress bar ── */
+  .progress-bar { height: 3px; background: rgba(255,255,255,0.07); }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #0176d3, #4ade80); transition: width 0.4s ease; }
+
+  /* ── Container ── */
+  .container { max-width: 680px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  /* ── Card ── */
+  .card { background: #0a1f3d; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 36px; margin-bottom: 20px; }
+
+  /* ── Intro ── */
+  .intro-eyebrow { font-size: 0.72rem; font-weight: 700; color: #4ade80; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px; }
+  .intro-title { font-size: 1.8rem; font-weight: 700; line-height: 1.25; margin-bottom: 16px; }
+  .intro-title span { color: #4ade80; }
+  .intro-body { font-size: 0.92rem; color: rgba(255,255,255,0.6); line-height: 1.75; margin-bottom: 24px; }
+  .intro-body p + p { margin-top: 10px; }
+  .confidential-box { background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.2); border-radius: 8px; padding: 14px 16px; font-size: 0.82rem; color: rgba(255,255,255,0.55); line-height: 1.65; margin-bottom: 28px; display: flex; gap: 10px; align-items: flex-start; }
+  .confidential-box span { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── Role selection ── */
+  .role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+  .role-tile { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 20px; cursor: pointer; transition: all 0.15s; user-select: none; }
+  .role-tile:hover { border-color: rgba(1,118,211,0.5); background: rgba(1,118,211,0.06); }
+  .role-tile.selected { border-color: #0176d3; background: rgba(1,118,211,0.14); }
+  .role-tile .role-icon { font-size: 1.6rem; margin-bottom: 8px; }
+  .role-tile .role-name { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+  .role-tile .role-desc { font-size: 0.78rem; color: rgba(255,255,255,0.45); line-height: 1.4; }
+  .role-tile.selected .role-desc { color: rgba(255,255,255,0.6); }
+
+  /* ── Question block ── */
+  .q-screen { animation: fadeIn 0.3s ease; }
+  .q-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+  .q-role-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 3px 10px; border-radius: 4px; }
+  .badge-bp   { background: rgba(1,118,211,0.2);   color: #60a5fa; }
+  .badge-cl   { background: rgba(11,130,124,0.2);  color: #34d399; }
+  .badge-dp   { background: rgba(46,132,74,0.2);   color: #4ade80; }
+  .badge-gen  { background: rgba(124,58,237,0.2);  color: #c084fc; }
+  .badge-other{ background: rgba(180,83,9,0.2);    color: #fb923c; }
+  .q-counter { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+
+  .q-text { font-size: 1.05rem; font-weight: 600; color: rgba(255,255,255,0.92); line-height: 1.5; margin: 14px 0 20px; }
+  .q-sub  { font-size: 0.82rem; color: rgba(255,255,255,0.4); margin-top: -12px; margin-bottom: 18px; line-height: 1.5; }
+
+  /* ── Number input ── */
+  .number-wrap { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
+  .number-input { width: 110px; padding: 14px 12px; background: rgba(255,255,255,0.06); border: 2px solid rgba(255,255,255,0.12); border-radius: 8px; color: white; font-size: 1.6rem; font-weight: 800; text-align: center; outline: none; font-family: inherit; transition: border 0.15s; }
+  .number-input:focus { border-color: #0176d3; box-shadow: 0 0 0 3px rgba(1,118,211,0.2); }
+  .number-unit { font-size: 0.88rem; color: rgba(255,255,255,0.45); }
+
+  /* ── Textarea ── */
+  .textarea-wrap { position: relative; }
+  .answer-textarea { width: 100%; padding: 14px 16px; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; color: rgba(255,255,255,0.9); font-size: 0.92rem; line-height: 1.7; resize: vertical; font-family: inherit; outline: none; transition: border 0.15s; min-height: 160px; }
+  .answer-textarea:focus { border-color: #0176d3; box-shadow: 0 0 0 3px rgba(1,118,211,0.15); }
+  .answer-textarea.error { border-color: #f87171; box-shadow: 0 0 0 3px rgba(248,113,113,0.15); }
+  .word-count { text-align: right; font-size: 0.7rem; margin-top: 6px; font-weight: 600; color: rgba(255,255,255,0.3); transition: color 0.2s; }
+  .word-count.ok { color: #4ade80; }
+
+  /* ── Section pills ── */
+  .section-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px; }
+  .s-pill { font-size: 0.7rem; font-weight: 700; padding: 4px 12px; border-radius: 99px; border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.03); white-space: nowrap; }
+  .s-pill.done    { background: rgba(74,222,128,0.12); border-color: rgba(74,222,128,0.3); color: #4ade80; }
+  .s-pill.current { background: rgba(1,118,211,0.15); border-color: rgba(1,118,211,0.5); color: #60a5fa; }
+
+  /* ── Buttons ── */
+  .btn { display: inline-flex; align-items: center; gap: 7px; padding: 12px 24px; border-radius: 6px; font-size: 0.88rem; font-weight: 700; border: none; cursor: pointer; transition: all 0.15s; font-family: inherit; white-space: nowrap; }
+  .btn-primary  { background: #0176d3; color: white; }
+  .btn-primary:hover { background: #0165b8; }
+  .btn-primary:disabled { background: #334155; color: rgba(255,255,255,0.4); cursor: not-allowed; }
+  .btn-secondary { background: transparent; color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.15); }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.3); color: white; }
+  .btn-success  { background: #16a34a; color: white; }
+  .btn-success:hover { background: #15803d; }
+  .btn-success:disabled { background: #334155; color: rgba(255,255,255,0.4); cursor: not-allowed; }
+  .actions { display: flex; align-items: center; justify-content: space-between; margin-top: 24px; }
+
+  /* ── Review ── */
+  .review-section-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: rgba(255,255,255,0.3); margin: 22px 0 10px; }
+  .review-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; padding: 14px 16px; margin-bottom: 10px; }
+  .review-item-label { font-size: 0.72rem; color: rgba(255,255,255,0.35); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .review-item-answer { font-size: 0.88rem; color: rgba(255,255,255,0.8); line-height: 1.65; white-space: pre-wrap; }
+
+  /* ── Complete ── */
+  .complete-icon { font-size: 3rem; margin-bottom: 16px; }
+  .complete-card { text-align: center; padding: 20px 0; }
+  .complete-card h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; }
+  .complete-card p { font-size: 0.9rem; color: rgba(255,255,255,0.55); line-height: 1.7; max-width: 460px; margin: 0 auto 20px; }
+
+  /* ── Toast ── */
+  .toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1e293b; color: white; padding: 12px 22px; border-radius: 8px; font-size: 0.84rem; font-weight: 600; box-shadow: 0 4px 24px rgba(0,0,0,0.5); opacity: 0; transition: all 0.25s; pointer-events: none; border: 1px solid rgba(255,255,255,0.1); z-index: 999; white-space: nowrap; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.error { border-color: rgba(248,113,113,0.4); }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 520px) { .role-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">
+    <svg viewBox="0 0 100 70" fill="none"><path d="M41.6 13.4a18.2 18.2 0 0 1 13-5.4c6.6 0 12.4 3.5 15.7 8.8a20.4 20.4 0 0 1 8.3-1.8c11.3 0 20.4 9.2 20.4 20.6S89.9 56.2 78.6 56.2H24.2C13.6 56.2 5 47.6 5 37c0-9.8 7.2-17.8 16.6-19.1a21.3 21.3 0 0 1 20-4.5z" fill="white"/></svg>
+    <span>Salesforce GDC</span>
+  </div>
+  <div class="topbar-right">Director Activity Survey · Confidential</div>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+
+<div class="container">
+  <div id="app"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Roles ─────────────────────────────────────────────────────────────────────
+const ROLES = [
+  { id: 'BP',    name: 'Business Partner',  icon: '🤝', desc: 'GTM, client relationships, pre-sales', badgeCls: 'badge-bp' },
+  { id: 'CL',    name: 'Cloud Leader',      icon: '☁️', desc: 'Practice leadership, Cloud delivery', badgeCls: 'badge-cl' },
+  { id: 'DP',    name: 'Delivery Partner',  icon: '🚀', desc: 'Programme delivery, advisory', badgeCls: 'badge-dp' },
+  { id: 'OTHER', name: 'Other / Initiative',icon: '➕', desc: 'GDC initiative, functional lead', badgeCls: 'badge-other' }
+];
+
+// ── General questions (always shown, after role questions) ────────────────────
+const GENERAL_QUESTIONS = [
+  {
+    id: 'total_hours',
+    type: 'number',
+    badgeCls: 'badge-gen',
+    badgeLabel: '⏱ Overall',
+    text: 'In a typical week, how many hours do you actually work in total?',
+    sub: 'Include everything — client time, internal meetings, admin, evenings if relevant.',
+    unit: 'hours / week',
+    min: 20, max: 100
+  },
+  {
+    id: 'biggest_constraint',
+    type: 'textarea',
+    badgeCls: 'badge-gen',
+    badgeLabel: '🚧 Constraints',
+    text: 'What is the single biggest thing that prevents you from spending time on what matters most in your role?',
+    sub: 'Be as specific as you can — describe the situation, not just the category.',
+    placeholder: 'e.g. "I spend a large portion of my week on…"',
+    minWords: 30
+  },
+  {
+    id: 'ideal_shift',
+    type: 'textarea',
+    badgeCls: 'badge-gen',
+    badgeLabel: '🎯 Ideal State',
+    text: 'If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?',
+    sub: 'Think about where you add the most unique value as a Director.',
+    placeholder: 'e.g. "I would spend more time on… and hand off…"',
+    minWords: 30
+  }
+];
+
+// ── State ─────────────────────────────────────────────────────────────────────
+const SHEETS_URL = 'https://script.google.com/a/macros/salesforce.com/s/AKfycbydEaBPMG7kn_621cxqubHvlYaOo98S15fFzmVwHx_xdqr5bUfxsnYeuUCS3JdmNatW/exec';
+
+let state = {
+  screen: 'intro',            // intro | roles | survey | review | complete
+  respondentId: 'V2-' + Math.random().toString(36).slice(2, 8).toUpperCase(),
+  selectedRoles: [],
+  queue: [],
+  queueIdx: 0,
+  answers: {},                // qid → { value, text }
+  submitting: false
+};
+
+// ── Queue builder ─────────────────────────────────────────────────────────────
+function buildQueue() {
+  const q = [];
+  state.selectedRoles.forEach(roleId => {
+    const role = ROLES.find(r => r.id === roleId);
+    if (!role) return;
+    // Q-a: hours for this role
+    q.push({
+      id: `${roleId}_hours`,
+      type: 'number',
+      roleId,
+      badgeCls: role.badgeCls,
+      badgeLabel: `${role.icon} ${role.name}`,
+      text: `How many hours per week do you typically spend on your ${role.name} responsibilities?`,
+      sub: 'Think about a typical week — include all activities that fall under this role.',
+      unit: 'hours / week',
+      min: 0, max: 80
+    });
+    // Q-b: top 5 activities for this role
+    q.push({
+      id: `${roleId}_activities`,
+      type: 'textarea',
+      roleId,
+      badgeCls: role.badgeCls,
+      badgeLabel: `${role.icon} ${role.name}`,
+      text: `In your ${role.name} role, what are the top 5 activities that make up most of your time?`,
+      sub: 'List them in your own words — be as specific as you can about what you actually do, not what the role is supposed to do.',
+      placeholder: `e.g.\n1. …\n2. …\n3. …\n4. …\n5. …`,
+      minWords: 20
+    });
+  });
+  // Add general questions
+  GENERAL_QUESTIONS.forEach(gq => q.push({ ...gq }));
+  return q;
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function wordCount(str) {
+  return str.trim() ? str.trim().split(/\s+/).length : 0;
+}
+
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (isError ? ' error' : '');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => { t.className = 'toast'; }, 3800);
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
+function render() {
+  const app = document.getElementById('app');
+  if      (state.screen === 'intro')    app.innerHTML = renderIntro();
+  else if (state.screen === 'roles')    app.innerHTML = renderRoles();
+  else if (state.screen === 'survey')   app.innerHTML = renderSurvey();
+  else if (state.screen === 'review')   app.innerHTML = renderReview();
+  else if (state.screen === 'complete') app.innerHTML = renderComplete();
+  updateProgress();
+  bindEvents();
+}
+
+function renderIntro() {
+  return `
+    <div class="card q-screen">
+      <div class="intro-eyebrow">GDC · Lead with Impact</div>
+      <h1 class="intro-title">What does your week <span>actually</span> look like?</h1>
+      <div class="intro-body">
+        <p>This short survey captures how GDC Directors truly spend their time — in your own words, without any suggested structure or categories to fit into.</p>
+        <p>Your responses will be compared against what an ideal Director week looks like, helping GDC leadership understand where to invest, where to remove barriers, and how to better support you.</p>
+        <p>There are no right or wrong answers. The more honestly you describe your reality, the more useful the insights will be.</p>
+      </div>
+      <div class="confidential-box">
+        <span>🔒</span>
+        <div>All responses are <strong>fully anonymous</strong>. No names, emails, or identifying information are collected. Results will only be shared as aggregated themes — never as individual responses.</div>
+      </div>
+      <button class="btn btn-primary" id="introNextBtn" style="width:100%;justify-content:center;padding:14px;">Get Started →</button>
+    </div>`;
+}
+
+function renderRoles() {
+  return `
+    <div class="card q-screen">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+        <div class="intro-eyebrow" style="margin:0;">Your Roles</div>
+        <button class="btn btn-secondary" style="padding:6px 14px;font-size:0.78rem;" id="backToIntroBtn">← Back</button>
+      </div>
+      <div class="q-text" style="margin-top:12px;">Which of these roles do you currently hold?</div>
+      <div class="q-sub" style="margin-top:-10px;">Select all that apply. We will ask you about each role separately.</div>
+      <div class="role-grid" id="roleGrid">
+        ${ROLES.map(r => `
+          <div class="role-tile ${state.selectedRoles.includes(r.id) ? 'selected' : ''}" data-role="${r.id}">
+            <div class="role-icon">${r.icon}</div>
+            <div class="role-name">${r.name}</div>
+            <div class="role-desc">${r.desc}</div>
+          </div>`).join('')}
+      </div>
+      <p style="font-size:0.72rem;color:rgba(255,255,255,0.25);margin-bottom:20px;">Responses are anonymous — no name or identifier is captured.</p>
+      <button class="btn btn-primary" id="beginBtn" style="width:100%;justify-content:center;padding:14px;" ${state.selectedRoles.length === 0 ? 'disabled' : ''}>
+        Start Survey →
+      </button>
+    </div>`;
+}
+
+function renderSurvey() {
+  const q = state.queue[state.queueIdx];
+  if (!q) { state.screen = 'review'; return renderReview(); }
+
+  const total = state.queue.length;
+  const saved = state.answers[q.id] || {};
+
+  // Section pills
+  const roleIds = [...state.selectedRoles, 'general'];
+  const currentGroup = q.roleId || 'general';
+  const pills = roleIds.map(rid => {
+    const role = ROLES.find(r => r.id === rid);
+    const label = role ? `${role.icon} ${role.name}` : '🎯 General';
+    const qsForGroup = state.queue.filter(x => (x.roleId || 'general') === rid);
+    const firstIdx = state.queue.indexOf(qsForGroup[0]);
+    const lastIdx  = state.queue.indexOf(qsForGroup[qsForGroup.length - 1]);
+    let cls = '';
+    if (state.queueIdx > lastIdx)  cls = 'done';
+    else if (rid === currentGroup) cls = 'current';
+    return `<span class="s-pill ${cls}">${label}</span>`;
+  }).join('');
+
+  let inputHtml = '';
+  if (q.type === 'number') {
+    const val = saved.value !== undefined ? saved.value : '';
+    inputHtml = `
+      <div class="number-wrap">
+        <input type="number" id="numInput" class="number-input" min="${q.min||0}" max="${q.max||100}" value="${esc(String(val))}" placeholder="0" />
+        <span class="number-unit">${esc(q.unit || '')}</span>
+      </div>`;
+  } else {
+    const val = saved.text || '';
+    const wc  = wordCount(val);
+    inputHtml = `
+      <div class="textarea-wrap">
+        <textarea id="textInput" class="answer-textarea" rows="7"
+          placeholder="${esc(q.placeholder || 'Share your experience in your own words…')}"
+          oninput="liveWordCount(this)"
+        >${esc(val)}</textarea>
+        <div class="word-count ${wc >= (q.minWords||20) ? 'ok' : ''}" id="wcBadge">
+          ${wc >= (q.minWords||20) ? wc + ' words ✓' : 'A few more sentences helps — ' + wc + ' words so far'}
+        </div>
+      </div>`;
+  }
+
+  return `
+    <div class="card q-screen">
+      <div class="section-pills">${pills}</div>
+      <div class="q-header">
+        <span class="q-role-badge ${q.badgeCls}">${q.badgeLabel}</span>
+        <span class="q-counter">Q${state.queueIdx + 1} of ${total}</span>
+      </div>
+      <div class="q-text">${esc(q.text)}</div>
+      ${q.sub ? `<div class="q-sub">${esc(q.sub)}</div>` : ''}
+      ${inputHtml}
+      <div class="actions">
+        <button class="btn btn-secondary" id="backBtn">← Back</button>
+        <button class="btn btn-primary" id="nextBtn">
+          ${state.queueIdx === state.queue.length - 1 ? 'Review →' : 'Next →'}
+        </button>
+      </div>
+    </div>`;
+}
+
+function renderReview() {
+  // Group by role + general
+  const groups = [];
+  state.selectedRoles.forEach(rid => {
+    const role = ROLES.find(r => r.id === rid);
+    const qs = state.queue.filter(q => q.roleId === rid);
+    groups.push({ label: `${role.icon} ${role.name}`, qs });
+  });
+  groups.push({ label: '🎯 General', qs: state.queue.filter(q => !q.roleId) });
+
+  const reviewHtml = groups.map(g => {
+    const items = g.qs.map(q => {
+      const ans = state.answers[q.id];
+      const display = q.type === 'number'
+        ? `${ans?.value ?? '—'} ${q.unit || ''}`
+        : (ans?.text || '—');
+      return `<div class="review-item">
+        <div class="review-item-label">${esc(q.text.slice(0, 70))}${q.text.length > 70 ? '…' : ''}</div>
+        <div class="review-item-answer">${esc(display)}</div>
+      </div>`;
+    }).join('');
+    return `<div class="review-section-label">${g.label}</div>${items}`;
+  }).join('');
+
+  return `
+    <div class="card q-screen">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <div>
+          <div class="intro-eyebrow" style="margin-bottom:6px;">Almost there</div>
+          <h2 style="font-size:1.3rem;font-weight:700;">Review your answers</h2>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);margin-top:4px;">Check everything looks right before submitting.</p>
+        </div>
+        <button class="btn btn-secondary" id="backToSurveyBtn" style="font-size:0.8rem;padding:8px 14px;">← Edit</button>
+      </div>
+      ${reviewHtml}
+      <div style="margin-top:28px;display:flex;justify-content:center;">
+        <button class="btn btn-success" id="submitBtn" ${state.submitting ? 'disabled' : ''} style="padding:14px 36px;font-size:0.95rem;">
+          ${state.submitting ? 'Submitting…' : '📤 Submit Responses'}
+        </button>
+      </div>
+    </div>`;
+}
+
+function renderComplete() {
+  return `
+    <div class="card q-screen">
+      <div class="complete-card">
+        <div class="complete-icon">✅</div>
+        <h2>Thank you!</h2>
+        <p>Your responses have been submitted anonymously. This input will directly shape how GDC understands and supports Director-level work.</p>
+        <p style="font-size:0.8rem;color:rgba(255,255,255,0.3);">Results will be shared as aggregated themes — never as individual responses.</p>
+      </div>
+    </div>`;
+}
+
+// ── Word count live update ────────────────────────────────────────────────────
+function liveWordCount(ta) {
+  const q = state.queue[state.queueIdx];
+  const wc = wordCount(ta.value);
+  const min = q?.minWords || 20;
+  const badge = document.getElementById('wcBadge');
+  if (!badge) return;
+  const ok = wc >= min;
+  badge.textContent = ok ? wc + ' words ✓' : 'A few more sentences helps — ' + wc + ' words so far';
+  badge.className = 'word-count' + (ok ? ' ok' : '');
+}
+
+// ── Progress ──────────────────────────────────────────────────────────────────
+function updateProgress() {
+  const fill = document.getElementById('progressFill');
+  if (!fill) return;
+  let pct = 0;
+  if (state.screen === 'roles')    pct = 5;
+  else if (state.screen === 'survey')   pct = Math.round(((state.queueIdx + 1) / (state.queue.length + 1)) * 88) + 5;
+  else if (state.screen === 'review')   pct = 95;
+  else if (state.screen === 'complete') pct = 100;
+  fill.style.width = pct + '%';
+}
+
+// ── Navigate forward ──────────────────────────────────────────────────────────
+function goNext() {
+  const q = state.queue[state.queueIdx];
+  if (!q) { state.screen = 'review'; render(); return; }
+
+  // Collect from DOM
+  let value, text;
+  if (q.type === 'number') {
+    value = parseFloat(document.getElementById('numInput')?.value);
+    if (isNaN(value) || value < 0) { showToast('Please enter a number of hours.', true); return; }
+    text = `${value} ${q.unit || ''}`;
+  } else {
+    text  = document.getElementById('textInput')?.value.trim() || '';
+    const wc = wordCount(text);
+    const min = q.minWords || 20;
+    if (wc < min) {
+      const ta = document.getElementById('textInput');
+      if (ta) { ta.classList.add('error'); ta.focus(); }
+      showToast(`A little more detail helps — ${wc} word${wc !== 1 ? 's' : ''} so far, aiming for ${min}+.`, true);
+      return;
+    }
+    value = text;
+  }
+
+  state.answers[q.id] = { value, text };
+  state.queueIdx++;
+  if (state.queueIdx >= state.queue.length) state.screen = 'review';
+  render();
+}
+
+// ── Navigate back ─────────────────────────────────────────────────────────────
+function goBack() {
+  if (state.screen === 'survey' && state.queueIdx > 0) {
+    state.queueIdx--; render();
+  } else if (state.screen === 'survey' && state.queueIdx === 0) {
+    state.screen = 'roles'; render();
+  } else if (state.screen === 'review') {
+    state.screen = 'survey'; state.queueIdx = state.queue.length - 1; render();
+  }
+}
+
+// ── Submit ────────────────────────────────────────────────────────────────────
+async function submitToSheets() {
+  state.submitting = true; render();
+  try {
+    const responses = Object.entries(state.answers).map(([qid, ans]) => {
+      const q = state.queue.find(x => x.id === qid);
+      return { qid, role: q?.roleId || 'general', label: q?.badgeLabel || '', question: q?.text || '', answer: ans.text || String(ans.value) };
+    });
+    await fetch(SHEETS_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ respondentId: state.respondentId, roles: state.selectedRoles, responses })
+    });
+    state.screen = 'complete';
+  } catch (e) {
+    showToast('Submission failed — please try again.', true);
+    state.submitting = false;
+  }
+  render();
+}
+
+// ── Events ────────────────────────────────────────────────────────────────────
+function bindEvents() {
+  document.getElementById('introNextBtn')?.addEventListener('click', () => { state.screen = 'roles'; render(); });
+  document.getElementById('backToIntroBtn')?.addEventListener('click', () => { state.screen = 'intro'; render(); });
+
+  document.getElementById('roleGrid')?.addEventListener('click', e => {
+    const tile = e.target.closest('.role-tile'); if (!tile) return;
+    const id = tile.dataset.role;
+    if (state.selectedRoles.includes(id)) {
+      state.selectedRoles = state.selectedRoles.filter(r => r !== id);
+      tile.classList.remove('selected');
+    } else {
+      state.selectedRoles.push(id);
+      tile.classList.add('selected');
+    }
+    const btn = document.getElementById('beginBtn');
+    if (btn) btn.disabled = state.selectedRoles.length === 0;
+  });
+
+  document.getElementById('beginBtn')?.addEventListener('click', () => {
+    state.queue = buildQueue(); state.queueIdx = 0; state.answers = {}; state.screen = 'survey'; render();
+  });
+
+  document.getElementById('nextBtn')?.addEventListener('click', goNext);
+  document.getElementById('backBtn')?.addEventListener('click', goBack);
+  document.getElementById('backToSurveyBtn')?.addEventListener('click', goBack);
+  document.getElementById('submitBtn')?.addEventListener('click', submitToSheets);
+
+  // Remove error state on textarea input
+  document.getElementById('textInput')?.addEventListener('input', e => {
+    e.target.classList.remove('error');
+  });
+}
+
+// ── Boot ──────────────────────────────────────────────────────────────────────
+render();
+</script>
+</body>
+</html>
