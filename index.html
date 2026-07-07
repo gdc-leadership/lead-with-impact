@@ -461,43 +461,43 @@ function buildBucketDeepDives() {
   const BUCKET_PROMPTS = {
     client_delivery: {
       label: 'Client-Facing Delivery',
-      question: (hrs, roles) => `You allocated ${hrs}h/week to Client-Facing Delivery. Walk us through what that actually looks like — which clients, what type of work, and how much of that time is high-value engagement vs operational/firefighting?`,
-      placeholder: 'e.g. "About 8hrs is on the Telstra account — mostly governance reviews and escalation calls. Only 2hrs feel genuinely strategic. The remaining 4hrs are absorbed by…"'
+      question: () => `When you think about the time you spend in client-facing delivery, what does the most meaningful part of that look like for you? What kind of work energises you here, and where do you feel you could add even more value if the conditions were right?`,
+      placeholder: 'e.g. "The most rewarding time is the strategic advisory conversations — helping shape a client\'s roadmap or solving a complex delivery challenge. What I\'d love more of is early engagement on new programmes before scope is locked, because that\'s where I can make the biggest difference…"'
     },
     gtm_presales: {
       label: 'GTM & Pre-Sales',
-      question: (hrs, roles) => `You spend ${hrs}h/week on GTM & Pre-Sales. Describe specifically what activities fill that time — are you leading or supporting? Which deals or pursuits, and what is your role in winning them?`,
-      placeholder: 'e.g. "3hrs are on two active RFP responses where I own the solution narrative. 2hrs are stakeholder mapping calls for pipeline accounts. The remaining…"'
+      question: () => `How would you describe your involvement in GTM and pre-sales — what role do you play and what does success look like for you in this space? What would allow you to contribute even more effectively here?`,
+      placeholder: 'e.g. "I\'m most effective when I\'m brought in early to shape the solution narrative — that\'s where my experience adds real weight. When I\'m pulled in late just to review a deck, it\'s hard to add the kind of value I know I\'m capable of. I\'d love to be more connected to pipeline conversations earlier…"'
     },
     internal_meetings: {
       label: 'Internal Meetings & Admin',
-      question: (hrs, roles) => `You have ${hrs}h/week going to Internal Meetings & Admin. Be specific — what are the recurring meetings, who calls them, and which of these do you feel add real value vs consume time without output?`,
-      placeholder: 'e.g. "Weekly Leadership sync (1hr) — valuable. Monday pipeline call (1hr) — mostly listening. Friday reporting (2hrs) — mostly admin. The ones I\'d cut first are…"'
+      question: () => `Internal meetings and admin are a reality for all of us — what are the ones you genuinely value and feel are a good use of your time? And if you could redesign how this time works, what would you change?`,
+      placeholder: 'e.g. "The weekly leadership alignment call is valuable — it keeps me connected across the region. But a lot of the reporting cycle feels like it could be streamlined or delegated. If I could reclaim that time, I\'d reinvest it into coaching my team and deeper client engagement…"'
     },
     people_mgmt: {
       label: 'People & Team Management',
-      question: (hrs, roles) => `You invest ${hrs}h/week in People & Team Management. What does this cover — 1:1s, performance, hiring, coaching? Where do you feel most impactful and where are you stretched thin?`,
-      placeholder: 'e.g. "1:1s with 6 direct reports take ~3hrs. About 1hr goes to performance admin. I feel most effective in career conversations but I\'m stretched when…"'
+      question: () => `People leadership is one of the most important parts of a Director\'s role — what does that look like for you in practice? Where do you feel most effective, and where do you wish you had more capacity or support?`,
+      placeholder: 'e.g. "The 1:1 conversations and career development discussions are where I feel most impactful — helping people grow is genuinely rewarding. Where I feel stretched is when people management becomes reactive, dealing with issues that could have been avoided with stronger next-line leadership. More support there would free me up significantly…"'
     },
     strategic: {
       label: 'Strategic Planning & Leadership',
-      question: (hrs, roles) => `You set aside ${hrs}h/week for Strategic Planning & Leadership. What does that time actually produce — internal strategies, account plans, leadership forums? Is this protected time or does it often get displaced?`,
-      placeholder: 'e.g. "I block Friday mornings for strategy but at least 2 out of 4 Fridays get taken over by escalations. When I do get the time, I use it for…"'
+      question: () => `Strategic thinking and planning is where Directors can have outsized impact — what does that time look like for you in a good week? What enables it, and what most often gets in the way?`,
+      placeholder: 'e.g. "When I do get uninterrupted strategic time, I use it to think about our practice direction, identify emerging client needs, and shape our narrative with regional leadership. The challenge is protecting it — it\'s often the first thing to go when something urgent comes in. What would help most is…"'
     },
     learning: {
       label: 'Learning & Upskilling',
-      question: (hrs, roles) => `You invest ${hrs}h/week in Learning & Upskilling. What specifically are you learning — AI tools, certifications, leadership skills? What has had the most impact on your work in the last 90 days?`,
-      placeholder: 'e.g. "I\'ve been doing 1hr of Agentforce self-paced learning weekly. Recently completed the AI Associate cert. The thing that\'s actually changed how I work is…"'
+      question: () => `Staying sharp and relevant is something all great leaders prioritise — what are you currently learning or developing, and how is it connecting to your work? What would help you invest in this more consistently?`,
+      placeholder: 'e.g. "I\'ve been deepening my understanding of AI and Agentforce — both because it\'s genuinely exciting and because clients are asking about it in almost every conversation. The challenge is carving out consistent time for it. When I do, I find it directly improves the quality of conversations I\'m having…"'
     },
     gdc_initiatives: {
       label: 'GDC Org Initiatives',
-      question: (hrs, roles) => `You spend ${hrs}h/week on GDC Org Initiatives. Name the initiatives, describe your role in each, and be honest — which ones are generating real outcomes and which feel like overhead?`,
-      placeholder: 'e.g. "I chair the GDC Hiring Panel (2hrs/week) — clear value. I\'m also on the Knowledge Management WG (1hr) which feels stuck. The one I\'d deprioritise if I could is…"'
+      question: () => `GDC org initiatives are how we build the organisation collectively — which ones are you involved in, and what impact do you feel they are having? What would make your contribution here more meaningful or sustainable?`,
+      placeholder: 'e.g. "I\'m contributing to the talent pipeline initiative and the knowledge management workgroup. The talent work feels impactful — I can see it changing how we hire. The knowledge management one is harder to move forward given everyone\'s bandwidth. I\'d feel better about these if there was clearer executive sponsorship and defined outcomes…"'
     },
     other: {
       label: 'Other',
-      question: (hrs, roles) => `You have ${hrs}h/week in "Other" activities. What specifically falls here that doesn\'t fit the other categories — and do you see this as necessary or something that could be reduced?`,
-      placeholder: 'e.g. "This is mostly ad-hoc requests from regional leadership — unplanned asks that land in my inbox. About half feel important, the rest could be delegated to…"'
+      question: () => `It\'s natural that some of our time doesn\'t fit neatly into categories — what does this time cover for you, and how do you feel about it? Is it work you value, or something you\'d like to see shift over time?`,
+      placeholder: 'e.g. "A lot of this is ad-hoc requests and cross-functional asks that land on me because of relationships I\'ve built. Some of it is genuinely important and I\'m glad to help. Some of it probably shouldn\'t be mine to carry — I\'d love to work on building the systems that mean these don\'t all route to me…"'
     }
   };
 
@@ -814,7 +814,7 @@ function renderInput(q) {
         >${esc(saved)}</textarea>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
           <div style="font-size:0.72rem;color:rgba(255,255,255,0.3);">Be specific — the richer your response, the more useful the insights. Aim for at least 3–4 sentences.</div>
-          <div id="wordCountBadge" style="font-size:0.72rem;font-weight:700;padding:2px 8px;border-radius:4px;background:${wordCount >= 30 ? 'rgba(74,222,128,0.15)' : 'rgba(255,255,255,0.07)'};color:${wordCount >= 30 ? '#4ade80' : 'rgba(255,255,255,0.3)'};">${wordCount} words${wordCount >= 30 ? ' ✓' : ' (aim for 30+)'}</div>
+          <div id="wordCountBadge" style="font-size:0.72rem;font-weight:700;padding:2px 8px;border-radius:4px;background:${wordCount >= 30 ? 'rgba(74,222,128,0.15)' : 'rgba(255,255,255,0.07)'};color:${wordCount >= 30 ? '#4ade80' : 'rgba(255,255,255,0.3)'};">${wordCount >= 30 ? wordCount + ' words ✓' : 'A few more sentences helps — ' + wordCount + ' words so far'}</div>
         </div>
       </div>`;
   }
@@ -835,22 +835,22 @@ function updateWordCount(ta) {
 // ─── Per-question contextual comment box (for structured questions) ───────────
 function renderCommentBox(q) {
   const ROLE_PROMPTS = {
-    bp_highvalue:       'What specific client situation or account comes to mind where these activities made a real difference? What was the outcome?',
-    bp_gtm_hrs:         'Describe what your GTM time actually looks like in a typical week — which accounts, what conversations, and where do you feel you are most vs least effective?',
-    cl_balance:         'Give a concrete example of a week where the governance/strategy split felt wrong — what took over and what got squeezed out?',
-    cl_gap:             'Describe a specific situation where this gap created a real problem for you, your team, or a client. What would have been different if the gap did not exist?',
-    dp_advisory_pct:    'Walk through a recent engagement — what did the advisory/leadership portion look like vs the hands-on work? Where did you add the most value?',
-    dp_gap:             'Describe a situation where you were pulled into operational work instead of playing a strategic advisory role. What was the cost of that, and what should have happened differently?',
-    init_hrs:           'Which initiatives consume the most time and why? Is that time generating proportionate value, or does it feel like overhead?',
-    init_impact:        'Name one initiative where you can point to a real outcome, and one where you are unsure whether the time is well spent. What makes the difference?',
-    strategic_hrs:      'When you do get strategic time, what do you actually use it for? What gets produced? And what most often displaces it?',
-    strategic_blockers: 'Describe the last time strategic time was taken away from you — what happened, who or what caused it, and what did you sacrifice?',
-    next_line:          'Give a specific example of where stronger next-line support would have freed you up significantly. What were you doing that someone else should have owned?',
-    ai_usage:           'Describe the most impactful way you have used AI in the last 30 days — what was the task, what tool, and what did it save you or enable you to do?',
-    ai_impact:          'Be specific — what has AI changed about how you work? If the impact is still limited, what is the biggest barrier to using it more meaningfully?',
-    upskill_hrs:        'What are you actively learning right now and why did you choose it? How is it connecting back to your day-to-day work or client conversations?',
+    bp_highvalue:       'Think of a recent situation where you felt you were operating at your best as a Business Partner — what were you doing, and what made it impactful? What conditions enable you to do more of that?',
+    bp_gtm_hrs:         'How would you describe the quality of your GTM engagement — not just the time, but the influence you have? What would help you be even more effective in this space?',
+    cl_balance:         'How do you experience the tension between governance and strategic work in your role? What does a good week look like, and what typically makes it difficult to achieve that balance consistently?',
+    cl_gap:             'Where do you feel you have the most untapped potential as a Cloud Leader — what would you love to do more of, and what\'s currently standing in the way?',
+    dp_advisory_pct:    'What does your best contribution look like as a Delivery Partner — the moments where your experience and perspective made a real difference to an engagement or a team? What enables that?',
+    dp_gap:             'Where do you feel your skills and experience are most underutilised in your current delivery role? What would need to change for you to operate more in that space?',
+    init_hrs:           'How do you feel about the GDC initiative work you\'re involved in — what\'s going well, what feels harder than it should, and what would make it more sustainable alongside your other priorities?',
+    init_impact:        'What\'s the initiative you feel most proud of contributing to, and why? And is there one where you feel the impact could be sharper with the right changes?',
+    strategic_hrs:      'When you get space to think and lead strategically, what does that time look like and what does it produce? What conditions help you protect and use that time well?',
+    strategic_blockers: 'We know strategic time is hard to protect — what does that experience look like for you in practice, and what do you think would genuinely help shift the balance?',
+    next_line:          'How would you describe the state of your next-line leadership bench? Where are you well-supported, and where would stronger capability below you free you up to operate at a higher level?',
+    ai_usage:           'How has using AI tools changed the way you work, even in small ways? What\'s been the most useful application for you so far, and where do you see the biggest opportunity ahead?',
+    ai_impact:          'What\'s your honest assessment of AI\'s impact on your work and your clients\' outcomes today? What would need to be true for that impact to grow significantly over the next 12 months?',
+    upskill_hrs:        'What are you most focused on developing in yourself right now, and what\'s driving that? How are you finding the time and space to grow alongside everything else on your plate?',
   };
-  const prompt = ROLE_PROMPTS[q.id] || 'Share a specific example or situation that illustrates your answer.';
+  const prompt = ROLE_PROMPTS[q.id] || 'Share your experience and perspective on this — what does it look like in practice for you, and what would you change if you could?';
   const saved = state.allQA.find(a => a.qid === q.id)?.exampleText || '';
   const wordCount = saved.trim() ? saved.trim().split(/\s+/).length : 0;
   return `
@@ -862,7 +862,7 @@ function renderCommentBox(q) {
       </div>
       <div style="font-size:0.87rem;color:rgba(255,255,255,0.6);margin-bottom:10px;line-height:1.55;">${esc(prompt)}</div>
       <textarea id="exampleInput" rows="5"
-        placeholder="Be specific — include real situations, timeframes, and what you would do differently…"
+        placeholder="Share your experience in your own words — what it looks like in practice, what works well, and what you\'d love to see change…"
         style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(1,118,211,0.35);border-radius:6px;color:rgba(255,255,255,0.9);font-size:0.88rem;padding:12px 14px;resize:vertical;font-family:inherit;outline:none;line-height:1.65;transition:border 0.15s;"
         onfocus="this.style.borderColor='#0176d3';this.style.boxShadow='0 0 0 3px rgba(1,118,211,0.15)'"
         onblur="this.style.borderColor='rgba(1,118,211,0.35)';this.style.boxShadow='none'"
@@ -870,7 +870,7 @@ function renderCommentBox(q) {
       >${esc(saved)}</textarea>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-top:7px;">
         <div style="font-size:0.7rem;color:rgba(255,255,255,0.25);">Anonymous — no names or client identifiers needed.</div>
-        <div id="wordCountBadge" style="font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:4px;background:${wordCount >= 30 ? 'rgba(74,222,128,0.12)' : 'rgba(255,255,255,0.06)'};color:${wordCount >= 30 ? '#4ade80' : 'rgba(255,255,255,0.3)'};">${wordCount} words${wordCount >= 30 ? ' ✓' : ' (aim for 30+)'}</div>
+        <div id="wordCountBadge" style="font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:4px;background:${wordCount >= 30 ? 'rgba(74,222,128,0.12)' : 'rgba(255,255,255,0.06)'};color:${wordCount >= 30 ? '#4ade80' : 'rgba(255,255,255,0.3)'};">${wordCount >= 30 ? wordCount + ' words ✓' : 'A few more sentences helps — ' + wordCount + ' words so far'}</div>
       </div>
     </div>`;
 }
@@ -1084,7 +1084,7 @@ function goNext() {
     if (wc < 30) {
       const ta = document.getElementById('exampleInput');
       if (ta) { ta.style.borderColor = '#f87171'; ta.style.boxShadow = '0 0 0 3px rgba(248,113,113,0.2)'; ta.focus(); }
-      showToast(`Please write at least 30 words (you have ${wc}). Be specific about what, when, and why.`); return;
+      showToast(`A little more detail would be really valuable — just a few more sentences (${wc} words so far).`); return;
     }
   }
 
@@ -1095,7 +1095,7 @@ function goNext() {
     if (wc < 30) {
       const ta = document.getElementById('exampleInput');
       if (ta) { ta.style.borderColor = '#f87171'; ta.style.boxShadow = '0 0 0 3px rgba(248,113,113,0.2)'; ta.focus(); }
-      showToast(`Please write at least 30 words in your example (you have ${wc}).`); return;
+      showToast(`A little more detail helps — just a few more sentences (${wc} words so far).`); return;
     }
   }
 
