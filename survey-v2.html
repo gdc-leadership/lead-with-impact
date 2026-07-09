@@ -495,11 +495,9 @@ async function submitToSheets() {
       const q = state.queue.find(x => x.id === qid);
       return { qid, role: q?.roleId || 'general', label: q?.badgeLabel || '', question: q?.text || '', answer: ans.text || String(ans.value) };
     });
-    await fetch(SHEETS_URL, {
-      method: 'POST', mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ respondentId: state.respondentId, roles: state.selectedRoles, responses })
-    });
+    const body = new URLSearchParams();
+    body.set('payload', JSON.stringify({ respondentId: state.respondentId, roles: state.selectedRoles, responses }));
+    await fetch(SHEETS_URL, { method: 'POST', mode: 'no-cors', body });
     state.screen = 'complete';
   } catch (e) {
     showToast('Submission failed — please try again.', true);
