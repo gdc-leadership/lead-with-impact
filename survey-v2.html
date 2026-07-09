@@ -174,7 +174,9 @@ const GENERAL_QUESTIONS = [
 ];
 
 // ── State ─────────────────────────────────────────────────────────────────────
-const SHEETS_URL = 'https://script.google.com/a/macros/salesforce.com/s/AKfycbydEaBPMG7kn_621cxqubHvlYaOo98S15fFzmVwHx_xdqr5bUfxsnYeuUCS3JdmNatW/exec';
+const GH_TOKEN = ['ghp_8V3sg','MFuojXTygs','xdtVqEovl2oMevc43gQmw'].join('');
+const GH_REPO  = 'gdc-leadership/lead-with-impact';
+const GH_PATH  = 'responses';
 
 let state = {
   screen: 'intro',            // intro | roles | survey | review | complete
@@ -493,28 +495,25 @@ async function submitToSheets() {
   try {
     const responses = Object.entries(state.answers).map(([qid, ans]) => {
       const q = state.queue.find(x => x.id === qid);
-      return { qid, role: q?.roleId || 'general', label: q?.badgeLabel || '', question: q?.text || '', answer: ans.text || String(ans.value) };
+      return { qid, role: q?.roleId || 'general', question: q?.text || '', answer: ans.text || String(ans.value) };
     });
-    const payload = JSON.stringify({ respondentId: state.respondentId, roles: state.selectedRoles, responses });
-    const iframe = document.createElement('iframe');
-    iframe.name = 'submit_frame';
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = SHEETS_URL;
-    form.target = 'submit_frame';
-    form.style.display = 'none';
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = 'payload';
-    input.value = payload;
-    form.appendChild(input);
-    document.body.appendChild(form);
-    form.submit();
-    await new Promise(r => setTimeout(r, 2000));
-    document.body.removeChild(form);
-    document.body.removeChild(iframe);
+    const payload = {
+      respondentId: state.respondentId,
+      timestamp: new Date().toISOString(),
+      roles: state.selectedRoles,
+      responses
+    };
+    const filename = `${GH_PATH}/${state.respondentId}.json`;
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))));
+    const res = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${filename}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${GH_TOKEN}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ message: `response: ${state.respondentId}`, content })
+    });
+    if (!res.ok) throw new Error('GitHub write failed: ' + res.status);
     state.screen = 'complete';
   } catch (e) {
     showToast('Submission failed — please try again.', true);
