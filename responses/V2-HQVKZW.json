@@ -1,0 +1,45 @@
+{
+  "respondentId": "V2-HQVKZW",
+  "timestamp": "2026-07-09T11:13:18.518Z",
+  "roles": [
+    "OTHER"
+  ],
+  "responses": [
+    {
+      "qid": "OTHER_hours",
+      "role": "OTHER",
+      "question": "How many hours per week do you typically spend on your Other / Initiative responsibilities?",
+      "answer": "3 hours / week"
+    },
+    {
+      "qid": "OTHER_top3",
+      "role": "OTHER",
+      "question": "In your Other / Initiative role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Test\ntest\nTest\ntest\nTest\ntest\nTest\ntest\n\nTest\ntest\nTest\ntest\nTest\ntest\nTest\ntest"
+    },
+    {
+      "qid": "OTHER_necessary2",
+      "role": "OTHER",
+      "question": "Still in your Other / Initiative role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Test\ntest\nTest\ntest\nTest\ntest\nTest\ntest\n\nTest\ntest\nTest\ntest\nTest\ntest\nTest\ntest"
+    },
+    {
+      "qid": "total_hours",
+      "role": "general",
+      "question": "In a typical week, how many hours do you actually work in total?",
+      "answer": "2 hours / week"
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "Test\ntest\nTest\ntest\nTest\ntest\nTest\ntest\n\nTest\ntest\nTest\ntest\nTest\ntest\nTest\ntest\n\nTest\ntest\nTest\ntest\nTest\ntest\nTest\ntest\n\nTest\ntest\nTest\ntest\nTest\ntest\nTest\ntest"
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "Test\ntest\nTest\ntest\nTest\ntest\nTest\ntest\n\nTest\ntest\nTest\ntest\nTest\ntest\nTest\ntest\nTest\ntest\nTest\ntest\nTest\ntest\nTest\ntest\n\nTest\ntest\nTest\ntest\nTest\ntest\nTest\ntest"
+    }
+  ]
+}
