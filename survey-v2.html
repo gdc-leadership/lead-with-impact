@@ -497,7 +497,7 @@ async function submitToSheets() {
     });
     await fetch(SHEETS_URL, {
       method: 'POST', mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify({ respondentId: state.respondentId, roles: state.selectedRoles, responses })
     });
     state.screen = 'complete';
