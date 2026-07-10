@@ -109,7 +109,6 @@
 </div>
 
 <script>
-const GH_TOKEN = ['ghp_8V3sg','MFuojXTygs','xdtVqEovl2oMevc43gQmw'].join('');
 const GH_REPO  = 'gdc-leadership/lead-with-impact';
 const ROLES_META = {
   BP:    { name: 'Business Partner',   cls: 'rb-BP' },
@@ -124,14 +123,12 @@ let activeRole = 'ALL';
 async function loadData() {
   document.getElementById('app').innerHTML = '<div class="loading"><div class="spinner"></div>Fetching responses…</div>';
   try {
-    const listRes = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/responses`, {
-      headers: { 'Authorization': `token ${GH_TOKEN}` }
-    });
+    const listRes = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/responses`);
     const files = await listRes.json();
     const jsonFiles = files.filter(f => f.name.endsWith('.json') && f.name !== '.gitkeep');
 
     const responses = await Promise.all(jsonFiles.map(async f => {
-      const r = await fetch(f.download_url, { headers: { 'Authorization': `token ${GH_TOKEN}` } });
+      const r = await fetch(f.download_url);
       return r.json();
     }));
 
