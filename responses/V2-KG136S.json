@@ -1,0 +1,96 @@
+{
+  "respondentId": "V2-KG136S",
+  "timestamp": "2026-07-10T12:16:28.025Z",
+  "roles": [
+    "BP",
+    "CL",
+    "DP",
+    "OTHER"
+  ],
+  "responses": [
+    {
+      "qid": "BP_hours",
+      "role": "BP",
+      "question": "How many hours per week do you typically spend on your Business Partner responsibilities?",
+      "answer": "20 hours / week"
+    },
+    {
+      "qid": "BP_top3",
+      "role": "BP",
+      "question": "In your Business Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. Opportunity Shaping: Drive higher GDC contribution as well as strategic HIR/HVR positioning, opportunity shaping, and proactive follow-ups.\n2. Pre-Sales Enablement: Support RFPs, customer requirements, cross-functional coordination, and practice engagement to strengthen deal pursuits.\n3. GTM & Business Reviews: Partner with GTM leadership to review business performance, identify improvement opportunities, and position new GDC value propositions."
+    },
+    {
+      "qid": "BP_necessary2",
+      "role": "BP",
+      "question": "Still in your Business Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Driving staffing across key deals and opportunities through proactive follow-ups with Practices and Operations, generally struggle with Architect staffing"
+    },
+    {
+      "qid": "CL_hours",
+      "role": "CL",
+      "question": "How many hours per week do you typically spend on your Cloud Leader responsibilities?",
+      "answer": "10 hours / week"
+    },
+    {
+      "qid": "CL_top3",
+      "role": "CL",
+      "question": "In your Cloud Leader role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1.  Monitor bench utilization and attainment to drive optimal workforce efficiency.\n2. Review project health, delivery performance, and key risks to ensure successful execution.\n3. Drive adoption of AI-led productized delivery, including the development and scaling of reusable assets and accelerators.\n4. Review staffing demand, allocation, and fulfillment to ensure timely resource alignment across engagements."
+    },
+    {
+      "qid": "CL_necessary2",
+      "role": "CL",
+      "question": "Still in your Cloud Leader role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "General nuances when it comes to people who are not motivated enough, managing them, having multiple conversation(s)"
+    },
+    {
+      "qid": "DP_hours",
+      "role": "DP",
+      "question": "How many hours per week do you typically spend on your Delivery Partner responsibilities?",
+      "answer": "10 hours / week"
+    },
+    {
+      "qid": "DP_top3",
+      "role": "DP",
+      "question": "In your Delivery Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. Reviewing the status and health of OU projects\n2. Meeting with the delivery leaders for the region, Internal steer-co's\n3. Managing any issues/escalations/concerns/staffing for the projects\n4. Reporting out the metrics to DP office"
+    },
+    {
+      "qid": "DP_necessary2",
+      "role": "DP",
+      "question": "Still in your Delivery Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Ongoing coordination and follow-ups with Practices, Operations, and delivery teams to fulfill staffing demand remain a significant and time-intensive activity."
+    },
+    {
+      "qid": "OTHER_hours",
+      "role": "OTHER",
+      "question": "How many hours per week do you typically spend on your Other / Initiative responsibilities?",
+      "answer": "12 hours / week"
+    },
+    {
+      "qid": "OTHER_top3",
+      "role": "OTHER",
+      "question": "In your Other / Initiative role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Core Governance\n1. SPOT check(s) and Reporting\n2. Reviewing the CORE Medium & High watch SPOT checks with the team\n3. Review the Governance Dashboard and making callouts to CORE leadership\n4. Governance Agent Review and development"
+    },
+    {
+      "qid": "OTHER_necessary2",
+      "role": "OTHER",
+      "question": "Still in your Other / Initiative role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Sometimes more than wanted follow-ups are needed on actions and recommendations"
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "Limited control over key areas makes it challenging to influence critical aspects of the business, drive strategic initiatives, and execute changes that deliver meaningful and sustained improvements. The dependency on multiple stakeholders for approvals and decisions often slows execution, reduces agility, and limits the ability to proactively address systemic challenges."
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "I would dedicate more time to operating as a **Business Partner**, as that is where I believe I deliver the greatest value. \nMy strengths lies in partnering across multiple regions, aligning stakeholders, shaping strategic outcomes, and driving initiatives that create measurable business impact."
+    }
+  ]
+}
