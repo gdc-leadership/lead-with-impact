@@ -1,0 +1,58 @@
+{
+  "respondentId": "V2-9X9PYL",
+  "timestamp": "2026-07-10T08:33:54.017Z",
+  "roles": [
+    "DP",
+    "CL"
+  ],
+  "responses": [
+    {
+      "qid": "DP_hours",
+      "role": "DP",
+      "question": "How many hours per week do you typically spend on your Delivery Partner responsibilities?",
+      "answer": "25 hours / week"
+    },
+    {
+      "qid": "DP_top3",
+      "role": "DP",
+      "question": "In your Delivery Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. Understanding the project concerns from both GDC team & InRegion team and bring it to closure\n2. Relationship building with InRegion - so that they dont escalate issues to Nilo's directs\n3. Regular reviews with InRegion\n4. Staffing issues - Although this is out of scope for DP."
+    },
+    {
+      "qid": "DP_necessary2",
+      "role": "DP",
+      "question": "Still in your Delivery Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "1. Staffing discussions (Swaps & releases)\n2. GDC associate Skill issues"
+    },
+    {
+      "qid": "CL_hours",
+      "role": "CL",
+      "question": "How many hours per week do you typically spend on your Cloud Leader responsibilities?",
+      "answer": "40 hours / week"
+    },
+    {
+      "qid": "CL_top3",
+      "role": "CL",
+      "question": "In your Cloud Leader role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1.  AI process adoption; enablement & planning\n2. Staffing, Talent progression path; Focusing on associate growth\n3. Stream the leadership messages & focus areas to the team\n4. Creating new processes and driving governance activities and reporting"
+    },
+    {
+      "qid": "CL_necessary2",
+      "role": "CL",
+      "question": "Still in your Cloud Leader role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "1. Staffing & operations related discussions.\n2. Basic career conversations\n3. Interviews - Lots and lots of interviews"
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "1. Hiring - Potential candidates have to go through 'effective' prior screenings\n2. Staffing and associate movement and release discussions \n3. Self accountability with PM & Tech SPOCs in the project team is still a big challenge"
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "I will focus more on the following\n--> Enable myself more on AI and identify areas and processes that can help drive faster & better outcomes for GDC. Automate..automate..automate\n--> Learn from some of the GDC leaders on the art of telling Stories\n\nI will hand off\n--> Take myself from all associate staffing discussions - swaps, releases, inregion alignment on associate movement etc.,"
+    }
+  ]
+}
