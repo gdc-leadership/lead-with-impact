@@ -123,12 +123,16 @@ let activeRole = 'ALL';
 async function loadData() {
   document.getElementById('app').innerHTML = '<div class="loading"><div class="spinner"></div>Fetching responses…</div>';
   try {
-    const listRes = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/responses`);
+    const listRes = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/responses`, {
+      headers: { 'Authorization': `token ${['ghp_8V3sg','MFuojXTygs','xdtVqEovl2oMevc43gQmw'].join('')}` }
+    });
     const files = await listRes.json();
+    if (!Array.isArray(files)) throw new Error(files.message || 'Could not read responses folder');
     const jsonFiles = files.filter(f => f.name.endsWith('.json') && f.name !== '.gitkeep');
 
     const responses = await Promise.all(jsonFiles.map(async f => {
-      const r = await fetch(f.download_url);
+      const url = `https://raw.githubusercontent.com/${GH_REPO}/main/responses/${f.name}`;
+      const r = await fetch(url);
       return r.json();
     }));
 
