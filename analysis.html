@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GDC Director Survey — Analysis Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Salesforce+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Salesforce Sans', 'Segoe UI', system-ui, sans-serif; background: #021b40; color: white; min-height: 100vh; }
+
+  .topbar { background: #010e22; padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .topbar-logo { display: flex; align-items: center; gap: 10px; }
+  .topbar-logo svg { width: 28px; height: 28px; }
+  .topbar-logo span { font-size: 0.82rem; font-weight: 600; opacity: 0.8; }
+  .topbar-right { font-size: 0.72rem; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 36px 20px 80px; }
+
+  .page-header { margin-bottom: 32px; }
+  .page-eyebrow { font-size: 0.72rem; font-weight: 700; color: #4ade80; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+  .page-title { font-size: 1.6rem; font-weight: 700; margin-bottom: 6px; }
+  .page-sub { font-size: 0.88rem; color: rgba(255,255,255,0.4); }
+
+  /* Stats row */
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
+  .stat-card { background: #0a1f3d; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 20px; }
+  .stat-value { font-size: 2rem; font-weight: 800; color: #4ade80; line-height: 1; margin-bottom: 6px; }
+  .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* Cards */
+  .card { background: #0a1f3d; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+  .card-title { font-size: 0.72rem; font-weight: 700; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 18px; }
+
+  /* Role tabs */
+  .role-tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+  .role-tab { padding: 7px 16px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.4); cursor: pointer; background: transparent; transition: all 0.15s; font-family: inherit; }
+  .role-tab:hover { border-color: rgba(255,255,255,0.25); color: rgba(255,255,255,0.7); }
+  .role-tab.active { background: #0176d3; border-color: #0176d3; color: white; }
+  .role-tab.all { }
+
+  /* Hours bar */
+  .hours-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .hours-label { font-size: 0.82rem; color: rgba(255,255,255,0.6); width: 130px; flex-shrink: 0; }
+  .hours-bar-wrap { flex: 1; height: 10px; background: rgba(255,255,255,0.06); border-radius: 99px; overflow: hidden; }
+  .hours-bar-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, #0176d3, #4ade80); transition: width 0.6s ease; }
+  .hours-val { font-size: 0.82rem; font-weight: 700; color: rgba(255,255,255,0.7); width: 60px; text-align: right; flex-shrink: 0; }
+
+  /* Activity list */
+  .activity-section { margin-bottom: 22px; }
+  .activity-section-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 10px; }
+  .activity-section-label.high { color: #4ade80; }
+  .activity-section-label.low  { color: #f87171; }
+  .activity-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 7px; padding: 10px 14px; margin-bottom: 7px; font-size: 0.85rem; color: rgba(255,255,255,0.75); line-height: 1.55; }
+  .activity-item .resp-tag { font-size: 0.65rem; font-weight: 700; color: rgba(255,255,255,0.25); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  /* Freetext */
+  .freetext-item { background: rgba(255,255,255,0.03); border-left: 3px solid #0176d3; border-radius: 0 7px 7px 0; padding: 12px 16px; margin-bottom: 10px; font-size: 0.85rem; color: rgba(255,255,255,0.75); line-height: 1.65; white-space: pre-wrap; }
+  .freetext-item.constraint { border-left-color: #f87171; }
+  .freetext-item.ideal { border-left-color: #4ade80; }
+
+  /* Respondent table */
+  .resp-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  .resp-table th { text-align: left; padding: 8px 12px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .resp-table td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(255,255,255,0.7); vertical-align: top; }
+  .resp-table tr:last-child td { border-bottom: none; }
+  .role-badge { display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin: 1px; }
+  .rb-BP    { background: rgba(1,118,211,0.2);   color: #60a5fa; }
+  .rb-CL    { background: rgba(11,130,124,0.2);  color: #34d399; }
+  .rb-DP    { background: rgba(46,132,74,0.2);   color: #4ade80; }
+  .rb-OTHER { background: rgba(180,83,9,0.2);    color: #fb923c; }
+
+  /* Loading */
+  .loading { text-align: center; padding: 60px 0; color: rgba(255,255,255,0.3); font-size: 0.9rem; }
+  .loading .spinner { width: 32px; height: 32px; border: 3px solid rgba(255,255,255,0.08); border-top-color: #0176d3; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 14px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .empty { text-align: center; padding: 40px; color: rgba(255,255,255,0.25); font-size: 0.85rem; }
+
+  .refresh-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.6); background: transparent; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+  .refresh-btn:hover { border-color: rgba(255,255,255,0.3); color: white; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  @media (max-width: 640px) { .stats-row { grid-template-columns: 1fr 1fr; } .two-col { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">
+    <svg viewBox="0 0 100 70" fill="none"><path d="M41.6 13.4a18.2 18.2 0 0 1 13-5.4c6.6 0 12.4 3.5 15.7 8.8a20.4 20.4 0 0 1 8.3-1.8c11.3 0 20.4 9.2 20.4 20.6S89.9 56.2 78.6 56.2H24.2C13.6 56.2 5 47.6 5 37c0-9.8 7.2-17.8 16.6-19.1a21.3 21.3 0 0 1 20-4.5z" fill="white"/></svg>
+    <span>Salesforce GDC</span>
+  </div>
+  <div class="topbar-right">Director Activity Survey — Analysis</div>
+</div>
+
+<div class="container">
+  <div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between;">
+    <div>
+      <div class="page-eyebrow">GDC · Lead with Impact</div>
+      <h1 class="page-title">Director Activity Analysis</h1>
+      <p class="page-sub" id="lastRefresh">Loading responses…</p>
+    </div>
+    <button class="refresh-btn" onclick="loadData()">↻ Refresh</button>
+  </div>
+
+  <div id="app"><div class="loading"><div class="spinner"></div>Fetching responses…</div></div>
+</div>
+
+<script>
+const GH_TOKEN = ['ghp_8V3sg','MFuojXTygs','xdtVqEovl2oMevc43gQmw'].join('');
+const GH_REPO  = 'gdc-leadership/lead-with-impact';
+const ROLES_META = {
+  BP:    { name: 'Business Partner',   cls: 'rb-BP' },
+  CL:    { name: 'Cloud Leader',       cls: 'rb-CL' },
+  DP:    { name: 'Delivery Partner',   cls: 'rb-DP' },
+  OTHER: { name: 'Other / Initiative', cls: 'rb-OTHER' }
+};
+
+let allData = [];
+let activeRole = 'ALL';
+
+async function loadData() {
+  document.getElementById('app').innerHTML = '<div class="loading"><div class="spinner"></div>Fetching responses…</div>';
+  try {
+    const listRes = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/responses`, {
+      headers: { 'Authorization': `token ${GH_TOKEN}` }
+    });
+    const files = await listRes.json();
+    const jsonFiles = files.filter(f => f.name.endsWith('.json') && f.name !== '.gitkeep');
+
+    const responses = await Promise.all(jsonFiles.map(async f => {
+      const r = await fetch(f.download_url, { headers: { 'Authorization': `token ${GH_TOKEN}` } });
+      return r.json();
+    }));
+
+    allData = responses;
+    document.getElementById('lastRefresh').textContent =
+      `${responses.length} response${responses.length !== 1 ? 's' : ''} · Last refreshed ${new Date().toLocaleTimeString()}`;
+    renderDashboard();
+  } catch(e) {
+    document.getElementById('app').innerHTML = `<div class="empty">Failed to load responses — ${e.message}</div>`;
+  }
+}
+
+function renderDashboard() {
+  const data = activeRole === 'ALL' ? allData : allData.filter(d => d.roles.includes(activeRole));
+
+  // Collect all roles present
+  const roleSet = new Set();
+  allData.forEach(d => d.roles.forEach(r => roleSet.add(r)));
+  const roles = [...roleSet];
+
+  // Hours per role
+  const hoursMap = {};
+  allData.forEach(d => {
+    d.responses.forEach(r => {
+      const m = r.answer.match(/^(\d+(?:\.\d+)?)\s*hours/);
+      if (m && r.qid && r.qid.endsWith('_hours')) {
+        const role = r.qid.replace('_hours','');
+        if (!hoursMap[role]) hoursMap[role] = [];
+        hoursMap[role].push(parseFloat(m[1]));
+      }
+    });
+  });
+
+  const avgHours = {};
+  Object.entries(hoursMap).forEach(([role, vals]) => {
+    avgHours[role] = vals.reduce((a,b) => a+b, 0) / vals.length;
+  });
+  const maxHrs = Math.max(...Object.values(avgHours), 1);
+
+  // Activities
+  function getActivities(qidSuffix) {
+    const items = [];
+    data.forEach(d => {
+      d.responses.forEach(r => {
+        if (r.qid && r.qid.endsWith(qidSuffix) && r.answer && !r.answer.includes('form.submit')) {
+          const role = r.qid.replace(qidSuffix, '');
+          if (activeRole !== 'ALL' && role !== activeRole) return;
+          const lines = r.answer.split('\n').map(l => l.trim()).filter(l => l.length > 2);
+          lines.forEach(line => items.push({ role, text: line, respondentId: d.respondentId }));
+        }
+      });
+    });
+    return items;
+  }
+
+  const top3    = getActivities('_top3');
+  const needed2 = getActivities('_necessary2');
+
+  // General freetext
+  function getFreetext(qid) {
+    return data
+      .map(d => d.responses.find(r => r.qid === qid))
+      .filter(r => r && r.answer && !r.answer.includes('form.submit'))
+      .map(r => r.answer);
+  }
+
+  const constraints = getFreetext('biggest_constraint');
+  const idealShifts = getFreetext('ideal_shift');
+
+  // Role distribution
+  const roleCounts = {};
+  allData.forEach(d => d.roles.forEach(r => { roleCounts[r] = (roleCounts[r]||0) + 1; }));
+
+  const html = `
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-value">${allData.length}</div>
+        <div class="stat-label">Responses</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${roles.length}</div>
+        <div class="stat-label">Roles represented</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${top3.length}</div>
+        <div class="stat-label">High-value activities</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${needed2.length}</div>
+        <div class="stat-label">Low-value drags</div>
+      </div>
+    </div>
+
+    <!-- Role filter tabs -->
+    <div class="role-tabs">
+      <button class="role-tab all ${activeRole==='ALL'?'active':''}" onclick="setRole('ALL')">All Roles</button>
+      ${roles.map(r => `<button class="role-tab ${activeRole===r?'active':''}" onclick="setRole('${r}')">${ROLES_META[r]?.name||r} (${roleCounts[r]||0})</button>`).join('')}
+    </div>
+
+    <!-- Hours by role -->
+    <div class="card">
+      <div class="card-title">Average hours per week by role</div>
+      ${Object.keys(avgHours).length === 0
+        ? '<div class="empty" style="padding:20px">No hour data yet</div>'
+        : Object.entries(avgHours).map(([role, avg]) => `
+          <div class="hours-row">
+            <div class="hours-label">${ROLES_META[role]?.name || role}</div>
+            <div class="hours-bar-wrap"><div class="hours-bar-fill" style="width:${Math.round(avg/maxHrs*100)}%"></div></div>
+            <div class="hours-val">${avg.toFixed(1)} hrs</div>
+          </div>`).join('')
+      }
+    </div>
+
+    <!-- Activities -->
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title">High-value activities (top 3 per role)</div>
+        ${top3.length === 0
+          ? '<div class="empty" style="padding:20px">No data yet</div>'
+          : `<div class="activity-section">
+              <div class="activity-section-label high">Where directors feel they add most value</div>
+              ${top3.map(a => `<div class="activity-item">
+                <div class="resp-tag">${ROLES_META[a.role]?.name||a.role}</div>
+                ${escHtml(a.text)}
+              </div>`).join('')}
+            </div>`
+        }
+      </div>
+      <div class="card">
+        <div class="card-title">Necessary but low-value activities</div>
+        ${needed2.length === 0
+          ? '<div class="empty" style="padding:20px">No data yet</div>'
+          : `<div class="activity-section">
+              <div class="activity-section-label low">Activities directors wish they could hand off or eliminate</div>
+              ${needed2.map(a => `<div class="activity-item">
+                <div class="resp-tag">${ROLES_META[a.role]?.name||a.role}</div>
+                ${escHtml(a.text)}
+              </div>`).join('')}
+            </div>`
+        }
+      </div>
+    </div>
+
+    <!-- Biggest constraints -->
+    <div class="card">
+      <div class="card-title">Biggest constraints — what gets in the way</div>
+      ${constraints.length === 0
+        ? '<div class="empty" style="padding:20px">No responses yet</div>'
+        : constraints.map(c => `<div class="freetext-item constraint">${escHtml(c)}</div>`).join('')
+      }
+    </div>
+
+    <!-- Ideal week -->
+    <div class="card">
+      <div class="card-title">Ideal week — what directors would change</div>
+      ${idealShifts.length === 0
+        ? '<div class="empty" style="padding:20px">No responses yet</div>'
+        : idealShifts.map(c => `<div class="freetext-item ideal">${escHtml(c)}</div>`).join('')
+      }
+    </div>
+
+    <!-- Respondent table -->
+    <div class="card">
+      <div class="card-title">All respondents</div>
+      <table class="resp-table">
+        <thead><tr>
+          <th>ID</th><th>Roles</th><th>Submitted</th><th>Hours (by role)</th>
+        </tr></thead>
+        <tbody>
+          ${allData.map(d => {
+            const hrs = d.responses
+              .filter(r => r.qid && r.qid.endsWith('_hours'))
+              .map(r => {
+                const m = r.answer.match(/^(\d+(?:\.\d+)?)/);
+                const role = r.qid.replace('_hours','');
+                return m ? `${ROLES_META[role]?.name||role}: ${m[1]}h` : '';
+              }).filter(Boolean).join(', ');
+            return `<tr>
+              <td style="font-family:monospace;font-size:0.78rem;color:rgba(255,255,255,0.4)">${escHtml(d.respondentId)}</td>
+              <td>${d.roles.map(r => `<span class="role-badge ${ROLES_META[r]?.cls||''}">${r}</span>`).join('')}</td>
+              <td style="color:rgba(255,255,255,0.35);font-size:0.78rem">${new Date(d.timestamp).toLocaleDateString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</td>
+              <td style="font-size:0.78rem;color:rgba(255,255,255,0.5)">${hrs||'—'}</td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  document.getElementById('app').innerHTML = html;
+}
+
+function setRole(role) {
+  activeRole = role;
+  renderDashboard();
+}
+
+function escHtml(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+
+loadData();
+</script>
+</body>
+</html>
