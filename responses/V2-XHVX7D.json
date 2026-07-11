@@ -1,0 +1,58 @@
+{
+  "respondentId": "V2-XHVX7D",
+  "timestamp": "2026-07-11T02:18:27.939Z",
+  "roles": [
+    "CL",
+    "DP"
+  ],
+  "responses": [
+    {
+      "qid": "CL_hours",
+      "role": "CL",
+      "question": "How many hours per week do you typically spend on your Cloud Leader responsibilities?",
+      "answer": "8 hours / week"
+    },
+    {
+      "qid": "CL_top3",
+      "role": "CL",
+      "question": "In your Cloud Leader role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Project Health and Delivery Governance, AI Efficiency\nStrategic Enablement (Comms Cloud -> CCA) and Capability Building\nReview Practice deck to monitor key metrics, track strategic initiatives, review talent and demand trends"
+    },
+    {
+      "qid": "CL_necessary2",
+      "role": "CL",
+      "question": "Still in your Cloud Leader role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Talent Reviews and Staffing discussions\nOften Repeated escalations on the same underlying issues – addressing symptoms rather than fixing systemic problems such as poor grooming, unclear acceptance criteria, or environment instability."
+    },
+    {
+      "qid": "DP_hours",
+      "role": "DP",
+      "question": "How many hours per week do you typically spend on your Delivery Partner responsibilities?",
+      "answer": "18 hours / week"
+    },
+    {
+      "qid": "DP_top3",
+      "role": "DP",
+      "question": "In your Delivery Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Strategic Connects with DAMs and PDLs on High-Watch Accounts\nBi-Weekly Portfolio Reviews for accounts where GDC % is more than 60%\nDriving AI-led Productized Delivery (SEAP and Faster Delivery -6 projects from TMT-CBS) and Delivery Excellence"
+    },
+    {
+      "qid": "DP_necessary2",
+      "role": "DP",
+      "question": "Still in your Delivery Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Deep Involvement in Project-Level Firefighting\nRepeated Status Alignment Across Multiple Forums"
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "At times, need to get deeply involved in operational escalations and project-level execution details when issues arise across multiple stakeholders.\n\nIn such situations, the Delivery Partner often becomes the point of coordination to ensure the problem is understood correctly, ownership is established, the right stakeholders are engaged, and the issue is resolved completely with minimal risk of recurrence or customer escalation. While this involvement is sometimes necessary and adds value during critical moments, it often comes at the expense of more strategic activities."
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "With our people on the ground — particularly PMs and Technical Architects — taking greater accountability and ownership of day-to-day delivery execution, risks, and stakeholder management, the Delivery Partner can focus on the areas where they create the most value.\nThis shift would allow the DP to engage at the right altitude: influencing customer strategy, strengthening executive relationships, supporting growth opportunities, and showcasing business impact, rather than operating continuously in a reactive mode to resolve delivery issues."
+    }
+  ]
+}
