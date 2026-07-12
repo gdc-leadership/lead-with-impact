@@ -1,0 +1,77 @@
+{
+  "respondentId": "V2-Y3C78X",
+  "timestamp": "2026-07-12T17:56:00.911Z",
+  "roles": [
+    "BP",
+    "OTHER",
+    "CL"
+  ],
+  "responses": [
+    {
+      "qid": "BP_hours",
+      "role": "BP",
+      "question": "How many hours per week do you typically spend on your Business Partner responsibilities?",
+      "answer": "15 hours / week"
+    },
+    {
+      "qid": "BP_top3",
+      "role": "BP",
+      "question": "In your Business Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. Discussing about the opportunities with respective Account Partners\n2. Supporting pre-sales discussion and proposals. \n3. Adhoc Reqeusts\n4. If bandwidth allows, arranging session on some of the practices."
+    },
+    {
+      "qid": "BP_necessary2",
+      "role": "BP",
+      "question": "Still in your Business Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "1. Regular connect with APs focus should be now more on key opportunities and that's how I've started to approach.\n2. Becoming the SPOC for any pre-sales whereas if we have assigned a EM/TA, they should be able to take ownership."
+    },
+    {
+      "qid": "OTHER_hours",
+      "role": "OTHER",
+      "question": "How many hours per week do you typically spend on your Other / Initiative responsibilities?",
+      "answer": "20 hours / week"
+    },
+    {
+      "qid": "OTHER_top3",
+      "role": "OTHER",
+      "question": "In your Other / Initiative role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. This varies but the hours doesn't fall less than 20 hours per week as something or the other keeps coming."
+    },
+    {
+      "qid": "OTHER_necessary2",
+      "role": "OTHER",
+      "question": "Still in your Other / Initiative role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Depends on the initiatives and it varies per initiative, so can't generalise it."
+    },
+    {
+      "qid": "CL_hours",
+      "role": "CL",
+      "question": "How many hours per week do you typically spend on your Cloud Leader responsibilities?",
+      "answer": "10 hours / week"
+    },
+    {
+      "qid": "CL_top3",
+      "role": "CL",
+      "question": "In your Cloud Leader role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Practice growth \nBringing Innovation\nBuilding skills for the future and target high value chain work"
+    },
+    {
+      "qid": "CL_necessary2",
+      "role": "CL",
+      "question": "Still in your Cloud Leader role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Infact I want to spend more time but the bandwidth is an issue."
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "Lots of meeting... that includes meeting with directs, regular leadership meeting, connects with the region, project work. Although, delegation work is a skill but you can't delegate meting where you need to be present. It's more about balancing workload."
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "Number of activities, / initiatives supported at given point of time.\nAll the activities are equally important and thus becomes challenging to do the right prioritisation, when you know that you can't drop any of the balls."
+    }
+  ]
+}
