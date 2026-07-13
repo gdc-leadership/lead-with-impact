@@ -142,6 +142,26 @@ const ROLES = [
 // ── General questions (always shown, after role questions) ────────────────────
 const GENERAL_QUESTIONS = [
   {
+    id: 'facetime_hours',
+    type: 'number',
+    badgeCls: 'badge-gen',
+    badgeLabel: '🤝 Customer Time',
+    text: 'How many hours per week do you spend face-to-face (or on calls) with customers — across presales and delivery?',
+    sub: 'Include discovery calls, demos, project reviews, exec meetings, QBRs — any direct customer interaction.',
+    unit: 'hours / week',
+    min: 0, max: 60
+  },
+  {
+    id: 'facetime_activities',
+    type: 'textarea',
+    badgeCls: 'badge-gen',
+    badgeLabel: '🤝 Customer Time',
+    text: 'What are the main activities that make up your customer-facing time?',
+    sub: 'Describe what you actually do in those customer interactions — be specific about the type of engagement.',
+    placeholder: 'e.g.\n- Weekly project steering with client X\n- Presales discovery calls for new pipeline\n- Executive sponsor check-ins\n- Project health reviews',
+    minWords: 15
+  },
+  {
     id: 'biggest_constraint',
     type: 'textarea',
     badgeCls: 'badge-gen',
