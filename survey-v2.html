@@ -140,6 +140,17 @@ const ROLES = [
 ];
 
 // ── General questions (always shown, after role questions) ────────────────────
+const TOTAL_HOURS_QUESTION = {
+  id: 'total_hours',
+  type: 'number',
+  badgeCls: 'badge-gen',
+  badgeLabel: '⏱ Total Hours',
+  text: 'In a typical week, what is the total number of hours you work across all your roles combined?',
+  sub: 'Include everything — client time, internal meetings, admin, strategic work, evenings if relevant.',
+  unit: 'hours / week',
+  min: 20, max: 100
+};
+
 const GENERAL_QUESTIONS = [
   {
     id: 'facetime_hours',
@@ -201,6 +212,8 @@ let state = {
 // ── Queue builder ─────────────────────────────────────────────────────────────
 function buildQueue() {
   const q = [];
+  // Q1: total hours across all roles
+  q.push({ ...TOTAL_HOURS_QUESTION });
   state.selectedRoles.forEach(roleId => {
     const role = ROLES.find(r => r.id === roleId);
     if (!role) return;
