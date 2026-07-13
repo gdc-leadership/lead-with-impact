@@ -214,6 +214,9 @@ function buildQueue() {
   const q = [];
   // Q1: total hours across all roles
   q.push({ ...TOTAL_HOURS_QUESTION });
+  // Q2-3: customer facing time (before role-specific questions)
+  const facetime = GENERAL_QUESTIONS.filter(q => q.id === 'facetime_hours' || q.id === 'facetime_activities');
+  facetime.forEach(gq => q.push({ ...gq }));
   state.selectedRoles.forEach(roleId => {
     const role = ROLES.find(r => r.id === roleId);
     if (!role) return;
@@ -254,8 +257,9 @@ function buildQueue() {
       minWords: 10
     });
   });
-  // Add general questions
-  GENERAL_QUESTIONS.forEach(gq => q.push({ ...gq }));
+  // Add general questions (excluding facetime — already added at top)
+  GENERAL_QUESTIONS.filter(gq => gq.id !== 'facetime_hours' && gq.id !== 'facetime_activities')
+    .forEach(gq => q.push({ ...gq }));
   return q;
 }
 
