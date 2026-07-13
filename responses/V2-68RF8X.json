@@ -1,0 +1,57 @@
+{
+  "respondentId": "V2-68RF8X",
+  "timestamp": "2026-07-13T04:46:16.966Z",
+  "roles": [
+    "OTHER"
+  ],
+  "responses": [
+    {
+      "qid": "total_hours",
+      "role": "general",
+      "question": "In a typical week, what is the total number of hours you work across all your roles combined?",
+      "answer": "40 hours / week"
+    },
+    {
+      "qid": "OTHER_hours",
+      "role": "OTHER",
+      "question": "How many hours per week do you typically spend on your Other / Initiative responsibilities?",
+      "answer": "40 hours / week"
+    },
+    {
+      "qid": "OTHER_top3",
+      "role": "OTHER",
+      "question": "In your Other / Initiative role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. Architecture & Innovation — Designing and evolving the Multi-Agent Orchestrator and Talent App solutions, translating complex business problems into scalable AI-driven architectures that directly support customer outcomes.\n\n2. In-Region Engagement & Enablement — Acting as the strategic bridge between the GDC and in-region teams, aligning on priorities, accelerating deal support, and ensuring our delivery capabilities are visible and trusted where it matters.\n\n3. Team Leadership & Customer-Facing Demos — Coaching and managing the team while personally driving high-impact demos that bring our solutions to life for customers and stakeholders — turning strategy into something they can see and believe in.\n\n4. CTA Program & Architect Readiness — Actively driving the Certified Technical Architect (CTA) pipeline within the GDC — mentoring candidates, shaping the readiness program, and raising the technical bar across the architect community to build long-term delivery credibility."
+    },
+    {
+      "qid": "OTHER_necessary2",
+      "role": "OTHER",
+      "question": "Still in your Other / Initiative role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Honestly, I don't find myself stuck in low-value activities in this role. Every initiative I'm involved in — whether it's solution architecture, in-region engagement, demos, team development, or CTA readiness — connects directly to outcomes I care about. I'm intentional about where I spend my time, and I've built the right routines and team around me to keep the noise low."
+    },
+    {
+      "qid": "facetime_hours",
+      "role": "general",
+      "question": "How many hours per week do you spend face-to-face (or on calls) with customers — across presales and delivery?",
+      "answer": "8 hours / week"
+    },
+    {
+      "qid": "facetime_activities",
+      "role": "general",
+      "question": "What are the main activities that make up your customer-facing time?",
+      "answer": "Embedded CTO Engagement (Orange) — Spent 40 hours per week fully embedded with the customer as their CTO, owning the technical strategy, stakeholder alignment, and architecture decisions end-to-end. Deep, trust-based engagement at the executive and technical leadership level. I've handed over account to another Architect as CTO\nAgentic AI Advisory (SEAP / SuperAgent) — Currently working closely with customers on their AI transformation journey [need basis and request from In-region team] — running sessions, framing where Agentic AI fits their business, and providing hands-on guidance on how to practically leverage AI to drive outcomes. Less implementation, more trusted advisor and thought partner.\nInnovation & Solution Showcases — Delivering live demos and vision-setting sessions that help customers see what's possible with AI — moving them from curiosity to conviction."
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "Honestly, I don't face a single dominant blocker — and that's by design. I'm deliberate about prioritising what truly moves the needle for the organisation, whether that's driving Agentic AI innovation with customers, advancing the CTA pipeline, or shaping the GDC's strategic direction in SEAP. I genuinely love what I do, which makes it easy to stay focused and energised.\n\nIf anything, the pace of AI innovation means there's always more opportunity than time — so the real discipline is choosing where to go deep versus where to stay light. That's not a frustration; it's the most interesting part of the role."
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "Spend more time on:\nI'd double down on deep customer engagement around Agentic AI and innovation — more strategic advisory sessions, co-innovation workshops, and thought leadership conversations with senior customer stakeholders. This is where I add the most unique value as a Leader, and where the GDC's reputation gets built. I'd also invest more time in CTA mentoring and architect development — it's high-leverage work that compounds over time.\n\nHand off or stop doing:\nAny coordination, scheduling, or status-tracking work that doesn't require my direct involvement. These are important but not where a Director's time belongs — I'd push more of that to the team and trust them to own it. The goal is to stay at the level where I'm shaping direction, not managing logistics."
+    }
+  ]
+}
