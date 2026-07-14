@@ -1,0 +1,57 @@
+{
+  "respondentId": "V2-Z1DHGT",
+  "timestamp": "2026-07-14T15:57:13.145Z",
+  "roles": [
+    "CL"
+  ],
+  "responses": [
+    {
+      "qid": "total_hours",
+      "role": "general",
+      "question": "In a typical week, what is the total number of hours you work across all your roles combined?",
+      "answer": "25 hours / week"
+    },
+    {
+      "qid": "facetime_hours",
+      "role": "general",
+      "question": "How many hours per week do you spend face-to-face (or on calls) with customers — across presales and delivery?",
+      "answer": "2 hours / week"
+    },
+    {
+      "qid": "facetime_activities",
+      "role": "general",
+      "question": "What are the main activities that make up your customer-facing time?",
+      "answer": "Project Health Reviews\nSIC \nGovernance\nPipeline Review\nAI Tools and adoption discussion\nInnovation \nDependency Planning"
+    },
+    {
+      "qid": "CL_hours",
+      "role": "CL",
+      "question": "How many hours per week do you typically spend on your Cloud Leader responsibilities?",
+      "answer": "30 hours / week"
+    },
+    {
+      "qid": "CL_top3",
+      "role": "CL",
+      "question": "In your Cloud Leader role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Review Pipeline of Projects and Engagement\nTeam Engagement /Staffing and Planning \nInnovation and Reusability \nTeam Readiness\nPipeline Health and Utilisation across projects\nServe as the escalation point for PMs and Technical SPOCs for people/skills issues\nAI-native delivery strategy, faster delivery imperative, practice building, innovation governance"
+    },
+    {
+      "qid": "CL_necessary2",
+      "role": "CL",
+      "question": "Still in your Cloud Leader role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Manual follow ups for WSR\nManual follow ups to get information about deactivated/on hold projects from GDC Vs PS"
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "Reactive delivery firefighting - constantly pulled into the operational weeds of individual project problems instead of being freed up for the strategic cloud leadership work. Being relatively new to GDC, governance structures and delivery ownership are still solidifying under me. That gap is naturally getting filled by my own involvement"
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "Spend More Time on \n1. AI-Native Delivery Strategy & the Faster Delivery Imperative\n2. Practice-building: Innovation & Intake Governance\n3. Direct reports' growth & delivery empowerment\n4. Customer & stakeholder presence at the right level\n\nHandOff \n1. Operational activities for Project Tracking"
+    }
+  ]
+}
