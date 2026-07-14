@@ -1,0 +1,57 @@
+{
+  "respondentId": "V2-DRAU6P",
+  "timestamp": "2026-07-14T04:05:00.726Z",
+  "roles": [
+    "OTHER"
+  ],
+  "responses": [
+    {
+      "qid": "total_hours",
+      "role": "general",
+      "question": "In a typical week, what is the total number of hours you work across all your roles combined?",
+      "answer": "40 hours / week"
+    },
+    {
+      "qid": "facetime_hours",
+      "role": "general",
+      "question": "How many hours per week do you spend face-to-face (or on calls) with customers — across presales and delivery?",
+      "answer": "10 hours / week"
+    },
+    {
+      "qid": "facetime_activities",
+      "role": "general",
+      "question": "What are the main activities that make up your customer-facing time?",
+      "answer": "Understand the business requirements, propose solutions based on the Salesforce Tech Stack, discuss feasibility, timelines discussion etc."
+    },
+    {
+      "qid": "OTHER_hours",
+      "role": "OTHER",
+      "question": "How many hours per week do you typically spend on your Other / Initiative responsibilities?",
+      "answer": "30 hours / week"
+    },
+    {
+      "qid": "OTHER_top3",
+      "role": "OTHER",
+      "question": "In your Other / Initiative role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Internal Meetings related to resource alignment\nAI initiatives and Actions\nSelf Development by undertaking trainings / trails"
+    },
+    {
+      "qid": "OTHER_necessary2",
+      "role": "OTHER",
+      "question": "Still in your Other / Initiative role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "I dont think any of the activities are unproductive, each activity is performed for a reason which has a value coefficient attached."
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "A slightly more demarked set of responsibilities will definitely help me add more value to the practice and take on more result oriented initiatives and showcase my complete repertoire of skills."
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "If I could redesign my week, I would like to include more face time with customers driving larger transformation and delivery initiatives further resulting in more innovation towards Digitalization and AI adoption"
+    }
+  ]
+}
