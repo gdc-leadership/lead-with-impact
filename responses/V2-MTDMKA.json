@@ -1,0 +1,114 @@
+{
+  "respondentId": "V2-MTDMKA",
+  "timestamp": "2026-07-14T14:46:07.501Z",
+  "roles": [
+    "DP",
+    "CL",
+    "OTHER",
+    "BP"
+  ],
+  "responses": [
+    {
+      "qid": "total_hours",
+      "role": "general",
+      "question": "In a typical week, what is the total number of hours you work across all your roles combined?",
+      "answer": "30 hours / week"
+    },
+    {
+      "qid": "facetime_hours",
+      "role": "general",
+      "question": "How many hours per week do you spend face-to-face (or on calls) with customers — across presales and delivery?",
+      "answer": "0 hours / week"
+    },
+    {
+      "qid": "facetime_activities",
+      "role": "general",
+      "question": "What are the main activities that make up your customer-facing time?",
+      "answer": "I have less customer facing calls, but more customer related calls. Customer facing calls would Steering Co meetings for LSPs  and  Escalation calls if any."
+    },
+    {
+      "qid": "DP_hours",
+      "role": "DP",
+      "question": "How many hours per week do you typically spend on your Delivery Partner responsibilities?",
+      "answer": "8 hours / week"
+    },
+    {
+      "qid": "DP_top3",
+      "role": "DP",
+      "question": "In your Delivery Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "In-region Leadership meetings - 2 to 3 a week ( Relationship building)\nLSP Status calls"
+    },
+    {
+      "qid": "DP_necessary2",
+      "role": "DP",
+      "question": "Still in your Delivery Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "RAG status calls - can be attended by DP associates\nEscalation calls that should have been managed by CLs"
+    },
+    {
+      "qid": "CL_hours",
+      "role": "CL",
+      "question": "How many hours per week do you typically spend on your Cloud Leader responsibilities?",
+      "answer": "10 hours / week"
+    },
+    {
+      "qid": "CL_top3",
+      "role": "CL",
+      "question": "In your Cloud Leader role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Strategy for AI innovation\nInternal Meetings with my leaders to understand current demand any supply\nHiring related decisions based on pipelines\nFuture readiness as per roadmap and internal enablement"
+    },
+    {
+      "qid": "CL_necessary2",
+      "role": "CL",
+      "question": "Still in your Cloud Leader role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Staffing messages from in-region, a real time killer\nAny kind of rejection or over stretch for team on projects. One should be managed by Ops and the other by the PM by raising risks early"
+    },
+    {
+      "qid": "OTHER_hours",
+      "role": "OTHER",
+      "question": "How many hours per week do you typically spend on your Other / Initiative responsibilities?",
+      "answer": "8 hours / week"
+    },
+    {
+      "qid": "OTHER_top3",
+      "role": "OTHER",
+      "question": "In your Other / Initiative role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "AI related Innovation - Assessing, Supporting approvals, Building visibility etc.\nGlobal SAIL and Innovation team meetings\nPSAC meetings\nOffsite readiness"
+    },
+    {
+      "qid": "OTHER_necessary2",
+      "role": "OTHER",
+      "question": "Still in your Other / Initiative role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Chasing teams for approvals for an innovation. \nConvincing people to use a good asset or tool"
+    },
+    {
+      "qid": "BP_hours",
+      "role": "BP",
+      "question": "How many hours per week do you typically spend on your Business Partner responsibilities?",
+      "answer": "1 hours / week"
+    },
+    {
+      "qid": "BP_top3",
+      "role": "BP",
+      "question": "In your Business Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Meet with my leaders to understand demand and how projects are being structured and staffed\nEnsure risks are being shared with in-region team on non availability"
+    },
+    {
+      "qid": "BP_necessary2",
+      "role": "BP",
+      "question": "Still in your Business Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Skill based fitment rejection - this step can be removed in entirely"
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "Too many meetings, leaves less time for thinking -\nReduces time for strategic thinking, long-term planning, coaching leaders, and proactive decision-making. Leaders become reactive instead of driving transformation.\nCompeting priorities - can reduce impact on any one priority - \nConstant context switching dilutes focus, slows execution, and makes it difficult to deliver meaningful outcomes on the organization's highest-value initiatives. Teams may receive mixed signals about what matters most."
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "I would dedicate more time to shaping long-term strategy, evaluating emerging AI capabilities, engaging with customers, and mentoring leaders driving transformation.\n\nI would delegate operational governance, project status tracking, and routine escalations to empowered leaders and leverage AI to automate reporting, meeting summaries, and administrative work. This would allow me to focus on high-value decisions and organizational growth."
+    }
+  ]
+}
