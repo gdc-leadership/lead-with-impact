@@ -1,0 +1,57 @@
+{
+  "respondentId": "V2-27U27E",
+  "timestamp": "2026-07-14T19:03:57.839Z",
+  "roles": [
+    "CL"
+  ],
+  "responses": [
+    {
+      "qid": "total_hours",
+      "role": "general",
+      "question": "In a typical week, what is the total number of hours you work across all your roles combined?",
+      "answer": "45 hours / week"
+    },
+    {
+      "qid": "facetime_hours",
+      "role": "general",
+      "question": "How many hours per week do you spend face-to-face (or on calls) with customers — across presales and delivery?",
+      "answer": "0 hours / week"
+    },
+    {
+      "qid": "facetime_activities",
+      "role": "general",
+      "question": "What are the main activities that make up your customer-facing time?",
+      "answer": "NA (no cutomer face time on delivery. Only cutomer face time is during customer visits)"
+    },
+    {
+      "qid": "CL_hours",
+      "role": "CL",
+      "question": "How many hours per week do you typically spend on your Cloud Leader responsibilities?",
+      "answer": "15 hours / week"
+    },
+    {
+      "qid": "CL_top3",
+      "role": "CL",
+      "question": "In your Cloud Leader role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. Business Pipeline view (Demand and Supply forcast and operations) (collab with BP and Ops)\n2. Delivery Governance (Project Health, Faster delivery Initiatives, etc) (collab with DP and Projects)\n3. Initiatives - Review and Govern Initiatives - Talent (Enablements, hiring, assessments), OneSaleforce, Innovation\n\n~~~ Roughly 5 hours per week for each of the above 3 activities per cloud (total ~15 hours for top 3 activies per week per cloud)\n\n2x clouds = 30 hours per week"
+    },
+    {
+      "qid": "CL_necessary2",
+      "role": "CL",
+      "question": "Still in your Cloud Leader role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Staffing Operations (overhead due BP/DP/Ops loops CLs by default) - Its Manageble/Understandable. It will be enough (good) if CL is looped for HIR/HVR or for Governance related topics which needs CL support."
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "Not applicable - Its manageble ~ with Prioritization and Delegation.\nPost Script - Too many initiatives per person. But its Addressed by Prioritization and Delegation. It may lead to non availablity of Cloud leader on low priority or tasks delegated to associates and I feel its right."
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "I feel it is balanced rightly for CL role... spending time orderly on \n1) Business (pipe, presales, supply, demand, forecast)\n2) Delivery (Projects, Governance, Success, AI led)\n3) Talent and People (1:1s)\n4) Team, Org and External meetings\n5) Initiatives (OneSalesforce, Innovation, Branding)\n\n~ backed by right level of Prioritization and Delegation."
+    }
+  ]
+}
