@@ -1,0 +1,76 @@
+{
+  "respondentId": "V2-DGN163",
+  "timestamp": "2026-07-14T18:06:38.380Z",
+  "roles": [
+    "CL",
+    "DP"
+  ],
+  "responses": [
+    {
+      "qid": "total_hours",
+      "role": "general",
+      "question": "In a typical week, what is the total number of hours you work across all your roles combined?",
+      "answer": "45 hours / week"
+    },
+    {
+      "qid": "facetime_hours",
+      "role": "general",
+      "question": "How many hours per week do you spend face-to-face (or on calls) with customers — across presales and delivery?",
+      "answer": "0 hours / week"
+    },
+    {
+      "qid": "facetime_activities",
+      "role": "general",
+      "question": "What are the main activities that make up your customer-facing time?",
+      "answer": "Interact with In-Region stakeholders at this point; attend client SteerCo only on the need basis"
+    },
+    {
+      "qid": "CL_hours",
+      "role": "CL",
+      "question": "How many hours per week do you typically spend on your Cloud Leader responsibilities?",
+      "answer": "40 hours / week"
+    },
+    {
+      "qid": "CL_top3",
+      "role": "CL",
+      "question": "In your Cloud Leader role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. Building strategy about the evolution of the practice & ensuring that we marry this to execution\n2. Project Health Reviews & interact with In-Region based on the outcomes & in conjunction with DP team\n3. Talent Enablement specifically focussing at grooming the next level of leadership, driving the right mindset for E2E ownership; additionally supporting proposals as needed"
+    },
+    {
+      "qid": "CL_necessary2",
+      "role": "CL",
+      "question": "Still in your Cloud Leader role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "1. Ensuring we have right resource placements across the opportunities\n2. Reviewing resumes for the external hiring"
+    },
+    {
+      "qid": "DP_hours",
+      "role": "DP",
+      "question": "How many hours per week do you typically spend on your Delivery Partner responsibilities?",
+      "answer": "5 hours / week"
+    },
+    {
+      "qid": "DP_top3",
+      "role": "DP",
+      "question": "In your Delivery Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. Driving key strategic relationship with Delivery Leaders in the region\n2. QBR / SteerCo ensuring we perform Project Health Reviews & we pre-emptively identify any gaps\n3. Identify any opportunities for upselling or exploring the use of GDC accelerators / AI solutions on our engagements"
+    },
+    {
+      "qid": "DP_necessary2",
+      "role": "DP",
+      "question": "Still in your Delivery Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "1. Building decks for the reviews\n2. Driving the right placements for the resources or identifying replacements in case of any urgencies"
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "Nothing as such other than the operational issues & the time spent in escalation management - it derails the progress & takes us back to focus on fixing the gaps than to really think about the evolution of practice."
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "Continue to plug myself into the strategic initiatives that help strengthen or evolve our practice; gain better understanding about the broader PS initiatives to reflect on how we are stitched into the overall strategy.\n\nSpend more time interacting with the in-region stakeholders & / or customers to represent us & solve the real problems!\n\nSpend more time on my personal enablement as well\n\nDelegate responsibilities w.r.t. resourcing on new opportunities & any other tactical operational activity"
+    }
+  ]
+}
