@@ -1,0 +1,76 @@
+{
+  "respondentId": "V2-B6P1QG",
+  "timestamp": "2026-07-14T15:34:33.265Z",
+  "roles": [
+    "DP",
+    "CL"
+  ],
+  "responses": [
+    {
+      "qid": "total_hours",
+      "role": "general",
+      "question": "In a typical week, what is the total number of hours you work across all your roles combined?",
+      "answer": "45 hours / week"
+    },
+    {
+      "qid": "facetime_hours",
+      "role": "general",
+      "question": "How many hours per week do you spend face-to-face (or on calls) with customers — across presales and delivery?",
+      "answer": "12 hours / week"
+    },
+    {
+      "qid": "facetime_activities",
+      "role": "general",
+      "question": "What are the main activities that make up your customer-facing time?",
+      "answer": "Project Health Reviews\nUnderstand customer challenges and work on mitigation\nInvolve in program level executive meetings \nAttend customer , project steering meetings \nWeekly alignment/review with OU"
+    },
+    {
+      "qid": "DP_hours",
+      "role": "DP",
+      "question": "How many hours per week do you typically spend on your Delivery Partner responsibilities?",
+      "answer": "5 hours / week"
+    },
+    {
+      "qid": "DP_top3",
+      "role": "DP",
+      "question": "In your Delivery Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. Develop Enterprise-Wide OU Visibility\nEstablish comprehensive visibility across the entire OU business landscape to identify strategic opportunities where GDC can deliver greater value and enhance business outcomes.\n2. Drive Proactive Delivery Governance\nMaintain close oversight of delivery health, identify potential risks early, and proactively resolve challenges before they escalate, ensuring consistent execution and customer satisfaction.\n3.Accelerate Delivery Through Cross-OU Knowledge Sharing\nEnable OU leaders with relevant customer success stories, proven implementation approaches, and best practices from similar engagements and cloud transformations to accelerate delivery and reduce execution risk.\n4.Promote AI-Driven Delivery Excellence\nIncrease awareness of AI-powered tools and capabilities that improve delivery efficiency, productivity, and quality, helping OU business leaders adopt innovative practices at scale."
+    },
+    {
+      "qid": "DP_necessary2",
+      "role": "DP",
+      "question": "Still in your Delivery Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "1.Dedicate greater focus to staffing discussions to ensure proactive resource planning, optimal talent allocation, and alignment with evolving business and delivery priorities.\n2.Support Project SPOCs in establishing meaningful status reporting, actionable delivery metrics, and consistent tracking mechanisms to improve governance, transparency, and informed decision-making."
+    },
+    {
+      "qid": "CL_hours",
+      "role": "CL",
+      "question": "How many hours per week do you typically spend on your Cloud Leader responsibilities?",
+      "answer": "15 hours / week"
+    },
+    {
+      "qid": "CL_top3",
+      "role": "CL",
+      "question": "In your Cloud Leader role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. Delivery Excellence & Governance \n2. Practice Building activities- Enablement \n3. One Salesforce collaboration \n4. AI driven productivity and delivery, Increase product adoption"
+    },
+    {
+      "qid": "CL_necessary2",
+      "role": "CL",
+      "question": "Still in your Cloud Leader role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "1.More focus on delivery governance related tasks \n2.Staffing related tasks - Demand & supply review and advising oops on right allocations."
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "Reduce time spent on operational activities that can be effectively owned by the G7/G8 leadership team, enabling greater focus on strategic priorities. Strengthen leadership accountability by minimizing repeated follow-ups with N-1 and N-2 leaders through better alignment, communication, and understanding of organizational priorities and execution expectations"
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "If I could redesign my week, I would intentionally allocate significantly more time to strategic initiatives that strengthen customer outcomes, accelerate innovation, and enhance the overall impact of the Global Delivery Center (GDC).\nSpecifically, I would focus on:\nStrengthening partnerships with Product and Engineering teams to improve alignment, influence product direction, and ensure delivery organizations are well prepared for evolving product capabilities.\nUnderstanding product adoption trends and customer insights across cloud offerings to identify opportunities for increased adoption, improved customer success, and stronger business growth.\nPositioning the GDC Cloud Practice as the premier global role model for domain excellence, technical expertise, and delivery innovation by continuously raising the bar on engineering capabilities and execution standards.\nDriving AI-led delivery transformation by achieving broad AI adoption through Agentic frameworks, productized assets, reusable blueprints, and AI-powered delivery practices that improve quality, productivity, and customer outcomes.\nAccelerating delivery through reusable assets and frameworks, reducing duplication of effort, standardizing best practices, and delivering measurable improvements in operational efficiency and productivity across engagements.\nContinuously enhancing product, technical, and domain expertise to keep pace with the rapid evolution of cloud products, enabling more effective customer guidance and stronger delivery execution.\nIncreasing direct engagement with customers, particularly on strategic and complex engagements, to provide executive guidance, resolve critical challenges, and maximize business value realization.\n\nTo create capacity for these higher-value activities, I would delegate more operational and administrative responsibilities—including routine status reporting, governance tracking, and execution-focused governance—to the appropriate leadership levels while strengthening accountability and ownership across the organization. This shift would enable greater focus on strategic leadership, innovation, customer success, and long-term business growth."
+    }
+  ]
+}
