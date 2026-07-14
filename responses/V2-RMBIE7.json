@@ -1,0 +1,76 @@
+{
+  "respondentId": "V2-RMBIE7",
+  "timestamp": "2026-07-14T17:04:38.620Z",
+  "roles": [
+    "BP",
+    "CL"
+  ],
+  "responses": [
+    {
+      "qid": "total_hours",
+      "role": "general",
+      "question": "In a typical week, what is the total number of hours you work across all your roles combined?",
+      "answer": "40 hours / week"
+    },
+    {
+      "qid": "facetime_hours",
+      "role": "general",
+      "question": "How many hours per week do you spend face-to-face (or on calls) with customers — across presales and delivery?",
+      "answer": "0 hours / week"
+    },
+    {
+      "qid": "facetime_activities",
+      "role": "general",
+      "question": "What are the main activities that make up your customer-facing time?",
+      "answer": "Not applicable to my roles. Don't have any direct customer interaction. Work with in region and internal stakeholders."
+    },
+    {
+      "qid": "BP_hours",
+      "role": "BP",
+      "question": "How many hours per week do you typically spend on your Business Partner responsibilities?",
+      "answer": "25 hours / week"
+    },
+    {
+      "qid": "BP_top3",
+      "role": "BP",
+      "question": "In your Business Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Deal Reviews and planning\nPre-sales\nDaily meetings and pre-sales strategy for enterprise deals where GDC >80%"
+    },
+    {
+      "qid": "BP_necessary2",
+      "role": "BP",
+      "question": "Still in your Business Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "I do not feel any activities are low-value or unproductive."
+    },
+    {
+      "qid": "CL_hours",
+      "role": "CL",
+      "question": "How many hours per week do you typically spend on your Cloud Leader responsibilities?",
+      "answer": "20 hours / week"
+    },
+    {
+      "qid": "CL_top3",
+      "role": "CL",
+      "question": "In your Cloud Leader role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "I have regular cadences with all my SPOCs to check progress and growth initiatives. Identify Areas of improvement and plan for growth beyond just delivery excellence."
+    },
+    {
+      "qid": "CL_necessary2",
+      "role": "CL",
+      "question": "Still in your Cloud Leader role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "I feel staffing should be handed off to Ops effectively"
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "I am able to manage all roles and tasks effectively. Meetings are prioritised well so I don't have any overhead there. Overall no challenges observed within the roles I am playing."
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "I would stop doing staffing, utilization reviews, handoffs , being the escalation point for every issue, reacting to every operational fire. I would spend more time on self learning and enablement."
+    }
+  ]
+}
