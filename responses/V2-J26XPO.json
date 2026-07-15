@@ -1,0 +1,57 @@
+{
+  "respondentId": "V2-J26XPO",
+  "timestamp": "2026-07-15T04:52:34.821Z",
+  "roles": [
+    "OTHER"
+  ],
+  "responses": [
+    {
+      "qid": "total_hours",
+      "role": "general",
+      "question": "In a typical week, what is the total number of hours you work across all your roles combined?",
+      "answer": "40 hours / week"
+    },
+    {
+      "qid": "facetime_hours",
+      "role": "general",
+      "question": "How many hours per week do you spend face-to-face (or on calls) with customers — across presales and delivery?",
+      "answer": "4 hours / week"
+    },
+    {
+      "qid": "facetime_activities",
+      "role": "general",
+      "question": "What are the main activities that make up your customer-facing time?",
+      "answer": "Pre-Sales Related Discussions like understanding customer requirements or their current system landscape.\nWhen assigned in a project, effort goes upto 32 hours a week in the customer project itself. Main activities inclulde leading the architecture and ownership of the implementation."
+    },
+    {
+      "qid": "OTHER_hours",
+      "role": "OTHER",
+      "question": "How many hours per week do you typically spend on your Other / Initiative responsibilities?",
+      "answer": "36 hours / week"
+    },
+    {
+      "qid": "OTHER_top3",
+      "role": "OTHER",
+      "question": "In your Other / Initiative role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. Leading, Planning and Execution of Migration Hub across Strategy, Architecture, Operations.  \n2. Leading Architect Practice within STP, Pre-Sales, architect enablement, Academy, CTA Preparation (Self)\n3. Taking Interviews for Architects and Directors, Deep Tech\n4. Self Skill up / Certifications"
+    },
+    {
+      "qid": "OTHER_necessary2",
+      "role": "OTHER",
+      "question": "Still in your Other / Initiative role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "I think all the activities currently taken up are of high value."
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "Taking Interviews - In the past I have been doing interviews from multiple practices/clouds. This has improved since July where I am focussing on STP related hiring mostly.\n\nSecond would be Adhoc operational meetings/tasks"
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "I want to focus heavily on the Migration Hub right now. \n\nI’d like to pause new customer project engagements untill Migration Hub starts delivering value. Getting into a customer project requires heavy focus and time and is very difficult to balance along."
+    }
+  ]
+}
