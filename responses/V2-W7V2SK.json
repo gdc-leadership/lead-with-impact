@@ -1,0 +1,114 @@
+{
+  "respondentId": "V2-W7V2SK",
+  "timestamp": "2026-07-15T17:23:21.354Z",
+  "roles": [
+    "BP",
+    "CL",
+    "DP",
+    "OTHER"
+  ],
+  "responses": [
+    {
+      "qid": "total_hours",
+      "role": "general",
+      "question": "In a typical week, what is the total number of hours you work across all your roles combined?",
+      "answer": "50 hours / week"
+    },
+    {
+      "qid": "facetime_hours",
+      "role": "general",
+      "question": "How many hours per week do you spend face-to-face (or on calls) with customers — across presales and delivery?",
+      "answer": "10 hours / week"
+    },
+    {
+      "qid": "facetime_activities",
+      "role": "general",
+      "question": "What are the main activities that make up your customer-facing time?",
+      "answer": "Presenting to the customer  along with In region - GDC  proposal  and sharing details around deliveries and timeline"
+    },
+    {
+      "qid": "BP_hours",
+      "role": "BP",
+      "question": "How many hours per week do you typically spend on your Business Partner responsibilities?",
+      "answer": "10 hours / week"
+    },
+    {
+      "qid": "BP_top3",
+      "role": "BP",
+      "question": "In your Business Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Creating Review decks to present to the OU leaders every week \nSharing GDC relevant offerings like Advisory and talking about AF for e.g\ndeals review with regions and APs\nReviewing proposal decks shared by In regions to check for assumptions and risks\nChecking delivery dashboards to review the regional trend and follow up on deals where GDC can be positioned\nBP Meetings\nPresales Activity ,identifying SPOCs who can lead and ensuring they connect and share the relevant proposal details with the team"
+    },
+    {
+      "qid": "BP_necessary2",
+      "role": "BP",
+      "question": "Still in your Business Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Staffing follow sometimes makes it unproductive as thats something that can be managed , however heads up is required if deals start date is before 4 weeks or early head start is needed .Follow ups seems unproductive \n\nPresales activity still requires follow ups , which should be ideally automated with the Presales workflow submission"
+    },
+    {
+      "qid": "CL_hours",
+      "role": "CL",
+      "question": "How many hours per week do you typically spend on your Cloud Leader responsibilities?",
+      "answer": "10 hours / week"
+    },
+    {
+      "qid": "CL_top3",
+      "role": "CL",
+      "question": "In your Cloud Leader role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Running practice delivery health checks— utilization, CSAT, project governance, pulse/health checks\nRunning a bi-weekly cadence with Salesforce Cloud Product team for early feature access, release briefings, and feedback \nActing as Customer Zero for Experience Cloud Platform capabilities\nProviding Voice of Customer (VoC) feedback to Product on implementation pain points\nJoint beta validation and platform testing with Product Engineering\nConnecting with diff OUs to understand best practices and learn from them\nHandle escalations if any related to projects or consultants\njoining BP-led customer calls, building Cloud packages and advisory decks for regions"
+    },
+    {
+      "qid": "CL_necessary2",
+      "role": "CL",
+      "question": "Still in your Cloud Leader role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Since governance is embedded in our DNA, it can evolve into self-accountability — making formal oversight less necessary over time."
+    },
+    {
+      "qid": "DP_hours",
+      "role": "DP",
+      "question": "How many hours per week do you typically spend on your Delivery Partner responsibilities?",
+      "answer": "10 hours / week"
+    },
+    {
+      "qid": "DP_top3",
+      "role": "DP",
+      "question": "In your Delivery Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "DP Associate Engagement & Enablement\nRegular syncs with Associate DPs  to review delivery health, onboard them to regional responsibilities, and maintain a shared understanding of portfolio priorities.\nDelivery Trend Analysis & Portfolio Health\nMonthly & QBR Reviews with Delivery Heads across OUs\n4. GTM Alignment & Delivery Status Sharing (Bridging the gap between delivery and GTM — sharing delivery status, trends, and capacity outlook with GTM stakeholders so field-facing teams have a clear, real-time picture of what GDC can take on and where risks lie.)\nEmerging Practice & Cloud Specialization Support"
+    },
+    {
+      "qid": "DP_necessary2",
+      "role": "DP",
+      "question": "Still in your Delivery Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "maintaining  a shared understanding of portfolio priorities with Associates which should be driven independently"
+    },
+    {
+      "qid": "OTHER_hours",
+      "role": "OTHER",
+      "question": "How many hours per week do you typically spend on your Other / Initiative responsibilities?",
+      "answer": "1 hours / week"
+    },
+    {
+      "qid": "OTHER_top3",
+      "role": "OTHER",
+      "question": "In your Other / Initiative role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Initiated and shaped its priority use cases, ensuring they were grounded in as real pain points\nDrove reviews and approvals of use cases with the business  to ensure governance and alignment\nManaged continuity — structured the handover to the new owner  with a clear enrichment roadmap, rather than letting momentum drop\nStandardized T&P SOPs for core clouds — covering point-of-contact and escalation guidelines to make the operating model repeatable"
+    },
+    {
+      "qid": "OTHER_necessary2",
+      "role": "OTHER",
+      "question": "Still in your Other / Initiative role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "There are no activities that I feel are low value"
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "Role Clarity with Associates — There is some overlap in responsibilities with Associate DPs that leads to duplicated effort. \n\nGoal Alignment Fatigue — Continuously driving the team toward goals across multiple priorities can be draining, particularly when urgency isn't always matched by organizational momentum. \n\nMeeting Overload — The volume of weekely meetings creates significant calendar fragmentation, leading to extended workdays and reduced deep-work time."
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "Customer-Facing Engagement — Being more actively present in proposal creation alongside PS, participating in customer pitches, and being part of the conversation from opportunity to close — not just the delivery review or GSRM review \n\nCoaching & Enabling DPs to Run Independently — Rather than course-correcting the same areas repeatedly, I'd invest more time upfront in aligning DPs on goals, frameworks, and expectations — so reviews run effectively without needing constant recalibration from me\n\nBeing Present for the Team on Ground-Level Issues — Some of the highest-impact moments come from dedicated, unhurried conversations with the team. A recent example: someone had wanted a project change for over two years — it was only through focused effort and attention that it got resolved. More of that time is worth it\n\nDeep Cloud Learning & AI-Led Scoping — Carving out dedicated time to go deeper on cloud capabilities and co-create SOWs that are shaped around AI-led delivery models — a growing competitive differentiator\n\n\n\nHand off or stop doing:\n\n\nDelivery Issue Resolution — Day-to-day delivery related issue management should be fully owned and resolved by Associate DPs, with me as an escalation path only — not the first call\nRecurring Goal Reviews — Rather than repeatedly revisiting the same goal gaps, I'd hand off the tracking and progress management to Associates and redirect my energy to finding structural fixes that make the goal-chasing less reactive"
+    }
+  ]
+}
