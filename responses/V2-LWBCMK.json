@@ -1,0 +1,77 @@
+{
+  "respondentId": "V2-LWBCMK",
+  "timestamp": "2026-07-15T05:15:33.790Z",
+  "roles": [
+    "BP",
+    "CL",
+    "OTHER"
+  ],
+  "responses": [
+    {
+      "qid": "BP_hours",
+      "role": "BP",
+      "question": "How many hours per week do you typically spend on your Business Partner responsibilities?",
+      "answer": "10 hours / week"
+    },
+    {
+      "qid": "BP_top3",
+      "role": "BP",
+      "question": "In your Business Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. Building relationship with APs and SSSLs and taking it to the next level.\n2. Identify pain areas to resolve, apply best practices, analysis and insights.\n3. Strategic Thinking."
+    },
+    {
+      "qid": "BP_necessary2",
+      "role": "BP",
+      "question": "Still in your Business Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Adhoc Slack Requests and too many followups with the Inregion."
+    },
+    {
+      "qid": "CL_hours",
+      "role": "CL",
+      "question": "How many hours per week do you typically spend on your Cloud Leader responsibilities?",
+      "answer": "21 hours / week"
+    },
+    {
+      "qid": "CL_top3",
+      "role": "CL",
+      "question": "In your Cloud Leader role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. Strategic Thinking\n2. Identify pain areas to resolve.\n3. Retrospective Sessions/. Accelerate Agentic Transformations"
+    },
+    {
+      "qid": "CL_necessary2",
+      "role": "CL",
+      "question": "Still in your Cloud Leader role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "1. Follow-up on laptop shipments for Pubsec Account with Vendor (JSS) and internal ReWS team.\n2. Adhoc meetings."
+    },
+    {
+      "qid": "OTHER_hours",
+      "role": "OTHER",
+      "question": "How many hours per week do you typically spend on your Other / Initiative responsibilities?",
+      "answer": "11 hours / week"
+    },
+    {
+      "qid": "OTHER_top3",
+      "role": "OTHER",
+      "question": "In your Other / Initiative role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. Strategic Thinking\n2. Identify areas to innovate and pain areas to resolve.\n3. Retrospective Sessions."
+    },
+    {
+      "qid": "OTHER_necessary2",
+      "role": "OTHER",
+      "question": "Still in your Other / Initiative role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Adhoc meetings which are not part of the scheduled calender meetings."
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "Unscheduled, ad-hoc meetings and unexpected tasks frequently disrupt planned calendars, diverting time and energy away from high-priority objectives.The \"Context Switching\" Tax: Every time you are pulled into an unplanned meeting or stop to handle an urgent request, your brain has to switch gears."
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "I’d spend more time on proactive strategy, deep brainstorming, and self-optimization to better anticipate the needs. I would handoff/ stop doing repetitive micro-formatting, manual context rebuilding, and basic fact retrieval, delegating those to automation so I can focus purely on high-level analysis and co-creation."
+    }
+  ]
+}
