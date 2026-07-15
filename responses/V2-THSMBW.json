@@ -1,0 +1,57 @@
+{
+  "respondentId": "V2-THSMBW",
+  "timestamp": "2026-07-15T15:09:42.381Z",
+  "roles": [
+    "BP"
+  ],
+  "responses": [
+    {
+      "qid": "total_hours",
+      "role": "general",
+      "question": "In a typical week, what is the total number of hours you work across all your roles combined?",
+      "answer": "46 hours / week"
+    },
+    {
+      "qid": "facetime_hours",
+      "role": "general",
+      "question": "How many hours per week do you spend face-to-face (or on calls) with customers — across presales and delivery?",
+      "answer": "8 hours / week"
+    },
+    {
+      "qid": "facetime_activities",
+      "role": "general",
+      "question": "What are the main activities that make up your customer-facing time?",
+      "answer": "Presales calls: Leading High-Value Presales & Solutioning Calls: Partnering with sales teams to pitch GDC capabilities, estimate complex Salesforce projects, and secure new logos.\n\nEscalation calls: Executive Escalation Management: Acting as the ultimate point of contact for critical project risks, resolving complex delivery blockers, and restoring client trust.\n\nDemand vs supply planning sessions: Strategic Capacity & Demand-Supply Planning: Aligning pipeline forecast with talent availability to optimize utilization rates, minimize bench time, and plan proactive hiring/upskilling.\n\nGDC capabilities presentation: Showcasing GDC Value Proposition & Capabilities: Presenting the center’s maturity model, Salesforce multi-cloud expertise, accelerators, and delivery frameworks to prospects and internal stakeholders.\n\nDelivery Governance & Delivery Oversight: Conducting regular delivery reviews to ensure adherence to KPIs, SLAs, and best practices.\n\nSalesforce Multi-Cloud Upskilling Strategy: Designing training paths for emerging clouds (e.g., Data Cloud, Agentforce/AI, Industry Clouds) to keep the center ahead of market demand.\n\nPyramid & Margin Optimization: Structuring delivery teams with the right mix of architects, leads, and juniors to ensure profitable delivery without compromising quality.\n\nInnovation & Tools Creation: Fostering a culture of AI innovation to build proprietary Salesforce accelerators, packages, or industry blueprints that reduce time-to-market."
+    },
+    {
+      "qid": "BP_hours",
+      "role": "BP",
+      "question": "How many hours per week do you typically spend on your Business Partner responsibilities?",
+      "answer": "8 hours / week"
+    },
+    {
+      "qid": "BP_top3",
+      "role": "BP",
+      "question": "In your Business Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Joint Go-to-Market (GTM) & Account Growth Strategy: partnering with regional Sales and Account Directors to co-develop account growth strategies, identifying untapped Salesforce opportunities within existing clients, and shaping solutions that align GDC capabilities with regional revenue targets.\n\nExecutive Relationship Management & Value Realization: Acting as a trusted advisor for leadership and client executives, conducting strategic delivery reviews focused on value realization and operational efficiency.\n\nProactive Capability & Readiness Alignment: Translating regional sales pipelines into proactive talent fulfillment strategies, ensuring the GDC pre-hires and upskills architects and developers in emerging technologies (e.g., Salesforce Data Cloud, AI/Agentforce) before the deals close to accelerate time-to-market."
+    },
+    {
+      "qid": "BP_necessary2",
+      "role": "BP",
+      "question": "Still in your Business Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Resolving Low-Level Staffing & Micro-Allocation Conflicts: Mediating transactional staffing friction and project-level resource hoarding. While aligning demand and supply is strategic, spending hours negotiating individual team allocations or resolving scheduling conflicts undermines the operational autonomy that delivery leads and resource management teams should possess.\n\nManual Data Reconciliation for Executive Reporting: Consolidating and reconciling fragmented cross-departmental data for quarterly reviews. Manually chasing down updates, aligning mismatched revenue forecasts from sales with utilization data from delivery, and fixing data hygiene issues in tracking tools feels highly unproductive when the focus should be on analyzing the insights and driving strategy, not fixing spreadsheets."
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "We suffer from a highly volatile and non-predictive sales pipeline. Opportunities are often pushed through the funnel with inaccurate close dates, inflated deal sizes, or unrealistic start dates, making strategic capacity planning nearly impossible. Regional partners frequently demand that the GDC prioritize, solution, and estimate opportunities that have a very low probability of closing. We allocate effort to build complex proposals, only for the deal to stall, get pushed indefinitely, or be lost. This is a massive drain on our highest-value talent."
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "1. Joint Account Strategy & Co-Selling with Regional Leaders\nInstead of waiting for deals to drop over the fence, I would dedicate structured time to sit with Regional Partners and Account Directors.\n\nThe Goal: To look at the next 6–12 months of their top accounts, identify untapped Salesforce modernization or AI opportunities, and position the GDC as a differentiator early in the sales cycle.\n\n2. Client Value Realization & Executive Relationship Building\nShifting the conversation away from transactional metrics (SLAs/Jira tickets) and focusing on business outcomes, ROI realization, and advising them on their long-term Salesforce roadmap."
+    }
+  ]
+}
