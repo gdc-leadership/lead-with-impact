@@ -1,0 +1,76 @@
+{
+  "respondentId": "V2-X44QZP",
+  "timestamp": "2026-07-15T08:54:00.715Z",
+  "roles": [
+    "CL",
+    "DP"
+  ],
+  "responses": [
+    {
+      "qid": "total_hours",
+      "role": "general",
+      "question": "In a typical week, what is the total number of hours you work across all your roles combined?",
+      "answer": "30 hours / week"
+    },
+    {
+      "qid": "facetime_hours",
+      "role": "general",
+      "question": "How many hours per week do you spend face-to-face (or on calls) with customers — across presales and delivery?",
+      "answer": "4 hours / week"
+    },
+    {
+      "qid": "facetime_activities",
+      "role": "general",
+      "question": "What are the main activities that make up your customer-facing time?",
+      "answer": "Primarily around staffing or if the in region needs me on an escalation. Assure delivery quality and in general build confidence."
+    },
+    {
+      "qid": "CL_hours",
+      "role": "CL",
+      "question": "How many hours per week do you typically spend on your Cloud Leader responsibilities?",
+      "answer": "24 hours / week"
+    },
+    {
+      "qid": "CL_top3",
+      "role": "CL",
+      "question": "In your Cloud Leader role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1-Delivery excellence involving project reviews , accelerated delivery\n2-Working with BP DP ensuring RR fulfillment \n3- Analytics / leadership reviews"
+    },
+    {
+      "qid": "CL_necessary2",
+      "role": "CL",
+      "question": "Still in your Cloud Leader role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "1.Getting into staffing details \n2.Regular operational activities around people management"
+    },
+    {
+      "qid": "DP_hours",
+      "role": "DP",
+      "question": "How many hours per week do you typically spend on your Delivery Partner responsibilities?",
+      "answer": "12 hours / week"
+    },
+    {
+      "qid": "DP_top3",
+      "role": "DP",
+      "question": "In your Delivery Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. Portfolio reviews  for my region 2.Build AI awareness through demos  3.Issue based leadership 1-1 connects"
+    },
+    {
+      "qid": "DP_necessary2",
+      "role": "DP",
+      "question": "Still in your Delivery Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "1.Being pulled into staffing situations \n2.Too DP office frequent cadences"
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "Operational activities around staffing situations . For example - I need a resource skilled on my cloud who is currently assigned on another cloud engagement . To pull him out , i need to go through a longer process."
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "Stop Doing \n1- Managing staffing and the bureaucratic activities around it \nMore time \n1-Product learning - deep dive my cloud and learn adjacent ones\n2-AI enablement  to drive an AI native delivery model \n3-Business Acumen"
+    }
+  ]
+}
