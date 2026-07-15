@@ -1,0 +1,76 @@
+{
+  "respondentId": "V2-2VS90H",
+  "timestamp": "2026-07-15T07:20:08.916Z",
+  "roles": [
+    "CL",
+    "DP"
+  ],
+  "responses": [
+    {
+      "qid": "total_hours",
+      "role": "general",
+      "question": "In a typical week, what is the total number of hours you work across all your roles combined?",
+      "answer": "60 hours / week"
+    },
+    {
+      "qid": "facetime_hours",
+      "role": "general",
+      "question": "How many hours per week do you spend face-to-face (or on calls) with customers — across presales and delivery?",
+      "answer": "1 hours / week"
+    },
+    {
+      "qid": "facetime_activities",
+      "role": "general",
+      "question": "What are the main activities that make up your customer-facing time?",
+      "answer": "Project health or project steering meeting that are on an average 1 hour per week."
+    },
+    {
+      "qid": "CL_hours",
+      "role": "CL",
+      "question": "How many hours per week do you typically spend on your Cloud Leader responsibilities?",
+      "answer": "35 hours / week"
+    },
+    {
+      "qid": "CL_top3",
+      "role": "CL",
+      "question": "In your Cloud Leader role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "As a practice leader, the top 3 activities is \n1. Setting Direction and Priorities for the team - ensuring theres alignment within the management span and cascades to the team below.\n2. Collaborating with other practice Architect and PM leaders. \n3. Interviews - Team has scaled to 150% over last FY\n4. 1:1's, Operational Metrics review, leadership meetings, Interviews"
+    },
+    {
+      "qid": "CL_necessary2",
+      "role": "CL",
+      "question": "Still in your Cloud Leader role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "1. While clear responsibilites are mapped, the broader group reachs out to practice leader for multiple tasks reducing efficency - instance: Operational Tasks around staffing - not involved heavily, however overall accountable so need to keep an eye."
+    },
+    {
+      "qid": "DP_hours",
+      "role": "DP",
+      "question": "How many hours per week do you typically spend on your Delivery Partner responsibilities?",
+      "answer": "24 hours / week"
+    },
+    {
+      "qid": "DP_top3",
+      "role": "DP",
+      "question": "In your Delivery Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. Connect with in-region leaders for region portfolio review.\n2. Review of Portfolio and dashboard updates with DP\n3. Intervention on projects where and when required to remove risks/issues."
+    },
+    {
+      "qid": "DP_necessary2",
+      "role": "DP",
+      "question": "Still in your Delivery Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Involved in staffing - invariably through region or GDC PM in region issues around staffing gets raised and surfaced."
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "We understand change is constant, Currently, however priorities are changing and changing fast, this repivot and alignment causes the loss of momentum and ability to establish a routine and momentum"
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "i would redesign to focus on a single role and the accountabilites and hand off the operational tasks. Invariable, more than a single role, senior leadership asks, and activities take up addiitonal time."
+    }
+  ]
+}
