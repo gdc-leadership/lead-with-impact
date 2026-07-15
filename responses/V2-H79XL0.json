@@ -1,0 +1,76 @@
+{
+  "respondentId": "V2-H79XL0",
+  "timestamp": "2026-07-15T16:22:19.179Z",
+  "roles": [
+    "DP",
+    "CL"
+  ],
+  "responses": [
+    {
+      "qid": "total_hours",
+      "role": "general",
+      "question": "In a typical week, what is the total number of hours you work across all your roles combined?",
+      "answer": "45 hours / week"
+    },
+    {
+      "qid": "facetime_hours",
+      "role": "general",
+      "question": "How many hours per week do you spend face-to-face (or on calls) with customers — across presales and delivery?",
+      "answer": "10 hours / week"
+    },
+    {
+      "qid": "facetime_activities",
+      "role": "general",
+      "question": "What are the main activities that make up your customer-facing time?",
+      "answer": "Project meetings\nStakeholder check-ins\nRisk assessment and mitigation\nExecutive business reviews and QBRs\nSuggest best practices"
+    },
+    {
+      "qid": "DP_hours",
+      "role": "DP",
+      "question": "How many hours per week do you typically spend on your Delivery Partner responsibilities?",
+      "answer": "14 hours / week"
+    },
+    {
+      "qid": "DP_top3",
+      "role": "DP",
+      "question": "In your Delivery Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Stakeholder alignment — maintaining regular connects so stakeholders know who to reach and have confidence in delivery oversight\nAddressing delivery concerns — identifying and resolving risks before they escalate\nDriving delivery improvements — identifying patterns across projects and enabling teams to course-correct proactively"
+    },
+    {
+      "qid": "DP_necessary2",
+      "role": "DP",
+      "question": "Still in your Delivery Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Being pulled into routine project activities that PMs or Tech Leads should own independently"
+    },
+    {
+      "qid": "CL_hours",
+      "role": "CL",
+      "question": "How many hours per week do you typically spend on your Cloud Leader responsibilities?",
+      "answer": "30 hours / week"
+    },
+    {
+      "qid": "CL_top3",
+      "role": "CL",
+      "question": "In your Cloud Leader role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Capability development — building team skills across AI, Agentforce, and new features/ product capabilities\nProject risk assessment and mitigation\nStaying current on AI trends, product roadmap, best practices, organisational updates and translating them into team capability and delivery strategy"
+    },
+    {
+      "qid": "CL_necessary2",
+      "role": "CL",
+      "question": "Still in your Cloud Leader role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Coordinating logistics and relaying information that could be delegated to team leads"
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "Clarity of the roles/responsibilities - not everything can be documented but leaders needs to use their judgement and take charge. Ensuring every team member has the clarity, capability, and confidence to act independently."
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "Increased focus on strategic business leadership — spending more time on stakeholder relationship management and hunting for opportunities to grow individual and team brand. Invest more in pipeline partnerships, AI-led practice building, and developing consultants and managers who run delivery autonomously. Stop being the escalation point for project-level issues."
+    }
+  ]
+}
