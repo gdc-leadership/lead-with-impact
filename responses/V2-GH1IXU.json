@@ -1,0 +1,76 @@
+{
+  "respondentId": "V2-GH1IXU",
+  "timestamp": "2026-07-15T07:56:29.603Z",
+  "roles": [
+    "OTHER",
+    "CL"
+  ],
+  "responses": [
+    {
+      "qid": "total_hours",
+      "role": "general",
+      "question": "In a typical week, what is the total number of hours you work across all your roles combined?",
+      "answer": "30 hours / week"
+    },
+    {
+      "qid": "facetime_hours",
+      "role": "general",
+      "question": "How many hours per week do you spend face-to-face (or on calls) with customers — across presales and delivery?",
+      "answer": "5 hours / week"
+    },
+    {
+      "qid": "facetime_activities",
+      "role": "general",
+      "question": "What are the main activities that make up your customer-facing time?",
+      "answer": "Project health\nSatisfaction levels/issues\nPractice growth\nGenerating business demand working with in-region teams\nInternal team meetings/calls for any initiative that one is working on\nad-hoc requests"
+    },
+    {
+      "qid": "OTHER_hours",
+      "role": "OTHER",
+      "question": "How many hours per week do you typically spend on your Other / Initiative responsibilities?",
+      "answer": "5 hours / week"
+    },
+    {
+      "qid": "OTHER_top3",
+      "role": "OTHER",
+      "question": "In your Other / Initiative role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Ideation\nData creation and availability\nProduct/app/solution development (as product owner)\nInternal leadership buy-in\nInternal demos (to leadership, extended leadership, managers, etc.,)"
+    },
+    {
+      "qid": "OTHER_necessary2",
+      "role": "OTHER",
+      "question": "Still in your Other / Initiative role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Multiple demos\nSometimes, business priority changes and we need to change the course of the action which results in loss of productive time and needless to say, one never gets recognition for the same"
+    },
+    {
+      "qid": "CL_hours",
+      "role": "CL",
+      "question": "How many hours per week do you typically spend on your Cloud Leader responsibilities?",
+      "answer": "10 hours / week"
+    },
+    {
+      "qid": "CL_top3",
+      "role": "CL",
+      "question": "In your Cloud Leader role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Project health\nPractice growth opportunities\nAI adoption and leveraging in new areas to improve productivity/efficiency\nHeat-mapping of stakeholders\nTeam meetings"
+    },
+    {
+      "qid": "CL_necessary2",
+      "role": "CL",
+      "question": "Still in your Cloud Leader role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "I think anything that does not have a direct correlation to customer outcomes and/or our team members wellbeing will be non-productive"
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "Meeting everyone's expectations in a matrixed organisation is one of the hurdles that affects many, especially while working on initiatives \n\nNote: What's the cap on the no. of words/sentences one has to fill before moving to the next question?"
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "I would focus my energies on managing the delivery of strategic accounts \nI would spend significantly more time on deep-focus strategic planning, creative side projects, and undistracted time with family. Conversely, I would gladly hand off routine administrative tasks, and completely stop saying yes to low-priority meetings that could easily have been handled over a quick email update."
+    }
+  ]
+}
