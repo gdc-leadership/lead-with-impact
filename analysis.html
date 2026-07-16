@@ -104,6 +104,41 @@
   .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; border: 1px solid #cbd5e1; color: #64748b; background: white; cursor: pointer; font-family: inherit; transition: all 0.15s; }
   .btn:hover { border-color: #0176d3; color: #0176d3; }
 
+  /* V2MOM alignment section */
+  .v2mom-section { margin-top: 40px; }
+  .v2mom-section-hdr { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; padding: 0 4px; }
+  .v2mom-section-hdr h2 { font-size: 1.1rem; font-weight: 700; color: #032d60; }
+  .v2mom-section-sub { font-size: 0.78rem; color: #64748b; padding: 0 4px; margin-bottom: 18px; line-height: 1.6; }
+  .v2mom-method { margin-bottom: 24px; }
+  .v2mom-method-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #032d60; background: #e8f0fe; border-left: 4px solid #032d60; padding: 8px 14px; border-radius: 0 6px 6px 0; margin-bottom: 12px; }
+  .v2mom-measures { display: flex; flex-direction: column; gap: 10px; }
+  .v2mom-measure { background: white; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+  .v2mom-measure-top { display: flex; align-items: stretch; }
+  .v2mom-role-badge { writing-mode: vertical-rl; text-orientation: mixed; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: white; padding: 8px 6px; min-width: 24px; text-align: center; flex-shrink: 0; }
+  .vmb-bp { background: #0176d3; }
+  .vmb-cl { background: #0b827c; }
+  .vmb-dp { background: #2e844a; }
+  .v2mom-measure-body { flex: 1; padding: 12px 14px; }
+  .v2mom-measure-text { font-size: 0.82rem; color: #374151; line-height: 1.55; margin-bottom: 10px; }
+  .v2mom-quotes { display: flex; flex-direction: column; gap: 6px; }
+  .v2mom-quote { background: #f8fafc; border-left: 3px solid #0176d3; border-radius: 0 6px 6px 0; padding: 8px 12px; font-size: 0.78rem; color: #374151; line-height: 1.55; font-style: italic; }
+  .v2mom-quote.strong { border-left-color: #16a34a; background: #f0fdf4; }
+  .v2mom-no-match { font-size: 0.75rem; color: #94a3b8; font-style: italic; padding: 4px 0; }
+  .v2mom-align-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 99px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .align-strong { background: #dcfce7; color: #166534; }
+  .align-partial { background: #fef9c3; color: #713f12; }
+  .align-gap     { background: #fee2e2; color: #991b1b; }
+  .v2mom-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
+  .v2mom-summary-card { background: white; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; }
+  .v2mom-summary-role { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+  .v2mom-bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .v2mom-bar-label { font-size: 0.72rem; color: #374151; flex: 1; line-height: 1.3; }
+  .v2mom-bar-track { width: 70px; flex-shrink: 0; background: #f1f5f9; border-radius: 99px; height: 7px; overflow: hidden; }
+  .v2mom-bar-fill-s { height: 100%; border-radius: 99px; background: #16a34a; }
+  .v2mom-bar-fill-p { height: 100%; border-radius: 99px; background: #eab308; }
+  .v2mom-bar-fill-g { height: 100%; border-radius: 99px; background: #e2e8f0; }
+  .v2mom-bar-pct { font-size: 0.68rem; color: #64748b; width: 28px; text-align: right; }
+
   @media print {
     body { background: white; }
     .sf-topbar, .toolbar { display: none !important; }
@@ -112,7 +147,7 @@
   }
   @media (max-width: 720px) {
     .stats-row { grid-template-columns: repeat(3, 1fr); }
-    .two-col, .role-grid { grid-template-columns: 1fr; }
+    .two-col, .role-grid, .v2mom-summary-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -143,6 +178,158 @@
 <script>
 const GH_REPO  = 'gdc-leadership/lead-with-impact';
 const GH_TOKEN = ['ghp_8V3sg','MFuojXTygs','xdtVqEovl2oMevc43gQmw'].join('');
+
+// ── FY27 V2MOM — Methods & role-specific measures ─────────────────────────────
+// Sourced from GDC FY27 V2MOM Working Sheet BP/CL/DP
+const V2MOM = [
+  {
+    id: 'M1',
+    method: 'M1: Accelerate Customers’ Agentic Transformations',
+    measures: [
+      {
+        role: 'CL',
+        text: 'AI-led productised delivery framework — demonstrate 15–30% improvement in efficiency and time to deliver (H1: 20%, H2: 30%)',
+        keywords: ['ai-led','productised','productized','agentforce','efficiency','time to deliver','ai tools','sail','automation','framework','template','blueprint']
+      },
+      {
+        role: 'CL',
+        text: 'Scale FDE programme — support Agentforce product and Data Cloud FDE targets',
+        keywords: ['fde','forward deployed','scale','agentforce','data cloud','consumption']
+      }
+    ]
+  },
+  {
+    id: 'M3',
+    method: 'M3: Collaboration across Salesforce and the Ecosystem',
+    measures: [
+      {
+        role: 'BP',
+        text: 'Partnership — inclusion in account planning for OU/Sector, 100% QBR compliance with OU leadership',
+        keywords: ['account planning','qbr','quarterly business review','ou leadership','partnership','account strategy','sector','exec relationship','c-suite']
+      },
+      {
+        role: 'BP',
+        text: 'Key Programs — sell GDC-owned programmes, 100% co-ownership coverage for deals >50% GDC with architect & PM coverage',
+        keywords: ['book more with gdc','gdc program','co-ownership','architect coverage','pm coverage','programme','sell right','deal structure']
+      },
+      {
+        role: 'CL',
+        text: 'Product evolution — influence product roadmap/backlog via VoCs from implementations; build productised assets and reusable frameworks',
+        keywords: ['product roadmap','voc','voice of customer','reusable','asset','migration framework','backlog','product engineering','influence roadmap']
+      },
+      {
+        role: 'DP',
+        text: 'Co-own delivery KPIs with OU leaders; quarterly delivery cadence across GDC PM, TA and CL per OU',
+        keywords: ['delivery kpi','co-own','ou leader','delivery cadence','stakeholder','steering','governance','steerco']
+      }
+    ]
+  },
+  {
+    id: 'M4',
+    method: 'M4: Reimagined Go to Market',
+    measures: [
+      {
+        role: 'BP',
+        text: 'Drive & deliver X unique customer visits per quarter per OU; 0 deviation from Customer Visit SOP',
+        keywords: ['customer visit','gic visit','customer engagement','executive visit','exec visit','gtm','presales','pre-sales','client visit']
+      },
+      {
+        role: 'BP',
+        text: 'Own/influence account strategy for successful deal progression from GIC visits (50% of booking value)',
+        keywords: ['deal progression','booking','account strategy','deal shaping','pipeline','opportunity','gtm','presales','pre-sales','opportunity strategy']
+      },
+      {
+        role: 'BP',
+        text: 'Pre-sales — 100% coverage of all deals >Stage 1 above $ threshold',
+        keywords: ['pre-sales','presales','stage 1','coverage','deal','pipeline','sow','scoping','proposal']
+      }
+    ]
+  },
+  {
+    id: 'M5',
+    method: 'M5: Delivery Excellence & High-Quality Implementations',
+    measures: [
+      {
+        role: 'CL',
+        text: 'Delivery Excellence — 100% adherence to delivery governance processes; escalation-free delivery; DPD <0.1 for GDC PM-led projects',
+        keywords: ['delivery governance','escalation','dpd','first time right','quality','governance process','delivery excellence','zero escalation','on-time','on time']
+      },
+      {
+        role: 'CL',
+        text: '98% RR fulfilment; optimised capacity with demand/supply forecast; 0% skill-based rejections',
+        keywords: ['rr fulfillment','resource request','skill rejection','bench','capacity','demand supply','staffing','utilisation','utilization']
+      },
+      {
+        role: 'DP',
+        text: 'First Time Right; zero escalations; trusted partner to co-own (GM, GM-1); active contribution to internal SteerCo',
+        keywords: ['first time right','escalation','steerco','steering committee','delivery quality','zero defect','trusted advisor','gm','client satisfaction','csat']
+      }
+    ]
+  },
+  {
+    id: 'M6',
+    method: 'M6: Next Generation Agentic Talent',
+    measures: [
+      {
+        role: 'BP',
+        text: 'Multi-cloud readiness; 20 net new resources G8 ready for BP role; all G7/8 resources ready for management landscape roles',
+        keywords: ['multi-cloud','upskill','agentblazer','talent','career','idp','next line','next-line','pipeline','management ready','g7','g8']
+      },
+      {
+        role: 'CL',
+        text: '100% V2MOM and IDP for all employees; Agentblazer Champion & Innovator completion; multi-cloud readiness per cluster strategy',
+        keywords: ['agentblazer','idp','v2mom','upskill','learning','multi-cloud','certif','badge','talent development']
+      },
+      {
+        role: 'DP',
+        text: 'Workforce upskilling — AI fluency, Agentblazer completion, next-line leadership pipeline',
+        keywords: ['upskill','ai fluency','agentblazer','next line','next-line','delegation','talent','learning','coaching','mentoring']
+      }
+    ]
+  },
+  {
+    id: 'M7',
+    method: 'M7: Optimised Performance',
+    measures: [
+      {
+        role: 'BP',
+        text: 'Drive GDC contribution to OU PS billable + credited hours growth; Average T&M bill rate targets met',
+        keywords: ['billable','credited hours','bill rate','utilisation','utilization','revenue','ps contribution','t&m','bookings']
+      },
+      {
+        role: 'CL',
+        text: 'Manage <8% overall GDC bench; ≥95% workforce meets utilisation targets',
+        keywords: ['bench','utilisation','utilization','98%','resource','staffing','demand','supply','capacity plan']
+      },
+      {
+        role: 'DP',
+        text: 'Own GDC delivery governance and outcomes for OU; 100% top LSP and GDC-owned programme ownership',
+        keywords: ['delivery governance','outcomes','lsp','programme ownership','governance','performance','margin','financials']
+      }
+    ]
+  },
+  {
+    id: 'M8',
+    method: 'M8: Excellent Manager',
+    measures: [
+      {
+        role: 'BP',
+        text: 'Drive high-performance: 100% Quarterly Check-Ins, 85%+ engagement score (Great Insights); accelerate careers and skills',
+        keywords: ['check-in','engagement','great insights','gis','high performance','team development','1:1','coaching','career']
+      },
+      {
+        role: 'CL',
+        text: 'Drive high-performance: 100% Quarterly Check-Ins, 85%+ engagement score; 100% Agentblazer goal for team',
+        keywords: ['check-in','engagement','great insights','agentblazer','team performance','1:1','people management','coaching']
+      },
+      {
+        role: 'DP',
+        text: 'Drive high-performance: 100% Quarterly Check-Ins, 85%+ engagement score; team career development',
+        keywords: ['check-in','engagement','team performance','people management','next-line','coaching','delegation','1:1']
+      }
+    ]
+  }
+];
 
 const ROLES_META = {
   BP:    { name: 'Business Partner',   icon: '🤝', hdr: 'hdr-bp' },
@@ -502,6 +689,152 @@ function renderDashboard() {
 
   document.getElementById('app').innerHTML = html;
 }
+
+// ── V2MOM alignment renderer ──────────────────────────────────────────────────
+
+function v2momAlignmentHtml() {
+  if (!allData.length) return '';
+
+  // Collect all free-text answers per role
+  function roleAnswers(roleKey) {
+    return allData
+      .filter(d => d.roles.includes(roleKey))
+      .flatMap(d => d.responses.map(r => (r.answer || '').toLowerCase()));
+  }
+  const answersByRole = { BP: roleAnswers('BP'), CL: roleAnswers('CL'), DP: roleAnswers('DP') };
+  const allAnswers = allData.flatMap(d => d.responses.map(r => (r.answer || '').toLowerCase()));
+
+  // Score a measure against answers: returns {score, quotes[]}
+  function scoreMeasure(measure) {
+    const corpus = measure.role === 'ALL' ? allAnswers : (answersByRole[measure.role] || allAnswers);
+    const quotesRaw = [];
+
+    measure.keywords.forEach(kw => {
+      corpus.forEach((ans, idx) => {
+        if (ans.includes(kw) && ans.length > 20) {
+          // Find the sentence containing the keyword
+          const sentences = ans.split(/[.\n]+/).map(s => s.trim()).filter(s => s.length > 15);
+          sentences.forEach(s => {
+            if (s.includes(kw) && !quotesRaw.some(q => q.includes(s.slice(0,30)))) {
+              quotesRaw.push(s.charAt(0).toUpperCase() + s.slice(1));
+            }
+          });
+        }
+      });
+    });
+
+    const hits = measure.keywords.filter(kw => corpus.some(a => a.includes(kw))).length;
+    const ratio = hits / measure.keywords.length;
+    const score = ratio >= 0.4 ? 'strong' : ratio >= 0.15 ? 'partial' : 'gap';
+    return { score, quotes: quotesRaw.slice(0, 3) };
+  }
+
+  // Summary scores per role per method
+  const roleMethods = { BP: {}, CL: {}, DP: {} };
+  V2MOM.forEach(m => {
+    ['BP','CL','DP'].forEach(role => {
+      const measures = m.measures.filter(x => x.role === role);
+      if (!measures.length) return;
+      const scores = measures.map(x => scoreMeasure(x).score);
+      const best = scores.includes('strong') ? 'strong' : scores.includes('partial') ? 'partial' : 'gap';
+      roleMethods[role][m.id] = best;
+    });
+  });
+
+  // Summary card per role
+  function summaryCard(role, label, color) {
+    const methods = roleMethods[role];
+    const ids = Object.keys(methods);
+    if (!ids.length) return '';
+    const strong  = ids.filter(id => methods[id] === 'strong').length;
+    const partial = ids.filter(id => methods[id] === 'partial').length;
+    const gap     = ids.filter(id => methods[id] === 'gap').length;
+    const total   = ids.length;
+    return `<div class="v2mom-summary-card">
+      <div class="v2mom-summary-role" style="color:${color}">${label}</div>
+      <div class="v2mom-bar-row">
+        <div class="v2mom-bar-label">Strong alignment</div>
+        <div class="v2mom-bar-track"><div class="v2mom-bar-fill-s" style="width:${Math.round(strong/total*100)}%"></div></div>
+        <div class="v2mom-bar-pct">${strong}/${total}</div>
+      </div>
+      <div class="v2mom-bar-row">
+        <div class="v2mom-bar-label">Partial alignment</div>
+        <div class="v2mom-bar-track"><div class="v2mom-bar-fill-p" style="width:${Math.round(partial/total*100)}%"></div></div>
+        <div class="v2mom-bar-pct">${partial}/${total}</div>
+      </div>
+      <div class="v2mom-bar-row">
+        <div class="v2mom-bar-label">Gap / not surfaced</div>
+        <div class="v2mom-bar-track"><div class="v2mom-bar-fill-g" style="width:${Math.round(gap/total*100)}%"></div></div>
+        <div class="v2mom-bar-pct">${gap}/${total}</div>
+      </div>
+    </div>`;
+  }
+
+  const alignPillHtml = score =>
+    score === 'strong'  ? '<span class="v2mom-align-pill align-strong">● Strong alignment</span>' :
+    score === 'partial' ? '<span class="v2mom-align-pill align-partial">◑ Partial alignment</span>' :
+                          '<span class="v2mom-align-pill align-gap">○ Not surfaced</span>';
+
+  const roleColors = { BP: '#0176d3', CL: '#0b827c', DP: '#2e844a' };
+  const roleLabels = { BP: '🤝 Business Partner', CL: '☁️ Cloud Leader', DP: '🚀 Delivery Partner' };
+  const roleBadgeCls = { BP: 'vmb-bp', CL: 'vmb-cl', DP: 'vmb-dp' };
+
+  // Build method blocks
+  let methodsHtml = '';
+  V2MOM.forEach(m => {
+    const activeMeasures = m.measures.filter(ms => (answersByRole[ms.role] || []).length > 0);
+    if (!activeMeasures.length) return;
+
+    const measureRows = activeMeasures.map(ms => {
+      const { score, quotes } = scoreMeasure(ms);
+      const quotesHtml = quotes.length
+        ? quotes.map(q => `<div class="v2mom-quote ${score === 'strong' ? 'strong' : ''}">"${escHtml(q)}"</div>`).join('')
+        : `<div class="v2mom-no-match">No direct mentions found in survey responses</div>`;
+      return `<div class="v2mom-measure">
+        <div class="v2mom-measure-top">
+          <div class="v2mom-role-badge ${roleBadgeCls[ms.role]}">${ms.role}</div>
+          <div class="v2mom-measure-body">
+            ${alignPillHtml(score)}
+            <div class="v2mom-measure-text">${escHtml(ms.text)}</div>
+            <div class="v2mom-quotes">${quotesHtml}</div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+
+    methodsHtml += `<div class="v2mom-method">
+      <div class="v2mom-method-title">${escHtml(m.method)}</div>
+      <div class="v2mom-measures">${measureRows}</div>
+    </div>`;
+  });
+
+  return `<div class="v2mom-section page-break">
+    <div class="v2mom-section-hdr">
+      <div style="font-size:1.5rem">📋</div>
+      <h2>FY27 V2MOM Alignment</h2>
+    </div>
+    <p class="v2mom-section-sub">
+      Survey responses mapped against FY27 GDC V2MOM methods and role-specific measures.
+      Alignment is assessed by keyword frequency across free-text answers — <em>strong</em> means the theme appears consistently, <em>partial</em> means it surfaces occasionally, <em>not surfaced</em> means directors did not raise it as a priority.
+    </p>
+    <div class="v2mom-summary-grid">
+      ${summaryCard('BP', '🤝 Business Partner', '#0176d3')}
+      ${summaryCard('CL', '☁️ Cloud Leader', '#0b827c')}
+      ${summaryCard('DP', '🚀 Delivery Partner', '#2e844a')}
+    </div>
+    ${methodsHtml}
+  </div>`;
+}
+
+// ── Patch renderDashboard to append V2MOM section ────────────────────────────
+const _origRender = renderDashboard;
+renderDashboard = function() {
+  _origRender();
+  const appEl = document.getElementById('app');
+  if (appEl && allData.length) {
+    appEl.insertAdjacentHTML('beforeend', v2momAlignmentHtml());
+  }
+};
 
 loadData();
 </script>
