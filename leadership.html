@@ -55,8 +55,10 @@ html.light .ct-bar-fill{background:#0070d2}
 html.light .conf-tag{background:rgba(255,140,0,.07);border-color:rgba(255,140,0,.18);color:#c56a00}
 html.light .observers-strip{background:#fff}
 html.light .obs-chip{background:rgba(0,0,0,.04)}
-html.light .signal-item.high{background:rgba(0,229,160,.1)}
-html.light .signal-item.low{background:rgba(255,69,96,.08)}
+html.light .signal-item.high{background:rgba(0,180,120,.12);color:#0a3d28}
+html.light .signal-item.low{background:rgba(200,40,60,.08);color:#5a0a12}
+html.light .signal-item.high .signal-rank,html.light .signal-item.high .signal-hits{color:rgba(10,61,40,.5)}
+html.light .signal-item.low .signal-rank,html.light .signal-item.low .signal-hits{color:rgba(90,10,18,.45)}
 html.light .c-hr-input{background:rgba(0,112,210,.06);border-color:rgba(0,112,210,.2);color:#0070d2}
 html.light .c-act-input{border-bottom-color:rgba(0,0,0,.15);color:#0d1117}
 html.light .c-stop-input{background:rgba(255,69,96,.04);border-color:rgba(255,69,96,.15)}
@@ -238,8 +240,8 @@ html.light .nav-mode:hover{background:rgba(0,0,0,.1);color:#0d1117}
 }
 .signal-header-left{display:flex;align-items:center;gap:10px}
 .signal-role-icon{font-size:18px}
-.signal-role-name{font-size:14px;font-weight:700;color:var(--white)}
-.signal-count{font-size:11px;color:var(--dim);font-weight:600}
+.signal-role-name{font-size:14px;font-weight:700;color:var(--white);transition:color .3s}
+.signal-count{font-size:11px;color:var(--muted);font-weight:600}
 .signal-body{padding:20px}
 .signal-section{margin-bottom:18px}
 .signal-section:last-child{margin-bottom:0}
@@ -255,14 +257,14 @@ html.light .nav-mode:hover{background:rgba(0,0,0,.1);color:#0d1117}
   font-size:13px;line-height:1.45;
 }
 .signal-item:last-child{margin-bottom:0}
-.signal-item.high{background:var(--green2);color:rgba(238,242,255,.85)}
-.signal-item.low{background:var(--red2);color:rgba(238,242,255,.85)}
+.signal-item.high{background:var(--green2);color:var(--white)}
+.signal-item.low{background:var(--red2);color:var(--white)}
 .signal-rank{
   font-size:10px;font-weight:800;flex-shrink:0;
-  margin-top:2px;opacity:.45;width:14px;
+  margin-top:2px;color:var(--muted);width:14px;
 }
-.signal-hits{margin-left:auto;font-size:10px;font-weight:700;opacity:.35;padding-left:6px;flex-shrink:0}
-.signal-empty{font-size:12px;color:var(--dim);font-style:italic}
+.signal-hits{margin-left:auto;font-size:10px;font-weight:700;color:var(--muted);padding-left:6px;flex-shrink:0}
+.signal-empty{font-size:12px;color:var(--muted);font-style:italic}
 
 /* ── S4: METHOD ───────────────────────────────────────────────── */
 #s4{background:var(--bg)}
