@@ -4,7 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Leadership Prioritisation — FY27</title>
-<script src="https://cdn.jsdelivr.net/npm/motion@11.2.0/dist/motion.js"></script>
+<script>
+// Load Motion One async — never block rendering
+(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/motion@11.2.0/dist/motion.js';s.async=true;document.head.appendChild(s);})();
+</script>
 <style>
 :root{
   --bg:#070810;--s1:#0d0f1a;--s2:#111525;--s3:#161b2e;
@@ -446,9 +449,38 @@ body{
   }
 }
 
-/* ── ANIM BASE ────────────────────────────────────────────────── */
-/* opacity set by JS just before animating — never hidden by CSS */
-.anim-ready{opacity:0}
+/* ── COVER: pure CSS keyframes — zero JS dependency ─────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+
+.cover-eyebrow{animation:slideIn .6s ease-out .1s both}
+.cover-h1     {animation:fadeUp  .7s ease-out .25s both}
+.cover-sub    {animation:fadeUp  .6s ease-out .45s both}
+.cover-meta   {animation:fadeUp  .5s ease-out .65s both}
+
+/* ── SCROLL SECTIONS: revealed by JS adding .visible ─────────── */
+.anim{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.anim.visible{opacity:1;transform:translateY(0)}
+
+/* stagger siblings */
+.anim:nth-child(2){transition-delay:.1s}
+.anim:nth-child(3){transition-delay:.2s}
+.anim:nth-child(4){transition-delay:.3s}
+.anim:nth-child(5){transition-delay:.4s}
+
+/* card grids stagger */
+.j-card,.g-card,.c-card,.signal-card,.num-block{
+  opacity:0;transform:translateY(24px);
+  transition:opacity .5s ease,transform .5s ease;
+}
+.revealed .j-card,.revealed .g-card,.revealed .c-card,
+.revealed .signal-card,.revealed .num-block{opacity:1;transform:translateY(0)}
+.revealed .j-card:nth-child(1),.revealed .g-card:nth-child(1),.revealed .c-card:nth-child(1),.revealed .signal-card:nth-child(1),.revealed .num-block:nth-child(1){transition-delay:.05s}
+.revealed .j-card:nth-child(2),.revealed .g-card:nth-child(2),.revealed .c-card:nth-child(2),.revealed .signal-card:nth-child(2),.revealed .num-block:nth-child(2){transition-delay:.15s}
+.revealed .j-card:nth-child(3),.revealed .g-card:nth-child(3),.revealed .c-card:nth-child(3),.revealed .signal-card:nth-child(3),.revealed .num-block:nth-child(3){transition-delay:.25s}
+.revealed .j-card:nth-child(4),.revealed .g-card:nth-child(4),.revealed .num-block:nth-child(4){transition-delay:.35s}
+.revealed .j-card:nth-child(5),.revealed .g-card:nth-child(5){transition-delay:.45s}
 </style>
 </head>
 <body>
@@ -632,293 +664,159 @@ body{
 </footer>
 
 <script>
-window.addEventListener('load', function() {
-const { animate, stagger, inView } = Motion;
 const GH_REPO  = 'gdc-leadership/lead-with-impact';
 const GH_TOKEN = ['ghp_8V3sg','MFuojXTygs','xdtVqEovl2oMevc43gQmw'].join('');
 
-// ── Sections config ─────────────────────────────────────────────
+// ── Nav dots ─────────────────────────────────────────────────────
 const SECTIONS = [
-  {id:'s1',label:'Cover'},
-  {id:'s2',label:'Survey Truth'},
-  {id:'s3',label:'Role Signals'},
-  {id:'s4',label:'The Method'},
-  {id:'s5',label:'Journey'},
-  {id:'s6',label:'Groups'},
-  {id:'s7',label:'Ideal 40'},
-  {id:'s8',label:'Commit'},
+  {id:'s1',label:'Cover'},{id:'s2',label:'Survey Truth'},
+  {id:'s3',label:'Role Signals'},{id:'s4',label:'The Method'},
+  {id:'s5',label:'Journey'},{id:'s6',label:'Groups'},
+  {id:'s7',label:'Ideal 40'},{id:'s8',label:'Commit'},
 ];
-
-// ── Side dots ────────────────────────────────────────────────────
 const sideNav = document.getElementById('side-nav');
-SECTIONS.forEach((s, i) => {
+SECTIONS.forEach((s,i) => {
   const d = document.createElement('div');
-  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.className = 'dot' + (i===0?' active':'');
   d.innerHTML = `<span class="dot-label">${s.label}</span>`;
   d.onclick = () => document.getElementById(s.id).scrollIntoView({behavior:'smooth'});
   sideNav.appendChild(d);
 });
-
-// ── Active section on scroll ─────────────────────────────────────
 const dots = sideNav.querySelectorAll('.dot');
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const idx = SECTIONS.findIndex(s => s.id === e.target.id);
-      if (idx < 0) return;
-      dots.forEach(d => d.classList.remove('active'));
-      dots[idx].classList.add('active');
-      document.getElementById('nav-counter').textContent =
-        String(idx + 1).padStart(2,'0') + ' / ' + String(SECTIONS.length).padStart(2,'0');
-    }
-  });
-}, { threshold: 0.4 });
-SECTIONS.forEach(s => io.observe(document.getElementById(s.id)));
 
-// Keyboard nav
+// ── Active section tracker ────────────────────────────────────────
+new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const idx = SECTIONS.findIndex(s => s.id === e.target.id);
+    if (idx < 0) return;
+    dots.forEach(d => d.classList.remove('active'));
+    dots[idx].classList.add('active');
+    document.getElementById('nav-counter').textContent =
+      String(idx+1).padStart(2,'0') + ' / ' + String(SECTIONS.length).padStart(2,'0');
+  });
+}, {threshold:0.4}).observe && SECTIONS.forEach(s => {
+  const el = document.getElementById(s.id);
+  if (el) new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const idx = SECTIONS.findIndex(x => x.id === s.id);
+      dots.forEach(d => d.classList.remove('active'));
+      if (dots[idx]) dots[idx].classList.add('active');
+      document.getElementById('nav-counter').textContent =
+        String(idx+1).padStart(2,'0') + ' / ' + String(SECTIONS.length).padStart(2,'0');
+    });
+  }, {threshold:0.4}).observe(el);
+});
+
+// ── Keyboard nav ──────────────────────────────────────────────────
 document.addEventListener('keydown', e => {
   const active = [...dots].findIndex(d => d.classList.contains('active'));
-  if ((e.key === 'ArrowDown' || e.key === 'ArrowRight') && active < SECTIONS.length - 1)
-    document.getElementById(SECTIONS[active + 1].id).scrollIntoView({behavior:'smooth'});
-  if ((e.key === 'ArrowUp' || e.key === 'ArrowLeft') && active > 0)
-    document.getElementById(SECTIONS[active - 1].id).scrollIntoView({behavior:'smooth'});
+  if ((e.key==='ArrowDown'||e.key==='ArrowRight') && active < SECTIONS.length-1)
+    document.getElementById(SECTIONS[active+1].id).scrollIntoView({behavior:'smooth'});
+  if ((e.key==='ArrowUp'||e.key==='ArrowLeft') && active > 0)
+    document.getElementById(SECTIONS[active-1].id).scrollIntoView({behavior:'smooth'});
 });
 
-// ── Prep elements: set opacity:0 just before animating ──────────
-function prepHide(selector) {
-  document.querySelectorAll(selector).forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(0)';
+// ── Scroll reveal via CSS class ───────────────────────────────────
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    // reveal .anim children
+    e.target.querySelectorAll('.anim').forEach(el => el.classList.add('visible'));
+    // reveal card grids
+    e.target.classList.add('revealed');
+    revealObs.unobserve(e.target);
   });
-}
+}, {threshold:0.12});
+document.querySelectorAll('.sec').forEach(sec => revealObs.observe(sec));
 
-// ── Cover animations ─────────────────────────────────────────────
-prepHide('.cover-eyebrow');
-prepHide('.cover-h1');
-prepHide('.cover-sub');
-prepHide('.cover-meta');
-
-animate('.cover-eyebrow', {opacity:[0,1],x:[-20,0]}, {duration:.6,easing:'ease-out'});
-animate('.cover-h1',      {opacity:[0,1],y:[30,0]},  {duration:.7,delay:.15,easing:'ease-out'});
-animate('.cover-sub',     {opacity:[0,1],y:[20,0]},  {duration:.6,delay:.3,easing:'ease-out'});
-animate('.cover-meta',    {opacity:[0,1],y:[16,0]},  {duration:.5,delay:.5,easing:'ease-out'});
-
-// ── Generic inView animations ────────────────────────────────────
-document.querySelectorAll('.sec').forEach(sec => {
-  const elems = sec.querySelectorAll('.anim');
-  if (!elems.length) return;
-  elems.forEach(el => { el.style.opacity='0'; });
-  inView(sec, () => {
-    animate(elems, {opacity:[0,1],y:[18,0]}, {duration:.5,delay:stagger(.1),easing:'ease-out'});
-  }, {amount:.15});
-});
-
-// Journey cards spring
-document.querySelectorAll('.j-card').forEach(el => { el.style.opacity='0'; });
-inView('#s5', () => {
-  animate('.j-card', {opacity:[0,1],scale:[.92,1]},
-    {duration:.5,delay:stagger(.1),easing:[0.34,1.56,0.64,1]});
-}, {amount:.15});
-
-// Groups stagger
-document.querySelectorAll('.g-card').forEach(el => { el.style.opacity='0'; });
-inView('#s6', () => {
-  animate('.g-card', {opacity:[0,1],y:[24,0]},
-    {duration:.5,delay:stagger(.1),easing:'ease-out'});
-}, {amount:.15});
-
-// Canvas roles
-document.querySelectorAll('.c-card').forEach(el => { el.style.opacity='0'; });
-inView('#s7', () => {
-  animate('.c-card', {opacity:[0,1],y:[20,0]},
-    {duration:.5,delay:stagger(.12),easing:'ease-out'});
-}, {amount:.1});
-
-// ── Counter animation ────────────────────────────────────────────
-function animateCount(el, from, to, decimals, suffix, duration) {
+// ── Counter animation (pure JS, no deps) ─────────────────────────
+function animateCount(el, from, to, decimals, dur) {
   const start = performance.now();
-  const update = (now) => {
-    const t = Math.min((now - start) / (duration * 1000), 1);
-    const ease = 1 - Math.pow(1 - t, 3);
-    const val = from + (to - from) * ease;
-    el.innerHTML = (decimals ? val.toFixed(decimals) : Math.round(val)) + suffix;
-    if (t < 1) requestAnimationFrame(update);
-  };
-  requestAnimationFrame(update);
+  (function tick(now) {
+    const t = Math.min((now-start)/(dur*1000),1);
+    const v = from + (to-from)*(1-Math.pow(1-t,3));
+    el.textContent = decimals ? v.toFixed(decimals) : Math.round(v);
+    if (t < 1) requestAnimationFrame(tick);
+  })(performance.now());
 }
+new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const c1=document.getElementById('cn1'),c2=document.getElementById('cn2'),c3=document.getElementById('cn3');
+    if (c1&&c2&&c3) {
+      animateCount(c1, 0, parseInt(c1.dataset.val||0), 0, 1.2);
+      animateCount(c2, 0, parseFloat(c2.dataset.val||0), 1, 1.4);
+      animateCount(c3, 0, parseInt(c3.dataset.val||0), 0, 1.3);
+    }
+  });
+},{threshold:0.3}).observe(document.getElementById('s2'));
 
-// ── Data helpers ─────────────────────────────────────────────────
+// ── Data helpers ──────────────────────────────────────────────────
 let allData = [];
-function getAnswers(qid) {
-  return allData.flatMap(d => d.responses.filter(r => r.qid === qid)
-    .map(r => ({...r, roles: d.roles})));
-}
-function nums(qid) {
-  return getAnswers(qid).map(r => parseFloat(r.answer)).filter(v => !isNaN(v));
-}
-function avg(arr) { return arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0; }
-function parseLines(text) {
-  return (text||'').split('\n')
-    .map(l => l.replace(/^[\d]+[\.\)]\s*/,'').replace(/^[-*•]\s*/,'').trim())
-    .filter(l => l.length > 4);
-}
-function freqCount(lines) {
-  const map = {};
-  lines.forEach(l => { const k=l.toLowerCase().trim(); map[k]=(map[k]||0)+1; });
-  return Object.entries(map).sort((a,b)=>b[1]-a[1])
-    .map(([t,c])=>({text:t.charAt(0).toUpperCase()+t.slice(1),count:c}));
-}
-function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function parseLines(t){return(t||'').split('\n').map(l=>l.replace(/^[\d]+[\.\)]\s*/,'').replace(/^[-*•]\s*/,'').trim()).filter(l=>l.length>4)}
+function freqCount(lines){const m={};lines.forEach(l=>{const k=l.toLowerCase().trim();m[k]=(m[k]||0)+1});return Object.entries(m).sort((a,b)=>b[1]-a[1]).map(([t,c])=>({text:t.charAt(0).toUpperCase()+t.slice(1),count:c}))}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 
-// ── Render numbers ───────────────────────────────────────────────
 function renderNumbers() {
-  const n = allData.length;
-  if (!n) return;
-  const hrs = nums('total_hours');
-  const avgH = avg(hrs);
-  const over40 = hrs.filter(h => h > 40).length;
-
-  const grid = document.getElementById('numbers-grid');
-  grid.innerHTML = `
-    <div class="num-block">
-      <div class="big-num"><span id="cn1">0</span></div>
-      <div class="num-label">GDC Directors surveyed</div>
-      <div class="num-sub">Anonymous · Aggregated · FY27</div>
-    </div>
-    <div class="num-block">
-      <div class="big-num"><span id="cn2">0</span><span style="font-size:.45em;color:var(--muted)">h</span></div>
-      <div class="num-label">Average hours worked per week</div>
-      <div class="num-sub">${over40 > 0 ? `${over40} of ${n} working beyond 40h` : 'Target: 40h / week'}</div>
-    </div>
-    <div class="num-block">
-      <div class="big-num"><span id="cn3">0</span><span style="font-size:.45em;color:var(--muted)">%</span></div>
-      <div class="num-label">Working over target (>40h)</div>
-      <div class="num-sub">Time not allocated to outcomes</div>
-    </div>`;
-
-  inView('#s2', () => {
-    animateCount(document.getElementById('cn1'), 0, n, 0, '', 1.2);
-    animateCount(document.getElementById('cn2'), 0, avgH, 1, '', 1.4);
-    animateCount(document.getElementById('cn3'), 0, Math.round(over40/n*100), 0, '', 1.3);
-  }, {amount:.3});
+  const n = allData.length; if (!n) return;
+  const hrs = allData.map(d=>{const r=d.responses&&d.responses.find(r=>r.qid==='total_hours');return r?parseFloat(r.answer):NaN}).filter(v=>!isNaN(v));
+  const avgH = hrs.length ? hrs.reduce((a,b)=>a+b,0)/hrs.length : 0;
+  const over40 = hrs.filter(h=>h>40).length;
+  document.getElementById('numbers-grid').innerHTML = `
+    <div class="num-block"><div class="big-num"><span id="cn1" data-val="${n}">0</span></div><div class="num-label">GDC Directors surveyed</div><div class="num-sub">Anonymous · Aggregated · FY27</div></div>
+    <div class="num-block"><div class="big-num"><span id="cn2" data-val="${avgH.toFixed(1)}">0</span><span style="font-size:.45em;color:var(--muted)">h</span></div><div class="num-label">Average hours per week</div><div class="num-sub">${over40>0?over40+' of '+n+' over 40h':'Target: 40h / week'}</div></div>
+    <div class="num-block"><div class="big-num"><span id="cn3" data-val="${Math.round(over40/n*100)}">0</span><span style="font-size:.45em;color:var(--muted)">%</span></div><div class="num-label">Working over target (&gt;40h)</div><div class="num-sub">Time not mapped to outcomes</div></div>`;
+  // trigger counter if already visible
+  const c1=document.getElementById('cn1');
+  if (c1) { animateCount(c1,0,n,0,1.2); animateCount(document.getElementById('cn2'),0,avgH,1,1.4); animateCount(document.getElementById('cn3'),0,Math.round(over40/n*100),0,1.3); }
 }
 
-// ── Render role signals ──────────────────────────────────────────
 function renderSignals() {
-  const ROLES = [
-    {key:'BP',label:'Business Partner',icon:'🤝',dot:'#1b96ff',highQ:'BP_top3',lowQ:'BP_necessary2'},
-    {key:'CL',label:'Cloud Leader',icon:'☁️',dot:'#00e5a0',highQ:'CL_top3',lowQ:'CL_necessary2'},
-    {key:'DP',label:'Delivery Partner',icon:'🚀',dot:'#9b6dff',highQ:'DP_top3',lowQ:'DP_necessary2'},
-  ];
-
-  function topItems(qid, roleKey, n) {
-    const lines = allData.flatMap(d => {
-      if (!d.roles.includes(roleKey)) return [];
-      const a = d.responses.find(r => r.qid === qid);
-      return a ? parseLines(a.answer) : [];
-    });
-    return freqCount(lines).slice(0, n);
-  }
-
-  const grid = document.getElementById('signals-grid');
-  const cards = ROLES.map(r => {
-    const rCount = allData.filter(d => d.roles.includes(r.key)).length;
-    if (!rCount) return '';
-    const high = topItems(r.highQ, r.key, 3);
-    const low  = topItems(r.lowQ,  r.key, 2);
-
-    const hiHtml = high.length
-      ? high.map((x,i) => `<div class="signal-item high"><span class="signal-rank">${i+1}</span><span>${esc(x.text)}</span><span class="signal-hits">${x.count}×</span></div>`).join('')
-      : '<div class="signal-empty">No data yet</div>';
-    const loHtml = low.length
-      ? low.map((x,i) => `<div class="signal-item low"><span class="signal-rank">${i+1}</span><span>${esc(x.text)}</span><span class="signal-hits">${x.count}×</span></div>`).join('')
-      : '<div class="signal-empty">No data yet</div>';
-
-    return `<div class="signal-card">
-      <div class="signal-header">
-        <div class="signal-header-left"><span class="signal-role-icon">${r.icon}</span><span class="signal-role-name">${r.label}</span></div>
-        <span class="signal-count">${rCount} respondent${rCount!==1?'s':''}</span>
-      </div>
-      <div class="signal-body">
-        <div class="signal-section">
-          <div class="signal-sec-label up">⬆ Top 3 high-value activities</div>${hiHtml}
-        </div>
-        <div class="signal-section">
-          <div class="signal-sec-label down">⬇ Top 2 time-consuming / low-value</div>${loHtml}
-        </div>
-      </div>
-    </div>`;
+  const ROLES=[{key:'BP',label:'Business Partner',icon:'🤝',hq:'BP_top3',lq:'BP_necessary2'},{key:'CL',label:'Cloud Leader',icon:'☁️',hq:'CL_top3',lq:'CL_necessary2'},{key:'DP',label:'Delivery Partner',icon:'🚀',hq:'DP_top3',lq:'DP_necessary2'}];
+  function top(qid,rk,n){return freqCount(allData.flatMap(d=>{if(!d.roles||!d.roles.includes(rk))return[];const a=d.responses&&d.responses.find(r=>r.qid===qid);return a?parseLines(a.answer):[]})).slice(0,n)}
+  const grid=document.getElementById('signals-grid');
+  const html=ROLES.map(r=>{
+    const rc=allData.filter(d=>d.roles&&d.roles.includes(r.key)).length; if(!rc) return '';
+    const hi=top(r.hq,r.key,3),lo=top(r.lq,r.key,2);
+    return `<div class="signal-card"><div class="signal-header"><div class="signal-header-left"><span class="signal-role-icon">${r.icon}</span><span class="signal-role-name">${r.label}</span></div><span class="signal-count">${rc} respondent${rc!==1?'s':''}</span></div><div class="signal-body"><div class="signal-section"><div class="signal-sec-label up">⬆ Top 3 high-value</div>${hi.length?hi.map((x,i)=>`<div class="signal-item high"><span class="signal-rank">${i+1}</span><span>${esc(x.text)}</span><span class="signal-hits">${x.count}×</span></div>`).join(''):'<div class="signal-empty">No data yet</div>'}</div><div class="signal-section"><div class="signal-sec-label down">⬇ Top 2 time-drains</div>${lo.length?lo.map((x,i)=>`<div class="signal-item low"><span class="signal-rank">${i+1}</span><span>${esc(x.text)}</span><span class="signal-hits">${x.count}×</span></div>`).join(''):'<div class="signal-empty">No data yet</div>'}</div></div></div>`;
   }).filter(Boolean).join('');
-
-  grid.innerHTML = cards || '<div style="color:var(--dim);font-size:13px;padding:40px;text-align:center">No survey data yet — check back after responses are submitted.</div>';
-
-  inView('#s3', () => {
-    animate('.signal-card', {opacity:[0,1],y:[20,0]},
-      {duration:.5,delay:stagger(.12),easing:'ease-out'});
-  }, {amount:.15});
+  grid.innerHTML=html||'<div style="color:var(--dim);font-size:13px;padding:40px;text-align:center;grid-column:1/-1">No survey data yet — check back after responses are submitted.</div>';
 }
 
-// ── Load data ────────────────────────────────────────────────────
 async function loadData() {
   try {
-    const res = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/responses`, {
-      headers:{Authorization:`token ${GH_TOKEN}`}
-    });
+    const res = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/responses`,{headers:{Authorization:`token ${GH_TOKEN}`}});
     const files = await res.json();
     if (!Array.isArray(files)) return;
-    allData = await Promise.all(
-      files.filter(f => f.name.endsWith('.json') && f.name !== '.gitkeep')
-        .map(async f => {
-          const r = await fetch(`https://raw.githubusercontent.com/${GH_REPO}/main/responses/${f.name}`);
-          return r.json();
-        })
-    );
-    renderNumbers();
-    renderSignals();
+    allData = (await Promise.all(files.filter(f=>f.name.endsWith('.json')&&f.name!=='.gitkeep').map(async f=>{try{const r=await fetch(`https://raw.githubusercontent.com/${GH_REPO}/main/responses/${f.name}`);return await r.json()}catch(e){return null}}))).filter(Boolean);
+    renderNumbers(); renderSignals();
   } catch(e) {
-    console.warn('Survey data unavailable:', e.message);
-    document.getElementById('numbers-grid').innerHTML =
-      `<div class="num-block" style="grid-column:1/-1;text-align:center;padding:40px">
-        <div style="color:var(--dim);font-size:13px">Survey data loading — check back once responses are submitted.</div>
-      </div>`;
+    document.getElementById('numbers-grid').innerHTML='<div class="num-block" style="grid-column:1/-1;padding:40px;text-align:center"><div style="color:var(--dim);font-size:13px">Survey data unavailable — check back after responses are submitted.</div></div>';
   }
 }
 loadData();
 
-}); // end window.load
-
-// These must be global for inline HTML handlers
+// ── Canvas total ──────────────────────────────────────────────────
 function updateTotal() {
-  if (typeof Motion === 'undefined') return;
-  const { animate } = Motion;
-  const bp = parseInt(document.getElementById('bp-h').value)||0;
-  const cl = parseInt(document.getElementById('cl-h').value)||0;
-  const dp = parseInt(document.getElementById('dp-h').value)||0;
-  const tot = bp + cl + dp;
-  const pct = Math.min(100, Math.round(tot/40*100));
-  document.getElementById('ct-num').innerHTML = tot + '<span class="ct-target"> / 40h</span>';
-  document.getElementById('ct-bar').style.width = pct + '%';
-  const st = document.getElementById('ct-status');
-  if (tot === 40) {
-    st.textContent='✓ On target'; st.className='ct-status ct-ok';
-    document.getElementById('ct-bar').style.background='var(--green)';
-  } else if (tot > 40) {
-    st.textContent=`⚠ Over by ${tot-40}h`; st.className='ct-status ct-over';
-    document.getElementById('ct-bar').style.background='var(--red)';
-  } else {
-    st.textContent=`${40-tot}h remaining`; st.className='ct-status ct-under';
-    document.getElementById('ct-bar').style.background='#ffa523';
-  }
-  animate('#ct-num',{scale:[1.1,1]},{duration:.2,easing:'ease-out'});
+  const bp=parseInt(document.getElementById('bp-h').value)||0;
+  const cl=parseInt(document.getElementById('cl-h').value)||0;
+  const dp=parseInt(document.getElementById('dp-h').value)||0;
+  const tot=bp+cl+dp, pct=Math.min(100,Math.round(tot/40*100));
+  document.getElementById('ct-num').innerHTML=tot+'<span class="ct-target"> / 40h</span>';
+  document.getElementById('ct-bar').style.width=pct+'%';
+  const st=document.getElementById('ct-status');
+  if(tot===40){st.textContent='✓ On target';st.className='ct-status ct-ok';document.getElementById('ct-bar').style.background='var(--green)'}
+  else if(tot>40){st.textContent='⚠ Over by '+(tot-40)+'h';st.className='ct-status ct-over';document.getElementById('ct-bar').style.background='var(--red)'}
+  else{st.textContent=(40-tot)+'h remaining';st.className='ct-status ct-under';document.getElementById('ct-bar').style.background='#ffa523'}
 }
 function addAct(listId, color) {
-  const { animate } = Motion;
-  const list = document.getElementById(listId);
-  const div  = document.createElement('div');
-  div.className = 'c-act-item';
-  div.innerHTML = `<div class="c-act-dot" style="background:${color}"></div><input class="c-act-input" placeholder="Add activity…">`;
+  const list=document.getElementById(listId);
+  const div=document.createElement('div');
+  div.className='c-act-item';
+  div.innerHTML=`<div class="c-act-dot" style="background:${color}"></div><input class="c-act-input" placeholder="Add activity…">`;
   list.appendChild(div);
-  animate(div,{opacity:[0,1],x:[-10,0]},{duration:.25,easing:'ease-out'});
   div.querySelector('input').focus();
 }
 </script>
