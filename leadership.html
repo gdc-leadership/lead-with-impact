@@ -18,7 +18,48 @@
   --purple:#9b6dff;--purple2:rgba(155,109,255,0.1);
   --white:#eef2ff;--muted:rgba(238,242,255,0.45);--dim:rgba(238,242,255,0.18);
   --r:12px;
+  --nav-bg:rgba(7,8,16,.95);
 }
+/* ── LIGHT MODE ──────────────────────────────────────────────── */
+html.light{
+  --bg:#f0f4f8;--s1:#e8edf4;--s2:#ffffff;--s3:#f4f7fb;
+  --border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.14);
+  --white:#0d1117;--muted:rgba(13,17,23,0.55);--dim:rgba(13,17,23,0.3);
+  --nav-bg:rgba(240,244,248,.97);
+}
+html.light .cover-h1 em{background:linear-gradient(90deg,#0070d2,#7b5ea7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+html.light .ghost-num{color:rgba(0,0,0,.04)}
+html.light .side-nav .dot{background:rgba(0,0,0,.2)}
+html.light .side-nav .dot.active{background:#0070d2}
+html.light .dot-label{background:#fff;border-color:rgba(0,0,0,.12);color:#0d1117}
+html.light .topnav{background:linear-gradient(to bottom,var(--nav-bg),transparent)}
+html.light .nav-counter{color:#0070d2}
+html.light .nav-print{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.12);color:rgba(13,17,23,.6)}
+html.light .nav-print:hover{background:rgba(0,0,0,.1);color:#0d1117}
+html.light .num-block,.light .signal-card,.light .j-card,.light .g-card,.light .c-card,.light .commit-card{box-shadow:0 1px 4px rgba(0,0,0,.08)}
+html.light .scroll-hint{color:rgba(0,0,0,.3)}
+html.light .scroll-hint::after{background:linear-gradient(to bottom,#0070d2,transparent)}
+html.light .cover-eyebrow{color:#0070d2}
+html.light .cover-eyebrow::before{background:#0070d2}
+html.light .sec-label{color:#0070d2}
+html.light .method-big{background:linear-gradient(135deg,#0070d2,#7b5ea7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+html.light .j-name{color:#0070d2}
+html.light .j-card::before{background:linear-gradient(90deg,#0070d2,#7b5ea7)}
+html.light .j-badge{background:rgba(0,112,210,.08);border-color:rgba(0,112,210,.2);color:#0070d2}
+html.light .north-star-bar{background:rgba(0,112,210,.05);border-color:rgba(0,112,210,.15)}
+html.light .north-star-bar b{color:#0070d2}
+html.light .prework-bar{background:rgba(0,112,210,.06);border-color:rgba(0,112,210,.18)}
+html.light .prework-tag{background:#0070d2}
+html.light .save-cta{background:linear-gradient(90deg,#0070d2,#7b5ea7)}
+html.light .ct-bar-fill{background:#0070d2}
+html.light .conf-tag{background:rgba(255,140,0,.07);border-color:rgba(255,140,0,.18);color:#c56a00}
+html.light .observers-strip{background:#fff}
+html.light .obs-chip{background:rgba(0,0,0,.04)}
+html.light .signal-item.high{background:rgba(0,229,160,.1)}
+html.light .signal-item.low{background:rgba(255,69,96,.08)}
+html.light .c-hr-input{background:rgba(0,112,210,.06);border-color:rgba(0,112,210,.2);color:#0070d2}
+html.light .c-act-input{border-bottom-color:rgba(0,0,0,.15);color:#0d1117}
+html.light .c-stop-input{background:rgba(255,69,96,.04);border-color:rgba(255,69,96,.15)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
@@ -47,6 +88,15 @@ body{
   transition:background .15s,color .15s;
 }
 .nav-print:hover{background:rgba(255,255,255,.13);color:var(--white)}
+.nav-mode{
+  background:rgba(255,255,255,.07);border:1px solid var(--border2);
+  color:var(--muted);padding:6px 12px;border-radius:6px;
+  font-size:14px;cursor:pointer;font-family:inherit;line-height:1;
+  transition:background .15s,color .15s;
+}
+.nav-mode:hover{background:rgba(255,255,255,.13);color:var(--white)}
+html.light .nav-mode{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.12);color:rgba(13,17,23,.6)}
+html.light .nav-mode:hover{background:rgba(0,0,0,.1);color:#0d1117}
 
 /* ── SIDE DOTS ────────────────────────────────────────────────── */
 .side-nav{
@@ -493,6 +543,7 @@ body{
   </div>
   <div class="nav-right">
     <span class="nav-counter" id="nav-counter">01 / 08</span>
+    <button class="nav-mode" id="mode-toggle" onclick="toggleMode()" title="Toggle light/dark mode">☀︎</button>
     <button class="nav-print" onclick="window.print()">⎙ Print</button>
   </div>
 </div>
@@ -664,6 +715,22 @@ body{
 </footer>
 
 <script>
+// ── Light / dark toggle ───────────────────────────────────────────
+function toggleMode() {
+  const isLight = document.documentElement.classList.toggle('light');
+  document.getElementById('mode-toggle').textContent = isLight ? '◑' : '☀︎';
+  localStorage.setItem('ldMode', isLight ? 'light' : 'dark');
+}
+(function(){
+  if (localStorage.getItem('ldMode') === 'light') {
+    document.documentElement.classList.add('light');
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('mode-toggle');
+      if (btn) btn.textContent = '◑';
+    });
+  }
+})();
+
 const GH_REPO  = 'gdc-leadership/lead-with-impact';
 const GH_TOKEN = ['ghp_8V3sg','MFuojXTygs','xdtVqEovl2oMevc43gQmw'].join('');
 
