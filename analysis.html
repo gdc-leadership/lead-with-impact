@@ -149,6 +149,51 @@
     .stats-row { grid-template-columns: repeat(3, 1fr); }
     .two-col, .role-grid, .v2mom-summary-grid { grid-template-columns: 1fr; }
   }
+
+  /* ── Role Activity Snapshot ───────────────────────────────────── */
+  .snapshot-wrap { margin-bottom: 24px; }
+  .snapshot-heading {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: #032d60; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .snapshot-heading::after { content: ''; flex: 1; height: 1px; background: #e2e8f0; }
+  .snapshot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 720px) { .snapshot-grid { grid-template-columns: 1fr; } }
+  .snap-card {
+    background: white; border: 1px solid #e2e8f0; border-radius: 10px;
+    overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .snap-header {
+    padding: 11px 16px; display: flex; align-items: center; gap: 8px;
+    font-size: 0.82rem; font-weight: 700; color: white;
+  }
+  .snap-body { padding: 14px 16px; }
+  .snap-section-label {
+    font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.07em; margin-bottom: 8px; margin-top: 12px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .snap-section-label:first-child { margin-top: 0; }
+  .snap-section-label.green { color: #16a34a; }
+  .snap-section-label.red   { color: #dc2626; }
+  .snap-item {
+    display: flex; align-items: flex-start; gap: 8px;
+    padding: 7px 10px; border-radius: 7px; margin-bottom: 5px;
+    font-size: 0.8rem; line-height: 1.45;
+  }
+  .snap-item:last-child { margin-bottom: 0; }
+  .snap-item.high { background: #f0fdf4; color: #14532d; }
+  .snap-item.low  { background: #fff7f7; color: #7f1d1d; }
+  .snap-rank {
+    font-size: 0.65rem; font-weight: 800; flex-shrink: 0; margin-top: 1px;
+    width: 16px; text-align: center; opacity: 0.55;
+  }
+  .snap-count {
+    margin-left: auto; flex-shrink: 0; font-size: 0.7rem; font-weight: 700;
+    opacity: 0.5; padding-left: 8px; white-space: nowrap;
+  }
+  .snap-empty { font-size: 0.78rem; color: #94a3b8; padding: 4px 0; font-style: italic; }
 </style>
 </head>
 <body>
@@ -172,6 +217,7 @@
     <button class="btn" onclick="loadData()">↻ Refresh</button>
     <button class="btn" onclick="window.print()">⎙ Print / Export PDF</button>
   </div>
+  <div id="role-snapshot"></div>
   <div id="app"><div class="loading"><div class="spinner"></div>Fetching responses…</div></div>
 </div>
 
@@ -690,6 +736,77 @@ function renderDashboard() {
   document.getElementById('app').innerHTML = html;
 }
 
+// ── Role Activity Snapshot (top of page) ─────────────────────────────────────
+function renderRoleSnapshot() {
+  const snap = document.getElementById('role-snapshot');
+  if (!snap || !allData.length) return;
+
+  const ROLES = [
+    { key: 'BP', label: 'Business Partner', icon: '🤝', hdrColor: '#0176d3',
+      highQid: 'BP_top3', lowQid: 'BP_necessary2' },
+    { key: 'CL', label: 'Cloud Leader',     icon: '☁️', hdrColor: '#0b827c',
+      highQid: 'CL_top3', lowQid: 'CL_necessary2' },
+    { key: 'DP', label: 'Delivery Partner', icon: '🚀', hdrColor: '#2e844a',
+      highQid: 'DP_top3', lowQid: 'DP_necessary2' },
+  ];
+
+  function topItems(qid, roleKey, n) {
+    const lines = allData.flatMap(d => {
+      if (!d.roles.includes(roleKey)) return [];
+      const ans = d.responses.find(r => r.qid === qid);
+      return ans ? parseLines(ans.answer) : [];
+    });
+    return freqCount(lines).slice(0, n);
+  }
+
+  const cards = ROLES.map(r => {
+    const respondents = allData.filter(d => d.roles.includes(r.key)).length;
+    if (!respondents) return '';
+
+    const highItems = topItems(r.highQid, r.key, 3);
+    const lowItems  = topItems(r.lowQid,  r.key, 2);
+
+    const highHtml = highItems.length
+      ? highItems.map((item, i) => `
+          <div class="snap-item high">
+            <span class="snap-rank">${i + 1}</span>
+            <span>${escHtml(item.text)}</span>
+            <span class="snap-count">${item.count}×</span>
+          </div>`).join('')
+      : '<div class="snap-empty">No data yet</div>';
+
+    const lowHtml = lowItems.length
+      ? lowItems.map((item, i) => `
+          <div class="snap-item low">
+            <span class="snap-rank">${i + 1}</span>
+            <span>${escHtml(item.text)}</span>
+            <span class="snap-count">${item.count}×</span>
+          </div>`).join('')
+      : '<div class="snap-empty">No data yet</div>';
+
+    return `<div class="snap-card">
+      <div class="snap-header" style="background:${r.hdrColor}">
+        <span>${r.icon}</span>
+        <span>${r.label}</span>
+        <span style="margin-left:auto;opacity:.7;font-size:0.7rem">${respondents} respondent${respondents !== 1 ? 's' : ''}</span>
+      </div>
+      <div class="snap-body">
+        <div class="snap-section-label green">⬆ Top 3 high-value activities</div>
+        ${highHtml}
+        <div class="snap-section-label red">⬇ Top 2 time-consuming / low-value</div>
+        ${lowHtml}
+      </div>
+    </div>`;
+  }).join('');
+
+  const hasAny = ROLES.some(r => allData.some(d => d.roles.includes(r.key)));
+  snap.innerHTML = hasAny ? `
+    <div class="snapshot-wrap">
+      <div class="snapshot-heading">Role Activity Snapshot — from survey responses</div>
+      <div class="snapshot-grid">${cards}</div>
+    </div>` : '';
+}
+
 // ── V2MOM alignment renderer ──────────────────────────────────────────────────
 
 function v2momAlignmentHtml() {
@@ -826,10 +943,11 @@ function v2momAlignmentHtml() {
   </div>`;
 }
 
-// ── Patch renderDashboard to append V2MOM section ────────────────────────────
+// ── Patch renderDashboard to prepend snapshot + append V2MOM ─────────────────
 const _origRender = renderDashboard;
 renderDashboard = function() {
   _origRender();
+  renderRoleSnapshot();
   const appEl = document.getElementById('app');
   if (appEl && allData.length) {
     appEl.insertAdjacentHTML('beforeend', v2momAlignmentHtml());
