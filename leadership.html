@@ -447,7 +447,8 @@ body{
 }
 
 /* ── ANIM BASE ────────────────────────────────────────────────── */
-.anim{opacity:0}
+/* opacity set by JS just before animating — never hidden by CSS */
+.anim-ready{opacity:0}
 </style>
 </head>
 <body>
@@ -631,6 +632,7 @@ body{
 </footer>
 
 <script>
+window.addEventListener('load', function() {
 const { animate, stagger, inView } = Motion;
 const GH_REPO  = 'gdc-leadership/lead-with-impact';
 const GH_TOKEN = ['ghp_8V3sg','MFuojXTygs','xdtVqEovl2oMevc43gQmw'].join('');
@@ -682,7 +684,20 @@ document.addEventListener('keydown', e => {
     document.getElementById(SECTIONS[active - 1].id).scrollIntoView({behavior:'smooth'});
 });
 
+// ── Prep elements: set opacity:0 just before animating ──────────
+function prepHide(selector) {
+  document.querySelectorAll(selector).forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(0)';
+  });
+}
+
 // ── Cover animations ─────────────────────────────────────────────
+prepHide('.cover-eyebrow');
+prepHide('.cover-h1');
+prepHide('.cover-sub');
+prepHide('.cover-meta');
+
 animate('.cover-eyebrow', {opacity:[0,1],x:[-20,0]}, {duration:.6,easing:'ease-out'});
 animate('.cover-h1',      {opacity:[0,1],y:[30,0]},  {duration:.7,delay:.15,easing:'ease-out'});
 animate('.cover-sub',     {opacity:[0,1],y:[20,0]},  {duration:.6,delay:.3,easing:'ease-out'});
@@ -692,24 +707,28 @@ animate('.cover-meta',    {opacity:[0,1],y:[16,0]},  {duration:.5,delay:.5,easin
 document.querySelectorAll('.sec').forEach(sec => {
   const elems = sec.querySelectorAll('.anim');
   if (!elems.length) return;
+  elems.forEach(el => { el.style.opacity='0'; });
   inView(sec, () => {
     animate(elems, {opacity:[0,1],y:[18,0]}, {duration:.5,delay:stagger(.1),easing:'ease-out'});
   }, {amount:.15});
 });
 
 // Journey cards spring
+document.querySelectorAll('.j-card').forEach(el => { el.style.opacity='0'; });
 inView('#s5', () => {
   animate('.j-card', {opacity:[0,1],scale:[.92,1]},
     {duration:.5,delay:stagger(.1),easing:[0.34,1.56,0.64,1]});
 }, {amount:.15});
 
 // Groups stagger
+document.querySelectorAll('.g-card').forEach(el => { el.style.opacity='0'; });
 inView('#s6', () => {
   animate('.g-card', {opacity:[0,1],y:[24,0]},
     {duration:.5,delay:stagger(.1),easing:'ease-out'});
 }, {amount:.15});
 
 // Canvas roles
+document.querySelectorAll('.c-card').forEach(el => { el.style.opacity='0'; });
 inView('#s7', () => {
   animate('.c-card', {opacity:[0,1],y:[20,0]},
     {duration:.5,delay:stagger(.12),easing:'ease-out'});
@@ -866,8 +885,12 @@ async function loadData() {
 }
 loadData();
 
-// ── Canvas logic ─────────────────────────────────────────────────
+}); // end window.load
+
+// These must be global for inline HTML handlers
 function updateTotal() {
+  if (typeof Motion === 'undefined') return;
+  const { animate } = Motion;
   const bp = parseInt(document.getElementById('bp-h').value)||0;
   const cl = parseInt(document.getElementById('cl-h').value)||0;
   const dp = parseInt(document.getElementById('dp-h').value)||0;
@@ -888,8 +911,8 @@ function updateTotal() {
   }
   animate('#ct-num',{scale:[1.1,1]},{duration:.2,easing:'ease-out'});
 }
-
 function addAct(listId, color) {
+  const { animate } = Motion;
   const list = document.getElementById(listId);
   const div  = document.createElement('div');
   div.className = 'c-act-item';
