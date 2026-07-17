@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leadership Prioritisation — FY27</title>
+<script src="https://cdn.jsdelivr.net/npm/motion@11.2.0/dist/motion.js"></script>
+<style>
+:root{
+  --bg:#070810;--s1:#0d0f1a;--s2:#111525;--s3:#161b2e;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
+  --cyan:#00c8ff;--cyan2:rgba(0,200,255,0.12);
+  --green:#00e5a0;--green2:rgba(0,229,160,0.1);
+  --red:#ff4560;--red2:rgba(255,69,96,0.1);
+  --purple:#9b6dff;--purple2:rgba(155,109,255,0.1);
+  --white:#eef2ff;--muted:rgba(238,242,255,0.45);--dim:rgba(238,242,255,0.18);
+  --r:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,'Segoe UI',system-ui,Arial,sans-serif;
+  background:var(--bg);color:var(--white);
+  -webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden;
+}
+
+/* ── NAV ──────────────────────────────────────────────────────── */
+.topnav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 36px;
+  background:linear-gradient(to bottom,rgba(7,8,16,.95),transparent);
+  pointer-events:none;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;pointer-events:auto}
+.nav-logo svg{width:24px;height:24px;opacity:.8}
+.nav-brand{font-size:12px;font-weight:700;opacity:.55;letter-spacing:.12em;text-transform:uppercase}
+.nav-counter{font-size:12px;font-weight:700;color:var(--cyan);letter-spacing:.08em;pointer-events:auto}
+.nav-right{display:flex;align-items:center;gap:12px;pointer-events:auto}
+.nav-print{
+  background:rgba(255,255,255,.07);border:1px solid var(--border2);
+  color:var(--muted);padding:6px 14px;border-radius:6px;
+  font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;
+  transition:background .15s,color .15s;
+}
+.nav-print:hover{background:rgba(255,255,255,.13);color:var(--white)}
+
+/* ── SIDE DOTS ────────────────────────────────────────────────── */
+.side-nav{
+  position:fixed;right:22px;top:50%;transform:translateY(-50%);
+  z-index:300;display:flex;flex-direction:column;gap:10px;
+}
+.dot{
+  width:6px;height:6px;border-radius:50%;background:var(--dim);
+  cursor:pointer;transition:background .2s,transform .2s;
+  position:relative;
+}
+.dot:hover,.dot.active{background:var(--cyan);transform:scale(1.5)}
+.dot-label{
+  position:absolute;right:16px;top:50%;transform:translateY(-50%);
+  background:var(--s2);border:1px solid var(--border2);
+  color:var(--white);font-size:11px;font-weight:700;
+  padding:4px 10px;border-radius:5px;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .15s;
+}
+.dot:hover .dot-label{opacity:1}
+
+/* ── SECTIONS ─────────────────────────────────────────────────── */
+.sec{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:100px 60px;position:relative;overflow:hidden;
+}
+.sec-inner{width:100%;max-width:1100px;margin:0 auto}
+@media(max-width:768px){.sec{padding:80px 24px}}
+
+/* ghost section number */
+.ghost-num{
+  position:absolute;font-size:30vw;font-weight:900;
+  color:rgba(255,255,255,.018);line-height:1;
+  right:-2vw;top:50%;transform:translateY(-50%);
+  pointer-events:none;user-select:none;letter-spacing:-.05em;
+}
+
+/* ── S1: COVER ────────────────────────────────────────────────── */
+#s1{
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 40%,rgba(0,200,255,.06),transparent),
+    radial-gradient(ellipse 60% 80% at 20% 60%,rgba(155,109,255,.05),transparent),
+    var(--bg);
+  min-height:100vh;
+}
+.cover-eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:28px;display:flex;align-items:center;gap:12px;opacity:0;
+}
+.cover-eyebrow::before{content:'';width:32px;height:1px;background:var(--cyan)}
+.cover-h1{
+  font-size:clamp(48px,7vw,96px);font-weight:900;
+  line-height:1.02;letter-spacing:-.03em;
+  color:var(--white);margin-bottom:28px;opacity:0;
+}
+.cover-h1 em{
+  font-style:normal;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.cover-sub{
+  font-size:18px;color:var(--muted);max-width:560px;line-height:1.65;
+  margin-bottom:48px;opacity:0;
+}
+.cover-meta{
+  display:flex;gap:24px;align-items:center;flex-wrap:wrap;opacity:0;
+}
+.cover-tag{
+  font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dim);display:flex;align-items:center;gap:8px;
+}
+.cover-tag::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--cyan);flex-shrink:0}
+.scroll-hint{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+  font-size:11px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+}
+.scroll-hint::after{
+  content:'';width:1px;height:40px;
+  background:linear-gradient(to bottom,var(--cyan),transparent);
+  animation:pulse-line 2s ease-in-out infinite;
+}
+@keyframes pulse-line{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* ── S2: THE NUMBERS ──────────────────────────────────────────── */
+#s2{background:var(--bg)}
+.sec-label{
+  font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:16px;
+}
+.sec-h2{
+  font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-.02em;
+  margin-bottom:8px;
+}
+.sec-sub{font-size:15px;color:var(--muted);margin-bottom:56px;max-width:520px}
+.numbers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+@media(max-width:680px){.numbers-grid{grid-template-columns:1fr}}
+.num-block{
+  background:var(--s2);border:1px solid var(--border);
+  padding:40px 32px;position:relative;overflow:hidden;
+  transition:border-color .2s;
+}
+.num-block:first-child{border-radius:var(--r) 0 0 var(--r)}
+.num-block:last-child{border-radius:0 var(--r) var(--r) 0}
+@media(max-width:680px){.num-block{border-radius:var(--r)!important}}
+.num-block:hover{border-color:var(--border2)}
+.num-block::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));opacity:0;
+  transition:opacity .2s;
+}
+.num-block:hover::before{opacity:1}
+.big-num{
+  font-size:clamp(56px,6vw,80px);font-weight:900;
+  letter-spacing:-.04em;line-height:1;color:var(--white);
+  margin-bottom:12px;
+}
+.big-num span{color:var(--cyan)}
+.num-label{font-size:13px;font-weight:600;color:var(--muted);line-height:1.5}
+.num-sub{font-size:11px;color:var(--dim);margin-top:6px}
+.loading-pulse{
+  width:80px;height:64px;background:rgba(255,255,255,.04);
+  border-radius:8px;animation:shimmer 1.4s ease infinite;
+}
+@keyframes shimmer{0%,100%{opacity:.4}50%{opacity:.9}}
+
+/* ── S3: ROLE SIGNALS ─────────────────────────────────────────── */
+#s3{background:var(--s1)}
+.signals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:860px){.signals-grid{grid-template-columns:1fr}}
+.signal-card{
+  background:var(--s2);border:1px solid var(--border);border-radius:var(--r);
+  overflow:hidden;transition:transform .2s,border-color .2s;
+}
+.signal-card:hover{transform:translateY(-3px);border-color:var(--border2)}
+.signal-header{
+  padding:16px 20px;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--border);
+}
+.signal-header-left{display:flex;align-items:center;gap:10px}
+.signal-role-icon{font-size:18px}
+.signal-role-name{font-size:14px;font-weight:700;color:var(--white)}
+.signal-count{font-size:11px;color:var(--dim);font-weight:600}
+.signal-body{padding:20px}
+.signal-section{margin-bottom:18px}
+.signal-section:last-child{margin-bottom:0}
+.signal-sec-label{
+  font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  margin-bottom:10px;display:flex;align-items:center;gap:6px;
+}
+.signal-sec-label.up{color:var(--green)}
+.signal-sec-label.down{color:var(--red)}
+.signal-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:9px 12px;border-radius:8px;margin-bottom:6px;
+  font-size:13px;line-height:1.45;
+}
+.signal-item:last-child{margin-bottom:0}
+.signal-item.high{background:var(--green2);color:rgba(238,242,255,.85)}
+.signal-item.low{background:var(--red2);color:rgba(238,242,255,.85)}
+.signal-rank{
+  font-size:10px;font-weight:800;flex-shrink:0;
+  margin-top:2px;opacity:.45;width:14px;
+}
+.signal-hits{margin-left:auto;font-size:10px;font-weight:700;opacity:.35;padding-left:6px;flex-shrink:0}
+.signal-empty{font-size:12px;color:var(--dim);font-style:italic}
+
+/* ── S4: METHOD ───────────────────────────────────────────────── */
+#s4{background:var(--bg)}
+.method-layout{display:grid;grid-template-columns:220px 1fr;gap:60px;align-items:start}
+@media(max-width:760px){.method-layout{grid-template-columns:1fr;gap:32px}}
+.method-left{}
+.method-big{
+  font-size:120px;font-weight:900;letter-spacing:-.05em;
+  line-height:1;background:linear-gradient(135deg,var(--cyan),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.method-big-label{font-size:14px;color:var(--muted);margin-top:8px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.prework-bar{
+  background:rgba(0,200,255,.07);border:1px solid rgba(0,200,255,.2);
+  border-radius:8px;padding:12px 16px;display:flex;align-items:center;
+  gap:12px;margin-bottom:20px;
+}
+.prework-tag{
+  background:var(--cyan);color:#07080f;font-size:10px;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;
+  border-radius:999px;flex:none;white-space:nowrap;
+}
+.prework-bar p{font-size:13px;color:var(--muted)}
+.prework-bar b{color:var(--white)}
+.steps-list{display:flex;flex-direction:column;gap:0}
+.step-item{
+  display:flex;align-items:flex-start;gap:16px;
+  padding:14px 10px;border-bottom:1px solid var(--border);
+  border-radius:8px;transition:background .15s;
+}
+.step-item:last-child{border-bottom:none}
+.step-item:hover{background:rgba(255,255,255,.03)}
+.s-num{
+  width:32px;height:32px;border-radius:50%;flex-shrink:0;
+  font-weight:800;font-size:14px;display:grid;place-items:center;
+}
+.sn0{background:rgba(255,165,35,.15);color:#ffa523;border:1px solid rgba(255,165,35,.3)}
+.sn1{background:rgba(92,79,207,.2);color:#9b6dff;border:1px solid rgba(155,109,255,.3)}
+.sn2{background:rgba(0,181,184,.15);color:#00b5b8;border:1px solid rgba(0,181,184,.3)}
+.sn3{background:rgba(92,79,207,.2);color:#9b6dff;border:1px solid rgba(155,109,255,.3)}
+.sn4{background:rgba(255,165,35,.15);color:#ffa523;border:1px solid rgba(255,165,35,.3)}
+.sn5{background:rgba(0,229,160,.12);color:#00e5a0;border:1px solid rgba(0,229,160,.3)}
+.s-label{font-size:14px;font-weight:700;color:var(--white);margin-bottom:3px}
+.s-desc{font-size:12.5px;color:var(--muted);line-height:1.6}
+
+/* ── S5: JOURNEY ──────────────────────────────────────────────── */
+#s5{
+  background:
+    radial-gradient(ellipse 100% 60% at 50% 100%,rgba(0,200,255,.04),transparent),
+    var(--s1);
+}
+.journey-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:40px}
+@media(max-width:900px){.journey-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.journey-grid{grid-template-columns:1fr 1fr}}
+.j-card{
+  background:var(--s2);border:1px solid var(--border);border-radius:var(--r);
+  padding:22px 18px;transition:border-color .2s,transform .2s;
+  position:relative;overflow:hidden;
+}
+.j-card:hover{border-color:rgba(0,200,255,.3);transform:translateY(-3px)}
+.j-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  transform:scaleX(0);transform-origin:left;transition:transform .3s ease;
+}
+.j-card:hover::before{transform:scaleX(1)}
+.j-name{font-size:18px;font-weight:800;color:var(--cyan);margin-bottom:4px}
+.j-time{font-size:11px;color:var(--dim);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px}
+.j-badge{
+  font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  background:rgba(0,200,255,.1);border:1px solid rgba(0,200,255,.2);
+  color:var(--cyan);padding:3px 9px;border-radius:999px;
+  margin-bottom:12px;display:inline-block;
+}
+.j-desc{font-size:12px;color:var(--muted);line-height:1.55}
+.north-star-bar{
+  margin-top:20px;background:rgba(0,200,255,.05);
+  border:1px solid rgba(0,200,255,.15);border-radius:8px;
+  padding:14px 20px;text-align:center;
+  font-size:14px;color:var(--muted);
+}
+.north-star-bar b{color:var(--cyan)}
+
+/* ── S6: GROUPS ───────────────────────────────────────────────── */
+#s6{background:var(--bg)}
+.groups-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+@media(max-width:860px){.groups-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.groups-grid{grid-template-columns:1fr}}
+.g-card{
+  background:var(--s2);border:1px solid var(--border);border-radius:var(--r);
+  overflow:hidden;transition:transform .2s,border-color .2s;
+}
+.g-card:hover{transform:translateY(-3px);border-color:var(--border2)}
+.g-stripe{height:3px}
+.gs1{background:linear-gradient(90deg,#0176d3,#1b96ff)}
+.gs2{background:linear-gradient(90deg,#1b96ff,#00c8ff)}
+.gs3{background:linear-gradient(90deg,#06a59a,#00e5a0)}
+.gs4{background:linear-gradient(90deg,#2e844a,#00e5a0)}
+.g-body{padding:18px}
+.g-top-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px}
+.g-num{font-size:22px;font-weight:900;color:var(--white)}
+.g-team{font-size:10px;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--border2);padding:2px 8px;border-radius:99px}
+.g-mentor-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-bottom:4px}
+.g-mentor{font-size:14px;font-weight:700;color:var(--white);margin-bottom:12px}
+.g-divider{height:1px;background:var(--border);margin:10px 0}
+.g-p-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-bottom:8px}
+.g-p-list{list-style:none;display:flex;flex-direction:column;gap:5px}
+.g-p-list li{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:7px}
+.g-p-list li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--cyan);flex-shrink:0;opacity:.6}
+.observers-strip{
+  margin-top:14px;background:var(--s2);border:1px solid var(--border);
+  border-radius:var(--r);padding:14px 20px;
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.obs-label{font-size:12px;font-weight:700;color:var(--white);white-space:nowrap;padding-right:16px;border-right:1px solid var(--border)}
+.obs-chips{display:flex;flex-wrap:wrap;gap:8px;flex:1}
+.obs-chip{font-size:12px;color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--border);padding:4px 12px;border-radius:999px}
+.obs-note{font-size:11px;color:var(--dim);font-style:italic;white-space:nowrap}
+
+/* ── S7: CANVAS ───────────────────────────────────────────────── */
+#s7{background:var(--s1)}
+.canvas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px}
+@media(max-width:760px){.canvas-grid{grid-template-columns:1fr}}
+.c-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.c-head{padding:14px 18px;font-size:13px;font-weight:700;color:var(--white);display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.c-head.bp{background:rgba(1,118,211,.15)}
+.c-head.cl{background:rgba(6,165,154,.15)}
+.c-head.dp{background:rgba(46,132,74,.15)}
+.c-body{padding:18px}
+.c-hr-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.c-hr-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.c-hr-input{
+  width:70px;background:rgba(255,255,255,.06);border:1px solid var(--border2);
+  border-radius:8px;padding:8px 10px;font-size:22px;font-weight:900;
+  color:var(--cyan);text-align:center;font-family:inherit;outline:none;
+  transition:border-color .15s;
+}
+.c-hr-input:focus{border-color:var(--cyan)}
+.c-act-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:8px}
+.c-act-list{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.c-act-item{display:flex;align-items:center;gap:8px}
+.c-act-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.c-act-input{
+  flex:1;background:transparent;border:none;border-bottom:1px solid var(--border);
+  color:var(--white);font-size:13px;font-family:inherit;padding:5px 4px;outline:none;
+  transition:border-color .15s;
+}
+.c-act-input:focus{border-bottom-color:var(--cyan)}
+.c-act-input::placeholder{color:var(--dim)}
+.c-add{
+  font-size:12px;color:var(--cyan);font-weight:700;cursor:pointer;
+  background:none;border:none;padding:4px 0;font-family:inherit;
+  display:flex;align-items:center;gap:4px;transition:opacity .15s;
+}
+.c-add:hover{opacity:.7}
+.c-stop-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin:12px 0 6px;opacity:.8}
+.c-stop-input{
+  width:100%;background:rgba(255,69,96,.05);border:1px solid rgba(255,69,96,.15);
+  border-radius:8px;padding:9px 12px;color:var(--muted);font-size:13px;
+  font-family:inherit;outline:none;transition:border-color .15s;
+}
+.c-stop-input:focus{border-color:var(--red)}
+.c-stop-input::placeholder{color:var(--dim)}
+.canvas-total{
+  margin-top:16px;background:var(--s3);border:1px solid var(--border);
+  border-radius:var(--r);padding:22px 28px;
+  display:flex;align-items:center;gap:28px;flex-wrap:wrap;
+}
+.ct-num{font-size:56px;font-weight:900;letter-spacing:-.04em;line-height:1}
+.ct-num .ct-target{font-size:22px;color:var(--dim);font-weight:400}
+.ct-bar-wrap{flex:1;min-width:200px}
+.ct-bar-label{font-size:11px;color:var(--dim);margin-bottom:8px;display:flex;justify-content:space-between}
+.ct-bar-track{background:rgba(255,255,255,.07);border-radius:99px;height:8px;overflow:hidden}
+.ct-bar-fill{height:100%;border-radius:99px;background:var(--cyan);transition:width .4s ease,background .3s}
+.ct-status{font-size:13px;font-weight:700;padding:8px 16px;border-radius:8px;white-space:nowrap}
+.ct-ok{background:var(--green2);color:var(--green);border:1px solid rgba(0,229,160,.2)}
+.ct-over{background:var(--red2);color:var(--red);border:1px solid rgba(255,69,96,.2)}
+.ct-under{background:rgba(255,165,35,.1);color:#ffa523;border:1px solid rgba(255,165,35,.2)}
+
+/* ── S8: COMMIT ───────────────────────────────────────────────── */
+#s8{
+  background:
+    radial-gradient(ellipse 80% 80% at 50% 50%,rgba(155,109,255,.06),transparent),
+    var(--bg);
+  min-height:80vh;
+}
+.commit-card{
+  background:var(--s2);border:1px solid var(--border);border-radius:16px;
+  padding:40px 44px;max-width:680px;margin:32px auto 0;
+}
+.commit-row{display:grid;grid-template-columns:170px 1fr;gap:12px;align-items:center;margin-bottom:14px}
+@media(max-width:560px){.commit-row{grid-template-columns:1fr}}
+.commit-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--dim)}
+.commit-input{
+  width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border2);
+  border-radius:8px;padding:10px 14px;color:var(--white);font-size:13.5px;
+  font-family:inherit;outline:none;transition:border-color .15s;
+}
+.commit-input:focus{border-color:var(--cyan)}
+.commit-input::placeholder{color:var(--dim)}
+.save-cta{
+  width:100%;margin-top:20px;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  color:#07080f;border:none;border-radius:10px;
+  padding:14px;font-size:14px;font-weight:800;cursor:pointer;
+  font-family:inherit;letter-spacing:.04em;
+  transition:opacity .15s,transform .15s;
+}
+.save-cta:hover{opacity:.88;transform:scale(1.01)}
+
+/* ── FOOTER ───────────────────────────────────────────────────── */
+.page-footer{
+  text-align:center;padding:40px 24px;
+  border-top:1px solid var(--border);
+  font-size:12px;color:var(--dim);
+}
+.conf-tag{
+  display:inline-flex;gap:8px;align-items:center;
+  background:rgba(255,165,35,.08);border:1px solid rgba(255,165,35,.2);
+  color:#ffa523;padding:5px 14px;border-radius:999px;
+  font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:10px;
+}
+
+/* ── PRINT ────────────────────────────────────────────────────── */
+@media print{
+  .topnav,.side-nav,.scroll-hint,.ghost-num{display:none!important}
+  body{background:#fff;color:#000}
+  .sec{min-height:auto;padding:40px 32px;page-break-inside:avoid}
+  .cover-h1{-webkit-text-fill-color:#032d60}
+  .num-block,.signal-card,.j-card,.g-card,.c-card{
+    background:#f8f9fa!important;border-color:#e2e8f0!important;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+}
+
+/* ── ANIM BASE ────────────────────────────────────────────────── */
+.anim{opacity:0}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<div class="topnav">
+  <div class="nav-logo">
+    <svg viewBox="0 0 100 70" fill="none"><path d="M41.6 13.4a18.2 18.2 0 0 1 13-5.4c6.6 0 12.4 3.5 15.7 8.8a20.4 20.4 0 0 1 8.3-1.8c11.3 0 20.4 9.2 20.4 20.6S89.9 56.2 78.6 56.2H24.2C13.6 56.2 5 47.6 5 37c0-9.8 7.2-17.8 16.6-19.1a21.3 21.3 0 0 1 20-4.5z" fill="white"/></svg>
+    <span class="nav-brand">Salesforce GDC</span>
+  </div>
+  <div class="nav-right">
+    <span class="nav-counter" id="nav-counter">01 / 08</span>
+    <button class="nav-print" onclick="window.print()">⎙ Print</button>
+  </div>
+</div>
+
+<!-- SIDE DOTS -->
+<div class="side-nav" id="side-nav"></div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- S1: COVER                                                    -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section class="sec" id="s1">
+  <div class="ghost-num">40</div>
+  <div class="sec-inner">
+    <div class="cover-eyebrow">FY27 · GDC India · July 2026</div>
+    <h1 class="cover-h1">Leadership<br><em>Prioritisation</em></h1>
+    <p class="cover-sub">Every hour must map to an outcome, a named stakeholder, or a capacity unlock.</p>
+    <div class="cover-meta">
+      <span class="cover-tag">19 Directors</span>
+      <span class="cover-tag">40 Hours / Week</span>
+      <span class="cover-tag">60 Minute Workshop</span>
+      <span class="cover-tag">FY27 V2MOM</span>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- S2: THE NUMBERS (live)                                       -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section class="sec" id="s2">
+  <div class="ghost-num">N</div>
+  <div class="sec-inner">
+    <div class="sec-label anim">Survey truth</div>
+    <h2 class="sec-h2 anim">What the data says.</h2>
+    <p class="sec-sub anim">Live from GDC Directors — anonymous, aggregated.</p>
+    <div class="numbers-grid anim" id="numbers-grid">
+      <div class="num-block"><div class="loading-pulse"></div><div class="num-label" style="margin-top:12px">Loading…</div></div>
+      <div class="num-block"><div class="loading-pulse"></div><div class="num-label" style="margin-top:12px">Loading…</div></div>
+      <div class="num-block"><div class="loading-pulse"></div><div class="num-label" style="margin-top:12px">Loading…</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- S3: ROLE SIGNALS (live)                                      -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section class="sec" id="s3">
+  <div class="sec-inner">
+    <div class="sec-label anim">Role signals</div>
+    <h2 class="sec-h2 anim">What moves the needle.<br><span style="color:var(--muted);font-size:0.6em;font-weight:500">And what drains it.</span></h2>
+    <div class="signals-grid" id="signals-grid" style="margin-top:40px">
+      <div class="signal-card" style="padding:40px;text-align:center;color:var(--dim)">Loading survey data…</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- S4: THE METHOD                                               -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section class="sec" id="s4">
+  <div class="ghost-num">5</div>
+  <div class="sec-inner">
+    <div class="sec-label anim">Workshop design</div>
+    <div class="method-layout">
+      <div class="method-left anim">
+        <div class="method-big">60</div>
+        <div class="method-big-label">minutes<br>in-room</div>
+        <div style="margin-top:28px;font-size:13px;color:var(--muted);line-height:1.7">
+          Diagnose <b style="color:var(--white)">before</b> the room.<br>
+          Decide <b style="color:var(--white)">in</b> the room.<br>
+          Test for <b style="color:var(--white)">30 days</b>.
+        </div>
+      </div>
+      <div class="method-right anim">
+        <div class="prework-bar">
+          <span class="prework-tag">Pre-work · 15–20 min</span>
+          <p>Complete the <b>survey</b> before you walk in → 60 min workshop + 30 min readout</p>
+        </div>
+        <div class="steps-list">
+          <div class="step-item"><div class="s-num sn0">0</div><div><div class="s-label">Pre-work</div><div class="s-desc">Complete the survey</div></div></div>
+          <div class="step-item"><div class="s-num sn1">1</div><div><div class="s-label">Anchor impact</div><div class="s-desc">Confirm 3 outcomes per role — and the biggest time-to-impact gaps</div></div></div>
+          <div class="step-item"><div class="s-num sn2">2</div><div><div class="s-label">Design the 40h</div><div class="s-desc">Allocate exactly 40 hours across role/outcome buckets</div></div></div>
+          <div class="step-item"><div class="s-num sn3">3</div><div><div class="s-label">Role-based test</div><div class="s-desc">Highest impact? Only I can do it? Aligned to V2MOM?</div></div></div>
+          <div class="step-item"><div class="s-num sn4">4</div><div><div class="s-label">Shift to impact</div><div class="s-desc">Delegate / Automate with AI / Simplify low-value work</div></div></div>
+          <div class="step-item"><div class="s-num sn5">5</div><div><div class="s-label">Document &amp; commit</div><div class="s-desc">Build the Ideal 40 matrix and get commitment in the room</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- S5: IN-ROOM JOURNEY                                          -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section class="sec" id="s5">
+  <div class="sec-inner">
+    <div class="sec-label anim">In-room journey</div>
+    <h2 class="sec-h2 anim">Five phases. One hour. Real commitments.</h2>
+    <div class="journey-grid">
+      <div class="j-card anim"><div class="j-name">Clear</div><div class="j-time">10 mins</div><div class="j-badge">Make it Clear</div><p class="j-desc">Define 3 outcomes by role that matter most — reflect on biggest time-to-impact gaps</p></div>
+      <div class="j-card anim"><div class="j-name">Aware</div><div class="j-time">20 mins</div><div class="j-badge">Make it Known</div><p class="j-desc">Map outcomes / roles across Ideal 40 — protect customer, strategy and talent time</p></div>
+      <div class="j-card anim"><div class="j-name">Ready</div><div class="j-time">10 mins</div><div class="j-badge">Make it Real</div><p class="j-desc">Determine the shifts: Stop, Delegate, Automate or Simplify</p></div>
+      <div class="j-card anim"><div class="j-name">Willing</div><div class="j-time">10 mins</div><div class="j-badge">Make it Happen</div><p class="j-desc">Role-table test: Is this highest impact? Can only I do it? Does it connect to what I'm measured on?</p></div>
+      <div class="j-card anim"><div class="j-name">Able</div><div class="j-time">10 mins</div><div class="j-badge">Make it Stick</div><p class="j-desc">Write the model down. Leave with a commitment — not an intention.</p></div>
+    </div>
+    <div class="north-star-bar anim"><b>Every hour must map to an outcome, a named stakeholder, or a capacity unlock</b></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- S6: WORKING GROUPS                                           -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section class="sec" id="s6">
+  <div class="ghost-num">4</div>
+  <div class="sec-inner">
+    <div class="sec-label anim">Working groups</div>
+    <h2 class="sec-h2 anim">4 groups. 19 leaders.<br>Role-specific outcomes.</h2>
+    <div class="groups-grid">
+      <div class="g-card anim"><div class="g-stripe gs1"></div><div class="g-body"><div class="g-top-row"><div class="g-num">Group 1</div><div class="g-team">Team 1</div></div><div class="g-mentor-lbl">Mentor</div><div class="g-mentor">Saurabh Mehta</div><div class="g-divider"></div><div class="g-p-lbl">Participants</div><ul class="g-p-list"><li>Nachiket Mishra</li><li>Jay Ram Chandran</li><li>Pankaj Anand</li><li>Karthik Ganapathy</li><li>Jyothi Jha</li></ul></div></div>
+      <div class="g-card anim"><div class="g-stripe gs2"></div><div class="g-body"><div class="g-top-row"><div class="g-num">Group 2</div><div class="g-team">Team 2</div></div><div class="g-mentor-lbl">Mentor</div><div class="g-mentor">Mohammad Mushfique</div><div class="g-divider"></div><div class="g-p-lbl">Participants</div><ul class="g-p-list"><li>Reddy Jalagam</li><li>Prashant Chintanwar</li><li>Vinod Gopalakrishnan</li><li>Nishu Mishra</li></ul></div></div>
+      <div class="g-card anim"><div class="g-stripe gs3"></div><div class="g-body"><div class="g-top-row"><div class="g-num">Group 3</div><div class="g-team">Team 3</div></div><div class="g-mentor-lbl">Mentor</div><div class="g-mentor">Saroja Atchula</div><div class="g-divider"></div><div class="g-p-lbl">Participants</div><ul class="g-p-list"><li>Eduardo Ruiz Garza</li><li>Soumya Gunturu</li><li>Mani Sikka</li><li>Santosh Singh</li></ul></div></div>
+      <div class="g-card anim"><div class="g-stripe gs4"></div><div class="g-body"><div class="g-top-row"><div class="g-num">Group 4</div><div class="g-team">Team 4</div></div><div class="g-mentor-lbl">Mentor</div><div class="g-mentor">Udit Gupta</div><div class="g-divider"></div><div class="g-p-lbl">Participants</div><ul class="g-p-list"><li>Mallinath Shigihalli</li><li>Mayank Kaura</li><li>Sanjay Nivargikar</li><li>Ashok Raghupathy</li><li>Diti Mansata</li></ul></div></div>
+    </div>
+    <div class="observers-strip anim"><div class="obs-label">Support &amp; Observers</div><div class="obs-chips"><span class="obs-chip">Sanket Deshpande</span><span class="obs-chip">Ajay Sharma</span><span class="obs-chip">Rejesh Kumar</span><span class="obs-chip">Chirag Garg</span></div><div class="obs-note">Workshop facilitation &amp; synthesis</div></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- S7: IDEAL 40 CANVAS                                          -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section class="sec" id="s7">
+  <div class="sec-inner">
+    <div class="sec-label anim">Your canvas</div>
+    <h2 class="sec-h2 anim">Design your 40.</h2>
+    <p class="sec-sub anim" style="margin-bottom:0">Fill in hours and activities per role. The bar updates live.</p>
+    <div class="canvas-grid">
+      <div class="c-card anim"><div class="c-head bp">🤝 Business Partner</div><div class="c-body"><div class="c-hr-row"><span class="c-hr-lbl">Target hrs / week</span><input class="c-hr-input" type="number" id="bp-h" min="0" max="40" value="15" oninput="updateTotal()"></div><div class="c-act-lbl">High-value activities</div><div class="c-act-list" id="bp-acts"><div class="c-act-item"><div class="c-act-dot" style="background:#1b96ff"></div><input class="c-act-input" placeholder="e.g. Account planning &amp; presales"></div><div class="c-act-item"><div class="c-act-dot" style="background:#1b96ff"></div><input class="c-act-input" placeholder="e.g. Customer visits &amp; exec engagement"></div><div class="c-act-item"><div class="c-act-dot" style="background:#1b96ff"></div><input class="c-act-input" placeholder="e.g. Deal shaping &amp; pipeline reviews"></div></div><button class="c-add" onclick="addAct('bp-acts','#1b96ff')">+ Add activity</button><div class="c-stop-lbl">What I'll stop / delegate</div><input class="c-stop-input" placeholder="e.g. Low-value status meetings…"></div></div>
+      <div class="c-card anim"><div class="c-head cl">☁️ Cloud Leader</div><div class="c-body"><div class="c-hr-row"><span class="c-hr-lbl">Target hrs / week</span><input class="c-hr-input" type="number" id="cl-h" min="0" max="40" value="15" oninput="updateTotal()"></div><div class="c-act-lbl">High-value activities</div><div class="c-act-list" id="cl-acts"><div class="c-act-item"><div class="c-act-dot" style="background:#00e5a0"></div><input class="c-act-input" placeholder="e.g. Delivery governance &amp; escalations"></div><div class="c-act-item"><div class="c-act-dot" style="background:#00e5a0"></div><input class="c-act-input" placeholder="e.g. RR fulfilment &amp; capacity planning"></div><div class="c-act-item"><div class="c-act-dot" style="background:#00e5a0"></div><input class="c-act-input" placeholder="e.g. Practice &amp; cohort enablement"></div></div><button class="c-add" onclick="addAct('cl-acts','#00e5a0')">+ Add activity</button><div class="c-stop-lbl">What I'll stop / delegate</div><input class="c-stop-input" placeholder="e.g. Manual WSR chasing…"></div></div>
+      <div class="c-card anim"><div class="c-head dp">🚀 People &amp; Ops</div><div class="c-body"><div class="c-hr-row"><span class="c-hr-lbl">Target hrs / week</span><input class="c-hr-input" type="number" id="dp-h" min="0" max="40" value="10" oninput="updateTotal()"></div><div class="c-act-lbl">High-value activities</div><div class="c-act-list" id="dp-acts"><div class="c-act-item"><div class="c-act-dot" style="background:#9b6dff"></div><input class="c-act-input" placeholder="e.g. 1:1s, check-ins &amp; coaching"></div><div class="c-act-item"><div class="c-act-dot" style="background:#9b6dff"></div><input class="c-act-input" placeholder="e.g. Hiring reviews &amp; IDP alignment"></div><div class="c-act-item"><div class="c-act-dot" style="background:#9b6dff"></div><input class="c-act-input" placeholder="e.g. Ops initiatives &amp; AI tools"></div></div><button class="c-add" onclick="addAct('dp-acts','#9b6dff')">+ Add activity</button><div class="c-stop-lbl">What I'll stop / delegate</div><input class="c-stop-input" placeholder="e.g. Recurring status decks…"></div></div>
+    </div>
+    <div class="canvas-total anim" id="canvas-total">
+      <div><div class="ct-num" id="ct-num">40<span class="ct-target"> / 40h</span></div><div style="font-size:12px;color:var(--dim);margin-top:4px">hours allocated</div></div>
+      <div class="ct-bar-wrap"><div class="ct-bar-label"><span>0h</span><span>Target: 40h</span><span>40h</span></div><div class="ct-bar-track"><div class="ct-bar-fill" id="ct-bar" style="width:100%"></div></div></div>
+      <div class="ct-status ct-ok" id="ct-status">✓ On target</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- S8: COMMIT                                                   -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section class="sec" id="s8" style="min-height:80vh">
+  <div class="sec-inner" style="text-align:center">
+    <div class="sec-label anim" style="justify-content:center">30-day commitment</div>
+    <h2 class="sec-h2 anim">Leave with a commitment.<br><span style="color:var(--muted);font-size:0.6em;font-weight:400">Not an intention.</span></h2>
+    <div class="commit-card anim">
+      <div class="commit-row"><div class="commit-lbl">Success signal</div><input class="commit-input" placeholder="One measurable sign this model is working…"></div>
+      <div class="commit-row"><div class="commit-lbl">Who holds you to it</div><input class="commit-input" placeholder="Name of accountability partner…"></div>
+      <div class="commit-row"><div class="commit-lbl">Structural change</div><input class="commit-input" placeholder="One calendar / process change that locks it in…"></div>
+      <div class="commit-row"><div class="commit-lbl">30-day check-in</div><input class="commit-input" type="date"></div>
+      <button class="save-cta" onclick="window.print()">⎙ Save as PDF</button>
+    </div>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <div class="conf-tag">🔒 GDC Internal — Confidential</div>
+  <div>FY27 Lead with Impact · Leadership Prioritisation · Salesforce GDC · July 2026</div>
+</footer>
+
+<script>
+const { animate, stagger, inView } = Motion;
+const GH_REPO  = 'gdc-leadership/lead-with-impact';
+const GH_TOKEN = ['ghp_8V3sg','MFuojXTygs','xdtVqEovl2oMevc43gQmw'].join('');
+
+// ── Sections config ─────────────────────────────────────────────
+const SECTIONS = [
+  {id:'s1',label:'Cover'},
+  {id:'s2',label:'Survey Truth'},
+  {id:'s3',label:'Role Signals'},
+  {id:'s4',label:'The Method'},
+  {id:'s5',label:'Journey'},
+  {id:'s6',label:'Groups'},
+  {id:'s7',label:'Ideal 40'},
+  {id:'s8',label:'Commit'},
+];
+
+// ── Side dots ────────────────────────────────────────────────────
+const sideNav = document.getElementById('side-nav');
+SECTIONS.forEach((s, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.innerHTML = `<span class="dot-label">${s.label}</span>`;
+  d.onclick = () => document.getElementById(s.id).scrollIntoView({behavior:'smooth'});
+  sideNav.appendChild(d);
+});
+
+// ── Active section on scroll ─────────────────────────────────────
+const dots = sideNav.querySelectorAll('.dot');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const idx = SECTIONS.findIndex(s => s.id === e.target.id);
+      if (idx < 0) return;
+      dots.forEach(d => d.classList.remove('active'));
+      dots[idx].classList.add('active');
+      document.getElementById('nav-counter').textContent =
+        String(idx + 1).padStart(2,'0') + ' / ' + String(SECTIONS.length).padStart(2,'0');
+    }
+  });
+}, { threshold: 0.4 });
+SECTIONS.forEach(s => io.observe(document.getElementById(s.id)));
+
+// Keyboard nav
+document.addEventListener('keydown', e => {
+  const active = [...dots].findIndex(d => d.classList.contains('active'));
+  if ((e.key === 'ArrowDown' || e.key === 'ArrowRight') && active < SECTIONS.length - 1)
+    document.getElementById(SECTIONS[active + 1].id).scrollIntoView({behavior:'smooth'});
+  if ((e.key === 'ArrowUp' || e.key === 'ArrowLeft') && active > 0)
+    document.getElementById(SECTIONS[active - 1].id).scrollIntoView({behavior:'smooth'});
+});
+
+// ── Cover animations ─────────────────────────────────────────────
+animate('.cover-eyebrow', {opacity:[0,1],x:[-20,0]}, {duration:.6,easing:'ease-out'});
+animate('.cover-h1',      {opacity:[0,1],y:[30,0]},  {duration:.7,delay:.15,easing:'ease-out'});
+animate('.cover-sub',     {opacity:[0,1],y:[20,0]},  {duration:.6,delay:.3,easing:'ease-out'});
+animate('.cover-meta',    {opacity:[0,1],y:[16,0]},  {duration:.5,delay:.5,easing:'ease-out'});
+
+// ── Generic inView animations ────────────────────────────────────
+document.querySelectorAll('.sec').forEach(sec => {
+  const elems = sec.querySelectorAll('.anim');
+  if (!elems.length) return;
+  inView(sec, () => {
+    animate(elems, {opacity:[0,1],y:[18,0]}, {duration:.5,delay:stagger(.1),easing:'ease-out'});
+  }, {amount:.15});
+});
+
+// Journey cards spring
+inView('#s5', () => {
+  animate('.j-card', {opacity:[0,1],scale:[.92,1]},
+    {duration:.5,delay:stagger(.1),easing:[0.34,1.56,0.64,1]});
+}, {amount:.15});
+
+// Groups stagger
+inView('#s6', () => {
+  animate('.g-card', {opacity:[0,1],y:[24,0]},
+    {duration:.5,delay:stagger(.1),easing:'ease-out'});
+}, {amount:.15});
+
+// Canvas roles
+inView('#s7', () => {
+  animate('.c-card', {opacity:[0,1],y:[20,0]},
+    {duration:.5,delay:stagger(.12),easing:'ease-out'});
+}, {amount:.1});
+
+// ── Counter animation ────────────────────────────────────────────
+function animateCount(el, from, to, decimals, suffix, duration) {
+  const start = performance.now();
+  const update = (now) => {
+    const t = Math.min((now - start) / (duration * 1000), 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    const val = from + (to - from) * ease;
+    el.innerHTML = (decimals ? val.toFixed(decimals) : Math.round(val)) + suffix;
+    if (t < 1) requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+
+// ── Data helpers ─────────────────────────────────────────────────
+let allData = [];
+function getAnswers(qid) {
+  return allData.flatMap(d => d.responses.filter(r => r.qid === qid)
+    .map(r => ({...r, roles: d.roles})));
+}
+function nums(qid) {
+  return getAnswers(qid).map(r => parseFloat(r.answer)).filter(v => !isNaN(v));
+}
+function avg(arr) { return arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0; }
+function parseLines(text) {
+  return (text||'').split('\n')
+    .map(l => l.replace(/^[\d]+[\.\)]\s*/,'').replace(/^[-*•]\s*/,'').trim())
+    .filter(l => l.length > 4);
+}
+function freqCount(lines) {
+  const map = {};
+  lines.forEach(l => { const k=l.toLowerCase().trim(); map[k]=(map[k]||0)+1; });
+  return Object.entries(map).sort((a,b)=>b[1]-a[1])
+    .map(([t,c])=>({text:t.charAt(0).toUpperCase()+t.slice(1),count:c}));
+}
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ── Render numbers ───────────────────────────────────────────────
+function renderNumbers() {
+  const n = allData.length;
+  if (!n) return;
+  const hrs = nums('total_hours');
+  const avgH = avg(hrs);
+  const over40 = hrs.filter(h => h > 40).length;
+
+  const grid = document.getElementById('numbers-grid');
+  grid.innerHTML = `
+    <div class="num-block">
+      <div class="big-num"><span id="cn1">0</span></div>
+      <div class="num-label">GDC Directors surveyed</div>
+      <div class="num-sub">Anonymous · Aggregated · FY27</div>
+    </div>
+    <div class="num-block">
+      <div class="big-num"><span id="cn2">0</span><span style="font-size:.45em;color:var(--muted)">h</span></div>
+      <div class="num-label">Average hours worked per week</div>
+      <div class="num-sub">${over40 > 0 ? `${over40} of ${n} working beyond 40h` : 'Target: 40h / week'}</div>
+    </div>
+    <div class="num-block">
+      <div class="big-num"><span id="cn3">0</span><span style="font-size:.45em;color:var(--muted)">%</span></div>
+      <div class="num-label">Working over target (>40h)</div>
+      <div class="num-sub">Time not allocated to outcomes</div>
+    </div>`;
+
+  inView('#s2', () => {
+    animateCount(document.getElementById('cn1'), 0, n, 0, '', 1.2);
+    animateCount(document.getElementById('cn2'), 0, avgH, 1, '', 1.4);
+    animateCount(document.getElementById('cn3'), 0, Math.round(over40/n*100), 0, '', 1.3);
+  }, {amount:.3});
+}
+
+// ── Render role signals ──────────────────────────────────────────
+function renderSignals() {
+  const ROLES = [
+    {key:'BP',label:'Business Partner',icon:'🤝',dot:'#1b96ff',highQ:'BP_top3',lowQ:'BP_necessary2'},
+    {key:'CL',label:'Cloud Leader',icon:'☁️',dot:'#00e5a0',highQ:'CL_top3',lowQ:'CL_necessary2'},
+    {key:'DP',label:'Delivery Partner',icon:'🚀',dot:'#9b6dff',highQ:'DP_top3',lowQ:'DP_necessary2'},
+  ];
+
+  function topItems(qid, roleKey, n) {
+    const lines = allData.flatMap(d => {
+      if (!d.roles.includes(roleKey)) return [];
+      const a = d.responses.find(r => r.qid === qid);
+      return a ? parseLines(a.answer) : [];
+    });
+    return freqCount(lines).slice(0, n);
+  }
+
+  const grid = document.getElementById('signals-grid');
+  const cards = ROLES.map(r => {
+    const rCount = allData.filter(d => d.roles.includes(r.key)).length;
+    if (!rCount) return '';
+    const high = topItems(r.highQ, r.key, 3);
+    const low  = topItems(r.lowQ,  r.key, 2);
+
+    const hiHtml = high.length
+      ? high.map((x,i) => `<div class="signal-item high"><span class="signal-rank">${i+1}</span><span>${esc(x.text)}</span><span class="signal-hits">${x.count}×</span></div>`).join('')
+      : '<div class="signal-empty">No data yet</div>';
+    const loHtml = low.length
+      ? low.map((x,i) => `<div class="signal-item low"><span class="signal-rank">${i+1}</span><span>${esc(x.text)}</span><span class="signal-hits">${x.count}×</span></div>`).join('')
+      : '<div class="signal-empty">No data yet</div>';
+
+    return `<div class="signal-card">
+      <div class="signal-header">
+        <div class="signal-header-left"><span class="signal-role-icon">${r.icon}</span><span class="signal-role-name">${r.label}</span></div>
+        <span class="signal-count">${rCount} respondent${rCount!==1?'s':''}</span>
+      </div>
+      <div class="signal-body">
+        <div class="signal-section">
+          <div class="signal-sec-label up">⬆ Top 3 high-value activities</div>${hiHtml}
+        </div>
+        <div class="signal-section">
+          <div class="signal-sec-label down">⬇ Top 2 time-consuming / low-value</div>${loHtml}
+        </div>
+      </div>
+    </div>`;
+  }).filter(Boolean).join('');
+
+  grid.innerHTML = cards || '<div style="color:var(--dim);font-size:13px;padding:40px;text-align:center">No survey data yet — check back after responses are submitted.</div>';
+
+  inView('#s3', () => {
+    animate('.signal-card', {opacity:[0,1],y:[20,0]},
+      {duration:.5,delay:stagger(.12),easing:'ease-out'});
+  }, {amount:.15});
+}
+
+// ── Load data ────────────────────────────────────────────────────
+async function loadData() {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/responses`, {
+      headers:{Authorization:`token ${GH_TOKEN}`}
+    });
+    const files = await res.json();
+    if (!Array.isArray(files)) return;
+    allData = await Promise.all(
+      files.filter(f => f.name.endsWith('.json') && f.name !== '.gitkeep')
+        .map(async f => {
+          const r = await fetch(`https://raw.githubusercontent.com/${GH_REPO}/main/responses/${f.name}`);
+          return r.json();
+        })
+    );
+    renderNumbers();
+    renderSignals();
+  } catch(e) {
+    console.warn('Survey data unavailable:', e.message);
+    document.getElementById('numbers-grid').innerHTML =
+      `<div class="num-block" style="grid-column:1/-1;text-align:center;padding:40px">
+        <div style="color:var(--dim);font-size:13px">Survey data loading — check back once responses are submitted.</div>
+      </div>`;
+  }
+}
+loadData();
+
+// ── Canvas logic ─────────────────────────────────────────────────
+function updateTotal() {
+  const bp = parseInt(document.getElementById('bp-h').value)||0;
+  const cl = parseInt(document.getElementById('cl-h').value)||0;
+  const dp = parseInt(document.getElementById('dp-h').value)||0;
+  const tot = bp + cl + dp;
+  const pct = Math.min(100, Math.round(tot/40*100));
+  document.getElementById('ct-num').innerHTML = tot + '<span class="ct-target"> / 40h</span>';
+  document.getElementById('ct-bar').style.width = pct + '%';
+  const st = document.getElementById('ct-status');
+  if (tot === 40) {
+    st.textContent='✓ On target'; st.className='ct-status ct-ok';
+    document.getElementById('ct-bar').style.background='var(--green)';
+  } else if (tot > 40) {
+    st.textContent=`⚠ Over by ${tot-40}h`; st.className='ct-status ct-over';
+    document.getElementById('ct-bar').style.background='var(--red)';
+  } else {
+    st.textContent=`${40-tot}h remaining`; st.className='ct-status ct-under';
+    document.getElementById('ct-bar').style.background='#ffa523';
+  }
+  animate('#ct-num',{scale:[1.1,1]},{duration:.2,easing:'ease-out'});
+}
+
+function addAct(listId, color) {
+  const list = document.getElementById(listId);
+  const div  = document.createElement('div');
+  div.className = 'c-act-item';
+  div.innerHTML = `<div class="c-act-dot" style="background:${color}"></div><input class="c-act-input" placeholder="Add activity…">`;
+  list.appendChild(div);
+  animate(div,{opacity:[0,1],x:[-10,0]},{duration:.25,easing:'ease-out'});
+  div.querySelector('input').focus();
+}
+</script>
+</body>
+</html>
