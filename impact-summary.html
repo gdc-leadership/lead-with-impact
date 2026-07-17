@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GDC Director+ Leadership Impact Summary</title>
+<link href="https://fonts.googleapis.com/css2?family=Salesforce+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Salesforce Sans', 'Segoe UI', system-ui, sans-serif; background: #021b40; color: white; min-height: 100vh; }
+
+  .topbar { background: #010e22; padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .topbar-logo { display: flex; align-items: center; gap: 10px; }
+  .topbar-logo svg { width: 28px; height: 28px; }
+  .topbar-logo span { font-size: 0.82rem; font-weight: 600; opacity: 0.8; }
+  .topbar-right { font-size: 0.72rem; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .progress-bar { height: 3px; background: rgba(255,255,255,0.07); }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #0176d3, #4ade80); transition: width 0.4s ease; }
+
+  .container { max-width: 680px; margin: 0 auto; padding: 40px 20px 80px; }
+  .card { background: #0a1f3d; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 36px; margin-bottom: 20px; }
+
+  /* Intro */
+  .intro-eyebrow { font-size: 0.72rem; font-weight: 700; color: #4ade80; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px; }
+  .intro-title { font-size: 1.7rem; font-weight: 700; line-height: 1.25; margin-bottom: 16px; }
+  .intro-title span { color: #4ade80; }
+  .intro-body { font-size: 0.92rem; color: rgba(255,255,255,0.6); line-height: 1.75; margin-bottom: 24px; }
+  .intro-body p + p { margin-top: 10px; }
+  .confidential-box { background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.2); border-radius: 8px; padding: 14px 16px; font-size: 0.82rem; color: rgba(255,255,255,0.55); line-height: 1.65; margin-bottom: 28px; display: flex; gap: 10px; align-items: flex-start; }
+  .confidential-box span { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+  /* Section header */
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .section-icon { font-size: 1.4rem; }
+  .section-num { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: #4ade80; }
+  .section-title { font-size: 1.05rem; font-weight: 700; color: rgba(255,255,255,0.95); margin: 4px 0 10px; line-height: 1.4; }
+  .section-sub { font-size: 0.82rem; color: rgba(255,255,255,0.45); line-height: 1.6; margin-bottom: 22px; }
+  .section-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 28px 0; }
+
+  /* Bullet inputs */
+  .bullet-group { display: flex; flex-direction: column; gap: 14px; margin-bottom: 8px; }
+  .bullet-row { display: flex; align-items: flex-start; gap: 10px; }
+  .bullet-num { width: 26px; height: 26px; border-radius: 50%; background: rgba(1,118,211,0.2); color: #60a5fa; font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 14px; }
+  .bullet-num.green { background: rgba(74,222,128,0.15); color: #4ade80; }
+  .bullet-num.amber { background: rgba(245,158,11,0.15); color: #fbbf24; }
+  .bullet-num.purple { background: rgba(139,92,246,0.15); color: #c084fc; }
+  .bullet-textarea { flex: 1; padding: 12px 14px; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; color: rgba(255,255,255,0.9); font-size: 0.9rem; line-height: 1.65; resize: vertical; font-family: inherit; outline: none; transition: border 0.15s; min-height: 90px; }
+  .bullet-textarea:focus { border-color: #0176d3; box-shadow: 0 0 0 3px rgba(1,118,211,0.15); }
+  .bullet-textarea.error { border-color: #f87171; }
+  .char-hint { font-size: 0.68rem; color: rgba(255,255,255,0.25); text-align: right; margin-top: 3px; margin-right: 0; }
+  .char-hint.ok { color: #4ade80; }
+
+  /* Future role section */
+  .future-role-area { background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.2); border-radius: 8px; padding: 18px 16px; margin-bottom: 8px; }
+  .future-role-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(139,92,246,0.9); margin-bottom: 8px; }
+  .future-role-input { width: 100%; padding: 11px 14px; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1); border-radius: 7px; color: white; font-size: 0.92rem; font-family: inherit; outline: none; transition: border 0.15s; margin-bottom: 12px; }
+  .future-role-input:focus { border-color: #8b5cf6; box-shadow: 0 0 0 3px rgba(139,92,246,0.2); }
+  .future-role-textarea { width: 100%; padding: 12px 14px; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1); border-radius: 7px; color: rgba(255,255,255,0.9); font-size: 0.9rem; line-height: 1.65; resize: vertical; font-family: inherit; outline: none; transition: border 0.15s; min-height: 130px; }
+  .future-role-textarea:focus { border-color: #8b5cf6; box-shadow: 0 0 0 3px rgba(139,92,246,0.2); }
+  .future-role-textarea.error { border-color: #f87171; }
+
+  /* Name field */
+  .name-field { margin-bottom: 20px; }
+  .name-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.4); margin-bottom: 8px; }
+  .name-input { width: 100%; padding: 12px 14px; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; color: white; font-size: 0.95rem; font-family: inherit; outline: none; transition: border 0.15s; }
+  .name-input:focus { border-color: #4ade80; box-shadow: 0 0 0 3px rgba(74,222,128,0.15); }
+
+  /* Buttons */
+  .btn { display: inline-flex; align-items: center; gap: 7px; padding: 12px 24px; border-radius: 6px; font-size: 0.88rem; font-weight: 700; border: none; cursor: pointer; transition: all 0.15s; font-family: inherit; white-space: nowrap; }
+  .btn-primary  { background: #0176d3; color: white; }
+  .btn-primary:hover { background: #0165b8; }
+  .btn-primary:disabled { background: #334155; color: rgba(255,255,255,0.4); cursor: not-allowed; }
+  .btn-secondary { background: transparent; color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.15); }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.3); color: white; }
+  .btn-success  { background: #16a34a; color: white; }
+  .btn-success:hover { background: #15803d; }
+  .btn-success:disabled { background: #334155; color: rgba(255,255,255,0.4); cursor: not-allowed; }
+  .actions { display: flex; align-items: center; justify-content: space-between; margin-top: 28px; }
+
+  /* Review */
+  .review-section-title { font-size: 0.82rem; font-weight: 700; color: #4ade80; text-transform: uppercase; letter-spacing: 0.07em; margin: 24px 0 10px; display: flex; align-items: center; gap: 8px; }
+  .review-bullet { display: flex; gap: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; }
+  .review-bullet-num { font-size: 0.75rem; font-weight: 700; color: rgba(255,255,255,0.3); flex-shrink: 0; padding-top: 2px; }
+  .review-bullet-text { font-size: 0.88rem; color: rgba(255,255,255,0.8); line-height: 1.65; white-space: pre-wrap; }
+  .review-role-box { background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.2); border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .review-role-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(139,92,246,0.8); margin-bottom: 4px; }
+  .review-role-value { font-size: 0.9rem; color: rgba(255,255,255,0.85); line-height: 1.6; white-space: pre-wrap; }
+
+  /* Complete */
+  .complete-card { text-align: center; padding: 20px 0; }
+  .complete-icon { font-size: 3rem; margin-bottom: 16px; }
+  .complete-card h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; }
+  .complete-card p { font-size: 0.9rem; color: rgba(255,255,255,0.55); line-height: 1.7; max-width: 460px; margin: 0 auto 20px; }
+
+  /* Toast */
+  .toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1e293b; color: white; padding: 12px 22px; border-radius: 8px; font-size: 0.84rem; font-weight: 600; box-shadow: 0 4px 24px rgba(0,0,0,0.5); opacity: 0; transition: all 0.25s; pointer-events: none; border: 1px solid rgba(255,255,255,0.1); z-index: 999; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.error { border-color: rgba(248,113,113,0.4); }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .q-screen { animation: fadeIn 0.3s ease; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">
+    <svg viewBox="0 0 100 70" fill="none"><path d="M41.6 13.4a18.2 18.2 0 0 1 13-5.4c6.6 0 12.4 3.5 15.7 8.8a20.4 20.4 0 0 1 8.3-1.8c11.3 0 20.4 9.2 20.4 20.6S89.9 56.2 78.6 56.2H24.2C13.6 56.2 5 47.6 5 37c0-9.8 7.2-17.8 16.6-19.1a21.3 21.3 0 0 1 20-4.5z" fill="white"/></svg>
+    <span>Salesforce GDC</span>
+  </div>
+  <div class="topbar-right">Leadership Impact Summary · Director+</div>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+
+<div class="container">
+  <div id="app"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const GH_REPO  = 'gdc-leadership/lead-with-impact';
+const GH_TOKEN = ['ghp_8V3sg','MFuojXTygs','xdtVqEovl2oMevc43gQmw'].join('');
+const GH_PATH  = 'impact-responses';
+
+let state = {
+  screen: 'intro',   // intro | form | review | complete
+  name: '',
+  submitting: false,
+  answers: {
+    impact1: '', impact2: '', impact3: '',
+    growth1: '', growth2: '', growth3: '',
+    futureRole: '', futureWhy: ''
+  }
+};
+
+// ── Render ────────────────────────────────────────────────────────────────────
+function render() {
+  updateProgress();
+  const app = document.getElementById('app');
+  if (state.screen === 'intro')    app.innerHTML = introHtml();
+  else if (state.screen === 'form')   app.innerHTML = formHtml();
+  else if (state.screen === 'review') app.innerHTML = reviewHtml();
+  else if (state.screen === 'complete') app.innerHTML = completeHtml();
+  bindEvents();
+}
+
+function updateProgress() {
+  const map = { intro: 0, form: 40, review: 90, complete: 100 };
+  document.getElementById('progressFill').style.width = (map[state.screen] || 0) + '%';
+}
+
+// ── Intro screen ──────────────────────────────────────────────────────────────
+function introHtml() {
+  return `<div class="card q-screen">
+    <div class="intro-eyebrow">GDC · FY27 Leadership Planning</div>
+    <h1 class="intro-title">Director+ <span>Leadership Impact</span> Summary</h1>
+    <div class="intro-body">
+      <p>This short form captures your individual leadership impact summary for FY27 planning. Your responses will be used directly by your People Leader to inform talent planning, role design, and career conversations.</p>
+      <p>There are three sections — Key Impact, Growth Opportunities, and Future Role Aspiration. Each section asks for up to 3 focused points. Budget around 15–20 minutes.</p>
+    </div>
+    <div class="confidential-box">
+      <span>🔒</span>
+      <div>
+        <strong>Strictly confidential.</strong> Your responses are stored securely and accessible only to the designated People Leader. Responses are not shared with your peer group, wider GDC, or used in any anonymised aggregate report.
+      </div>
+    </div>
+
+    <div class="name-field">
+      <div class="name-label">Your name</div>
+      <input class="name-input" id="nameInput" type="text" placeholder="First and last name" value="${escHtml(state.name)}" autocomplete="name" />
+    </div>
+
+    <button class="btn btn-primary" id="introNextBtn" style="width:100%;justify-content:center" ${state.name.trim().length < 2 ? 'disabled' : ''}>
+      Start &rarr;
+    </button>
+  </div>`;
+}
+
+// ── Main form screen ──────────────────────────────────────────────────────────
+function formHtml() {
+  const a = state.answers;
+  return `<div class="card q-screen">
+
+    <!-- Section 1 -->
+    <div class="section-header">
+      <div class="section-icon">⭐</div>
+      <div class="section-num">Section 1 of 3</div>
+    </div>
+    <div class="section-title">Key Impact Delivered — Building on Your Strengths</div>
+    <div class="section-sub">Share up to 3 of your most significant contributions from the past year. Focus on the impact created and quantify where possible (revenue influenced, deals shaped, teams enabled, initiatives delivered).</div>
+    <div class="bullet-group" id="impactGroup">
+      ${bulletInput('impact1', 1, 'green', a.impact1, 'e.g. Led GDC expansion into 3 new OUs, adding €2.4M in credited hours over H2...')}
+      ${bulletInput('impact2', 2, 'green', a.impact2, 'e.g. Reduced escalations to zero across 8 active programmes by implementing a SteerCo cadence...')}
+      ${bulletInput('impact3', 3, 'green', a.impact3, 'e.g. Grew next-line pipeline from 2 to 6 G7-ready talent through targeted coaching and stretch assignments...')}
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- Section 2 -->
+    <div class="section-header">
+      <div class="section-icon">📈</div>
+      <div class="section-num">Section 2 of 3</div>
+    </div>
+    <div class="section-title">Growth Opportunities</div>
+    <div class="section-sub">Share 2–3 areas where outcomes could have been stronger or opportunities may have been missed. Be candid — this is a forward-looking reflection, not a performance assessment.</div>
+    <div class="bullet-group" id="growthGroup">
+      ${bulletInput('growth1', 1, 'amber', a.growth1, 'e.g. I could have been more proactive in early deal shaping — I engaged post-Stage 2 on several opportunities...')}
+      ${bulletInput('growth2', 2, 'amber', a.growth2, 'e.g. Delegation to next-line was inconsistent — I retained too many operational tasks that should have been handed off...')}
+      ${bulletInput('growth3', 3, 'amber', a.growth3, 'Optional — e.g. I underinvested in Agentforce upskilling in H1, which limited the team\'s demo readiness...')}
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- Section 3 -->
+    <div class="section-header">
+      <div class="section-icon">🚀</div>
+      <div class="section-num">Section 3 of 3</div>
+    </div>
+    <div class="section-title">Future Role Aspiration</div>
+    <div class="section-sub">If you could choose your next role, what would it be? Assume no constraints related to current role or org structure. Be specific — generic responses like "open to opportunities" are not useful here.</div>
+
+    <div class="future-role-area">
+      <div class="future-role-label">Role / Function you would like to pursue</div>
+      <input class="future-role-input" id="futureRoleInput" type="text" placeholder="e.g. VP, GDC EMEA Central · or · Regional PS Director, Industries Cloud · or · Practice Lead, Agentforce" value="${escHtml(a.futureRole)}" />
+      <div class="future-role-label" style="margin-top:4px">Why this role — and how it aligns with your strengths and long-term aspirations</div>
+      <textarea class="future-role-textarea" id="futureWhyInput" placeholder="Describe:\n• Why this role interests you\n• How it aligns with your current strengths and experience\n• How it connects to your long-term career aspirations\n\nAim for 3–5 sentences.">${escHtml(a.futureWhy)}</textarea>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-secondary" id="backToIntroBtn">← Back</button>
+      <button class="btn btn-primary" id="toReviewBtn">Review & Submit →</button>
+    </div>
+  </div>`;
+}
+
+function bulletInput(id, num, color, value, placeholder) {
+  return `<div class="bullet-row">
+    <div class="bullet-num ${color}">${num}</div>
+    <div style="flex:1">
+      <textarea class="bullet-textarea" id="${id}" placeholder="${placeholder}" rows="3">${escHtml(value)}</textarea>
+      <div class="char-hint" id="hint_${id}"></div>
+    </div>
+  </div>`;
+}
+
+// ── Review screen ─────────────────────────────────────────────────────────────
+function reviewHtml() {
+  const a = state.answers;
+  const impactRows = [a.impact1, a.impact2, a.impact3].filter(Boolean);
+  const growthRows = [a.growth1, a.growth2, a.growth3].filter(Boolean);
+
+  return `<div class="card q-screen">
+    <div class="intro-eyebrow">Review your answers</div>
+    <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:6px">Looks good, ${escHtml(state.name.split(' ')[0])}?</h2>
+    <p style="font-size:0.82rem;color:rgba(255,255,255,0.45);margin-bottom:24px;line-height:1.6">Check your responses below. Once you submit, your answers are sent directly to your People Leader — they cannot be edited.</p>
+
+    <div class="review-section-title">⭐ Key Impact Delivered</div>
+    ${impactRows.length ? impactRows.map((t,i) => reviewBullet(i+1, t)).join('') : `<div style="font-size:0.82rem;color:#f87171;margin-bottom:8px">No impact points entered — please go back and add at least 1.</div>`}
+
+    <div class="review-section-title">📈 Growth Opportunities</div>
+    ${growthRows.length ? growthRows.map((t,i) => reviewBullet(i+1, t)).join('') : `<div style="font-size:0.82rem;color:#f87171;margin-bottom:8px">No growth points entered — please go back and add at least 1.</div>`}
+
+    <div class="review-section-title">🚀 Future Role Aspiration</div>
+    <div class="review-role-box">
+      <div class="review-role-label">Target role / function</div>
+      <div class="review-role-value">${escHtml(a.futureRole) || '<span style="color:#f87171">Not entered</span>'}</div>
+    </div>
+    <div class="review-role-box">
+      <div class="review-role-label">Why this role</div>
+      <div class="review-role-value">${escHtml(a.futureWhy) || '<span style="color:#f87171">Not entered</span>'}</div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-secondary" id="backToFormBtn">← Edit</button>
+      <button class="btn btn-success" id="submitBtn" ${state.submitting ? 'disabled' : ''}>
+        ${state.submitting ? '⏳ Submitting…' : '✓ Submit to People Leader'}
+      </button>
+    </div>
+  </div>`;
+}
+
+function reviewBullet(num, text) {
+  return `<div class="review-bullet">
+    <div class="review-bullet-num">${num}.</div>
+    <div class="review-bullet-text">${escHtml(text)}</div>
+  </div>`;
+}
+
+// ── Complete screen ───────────────────────────────────────────────────────────
+function completeHtml() {
+  return `<div class="card q-screen">
+    <div class="complete-card">
+      <div class="complete-icon">✅</div>
+      <h2>Submitted — thank you, ${escHtml(state.name.split(' ')[0])}.</h2>
+      <p>Your Leadership Impact Summary has been sent to your People Leader. You'll hear from them as part of the FY27 talent and career planning conversation.</p>
+      <p style="font-size:0.78rem;opacity:0.35">GDC Internal · Strictly Confidential · Do not distribute</p>
+    </div>
+  </div>`;
+}
+
+// ── Events ────────────────────────────────────────────────────────────────────
+function bindEvents() {
+  // Intro
+  const nameInput = document.getElementById('nameInput');
+  if (nameInput) {
+    nameInput.addEventListener('input', () => {
+      state.name = nameInput.value;
+      const btn = document.getElementById('introNextBtn');
+      if (btn) btn.disabled = state.name.trim().length < 2;
+    });
+  }
+  document.getElementById('introNextBtn')?.addEventListener('click', () => {
+    state.name = document.getElementById('nameInput')?.value.trim() || '';
+    if (state.name.length < 2) return;
+    state.screen = 'form'; render();
+  });
+
+  // Form — live save on every keyup
+  ['impact1','impact2','impact3','growth1','growth2','growth3'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('input', () => {
+      state.answers[id] = el.value;
+      updateCharHint(id, el.value);
+    });
+    updateCharHint(id, el.value);
+  });
+  const futureRoleEl = document.getElementById('futureRoleInput');
+  if (futureRoleEl) futureRoleEl.addEventListener('input', () => { state.answers.futureRole = futureRoleEl.value; });
+  const futureWhyEl = document.getElementById('futureWhyInput');
+  if (futureWhyEl) futureWhyEl.addEventListener('input', () => { state.answers.futureWhy = futureWhyEl.value; });
+
+  document.getElementById('backToIntroBtn')?.addEventListener('click', () => { saveFormState(); state.screen = 'intro'; render(); });
+  document.getElementById('toReviewBtn')?.addEventListener('click', () => {
+    saveFormState();
+    if (!validateForm()) return;
+    state.screen = 'review'; render();
+  });
+
+  // Review
+  document.getElementById('backToFormBtn')?.addEventListener('click', () => { state.screen = 'form'; render(); });
+  document.getElementById('submitBtn')?.addEventListener('click', submitResponse);
+}
+
+function updateCharHint(id, value) {
+  const hint = document.getElementById('hint_' + id);
+  if (!hint) return;
+  const words = value.trim().split(/\s+/).filter(Boolean).length;
+  if (!value.trim()) { hint.textContent = ''; return; }
+  const ok = words >= 10;
+  hint.textContent = ok ? words + ' words ✓' : words + ' words — a bit more detail helps';
+  hint.className = 'char-hint' + (ok ? ' ok' : '');
+}
+
+function saveFormState() {
+  ['impact1','impact2','impact3','growth1','growth2','growth3'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) state.answers[id] = el.value.trim();
+  });
+  const fr = document.getElementById('futureRoleInput');
+  const fw = document.getElementById('futureWhyInput');
+  if (fr) state.answers.futureRole = fr.value.trim();
+  if (fw) state.answers.futureWhy = fw.value.trim();
+}
+
+function validateForm() {
+  saveFormState();
+  const a = state.answers;
+  const impactFilled = [a.impact1, a.impact2, a.impact3].filter(Boolean);
+  if (!impactFilled.length) { showToast('Please add at least 1 Key Impact point.', true); return false; }
+  if (impactFilled.some(t => t.split(/\s+/).filter(Boolean).length < 8)) {
+    showToast('Each impact point needs a bit more detail — aim for a full sentence.', true); return false;
+  }
+  const growthFilled = [a.growth1, a.growth2, a.growth3].filter(Boolean);
+  if (!growthFilled.length) { showToast('Please add at least 1 Growth Opportunity.', true); return false; }
+  if (!a.futureRole.trim()) { showToast('Please enter your target future role.', true); return false; }
+  if (a.futureWhy.trim().split(/\s+/).filter(Boolean).length < 20) {
+    showToast('Please explain a bit more about why that role interests you.', true); return false;
+  }
+  return true;
+}
+
+// ── Submit ────────────────────────────────────────────────────────────────────
+async function submitResponse() {
+  if (!validateForm()) return;
+  state.submitting = true; render();
+  const a = state.answers;
+
+  const payload = {
+    respondentId: 'IS-' + Math.random().toString(36).slice(2, 8).toUpperCase(),
+    name: state.name,
+    timestamp: new Date().toISOString(),
+    sections: {
+      keyImpact: [a.impact1, a.impact2, a.impact3].filter(Boolean),
+      growthOpportunities: [a.growth1, a.growth2, a.growth3].filter(Boolean),
+      futureRole: { role: a.futureRole, rationale: a.futureWhy }
+    }
+  };
+
+  const filename = `${GH_PATH}/${payload.respondentId}-${state.name.replace(/\s+/g,'-').replace(/[^a-zA-Z0-9-]/g,'')}.json`;
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))));
+  try {
+    const res = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${filename}`, {
+      method: 'PUT',
+      headers: { 'Authorization': `token ${GH_TOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: `impact-summary: ${state.name}`, content })
+    });
+    if (!res.ok) throw new Error(res.status);
+    state.screen = 'complete';
+  } catch(e) {
+    showToast('Submission failed — please try again. (' + e.message + ')', true);
+    state.submitting = false;
+  }
+  render();
+}
+
+// ── Utils ─────────────────────────────────────────────────────────────────────
+function escHtml(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+let toastTimer;
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (isError ? ' error' : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.className = 'toast'; }, 4000);
+}
+
+render();
+</script>
+</body>
+</html>
