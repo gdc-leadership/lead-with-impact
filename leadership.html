@@ -820,15 +820,85 @@ document.addEventListener('keydown', e => {
     document.getElementById(SECTIONS[active-1].id).scrollIntoView({behavior:'smooth'});
 });
 
-// ── Scroll reveal via CSS class ───────────────────────────────────
+// ── Motion One helper — safe wrapper, no-ops if not loaded ───────
+function mx(fn) {
+  try { if (typeof Motion !== 'undefined') fn(Motion); } catch(e) {}
+}
+
+// ── Scroll reveal — CSS class baseline + Motion spring on top ────
 const revealObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (!e.isIntersecting) return;
-    // reveal .anim children
-    e.target.querySelectorAll('.anim').forEach(el => el.classList.add('visible'));
-    // reveal card grids
-    e.target.classList.add('revealed');
-    revealObs.unobserve(e.target);
+    const sec = e.target;
+
+    // CSS baseline: always works
+    sec.querySelectorAll('.anim').forEach(el => el.classList.add('visible'));
+    sec.classList.add('revealed');
+    revealObs.unobserve(sec);
+
+    // Motion One: spring/stagger on top if available
+    mx(({animate, stagger}) => {
+      const id = sec.id;
+
+      // Cover — already handled by CSS keyframes, skip
+
+      // S2: number blocks pop in
+      if (id === 's2') {
+        animate(sec.querySelectorAll('.num-block'),
+          {opacity:[0,1], scale:[0.88,1], y:[20,0]},
+          {duration:.55, delay:stagger(.12), easing:[0.34,1.56,0.64,1]});
+      }
+
+      // S3: signal cards slide up with spring
+      if (id === 's3') {
+        animate(sec.querySelectorAll('.signal-card'),
+          {opacity:[0,1], y:[32,0]},
+          {duration:.5, delay:stagger(.1), easing:[0.34,1.56,0.64,1]});
+      }
+
+      // S4: method steps stagger in
+      if (id === 's4') {
+        animate(sec.querySelectorAll('.step-item'),
+          {opacity:[0,1], x:[-16,0]},
+          {duration:.4, delay:stagger(.08), easing:'ease-out'});
+      }
+
+      // S5: journey cards spring bounce
+      if (id === 's5') {
+        animate(sec.querySelectorAll('.j-card'),
+          {opacity:[0,1], scale:[0.88,1], y:[24,0]},
+          {duration:.5, delay:stagger(.1), easing:[0.34,1.56,0.64,1]});
+      }
+
+      // S6: group cards spring in
+      if (id === 's6') {
+        animate(sec.querySelectorAll('.g-card'),
+          {opacity:[0,1], y:[28,0], scale:[0.94,1]},
+          {duration:.5, delay:stagger(.1), easing:[0.34,1.56,0.64,1]});
+      }
+
+      // S7: canvas cards slide up
+      if (id === 's7') {
+        animate(sec.querySelectorAll('.c-card'),
+          {opacity:[0,1], y:[24,0]},
+          {duration:.5, delay:stagger(.12), easing:[0.34,1.56,0.64,1]});
+        animate('#canvas-total',
+          {opacity:[0,1], y:[16,0]},
+          {duration:.5, delay:.45, easing:'ease-out'});
+      }
+
+      // S8: commit card drops in
+      if (id === 's8') {
+        animate(sec.querySelectorAll('.commit-card'),
+          {opacity:[0,1], y:[32,0], scale:[0.96,1]},
+          {duration:.6, delay:.2, easing:[0.34,1.56,0.64,1]});
+      }
+
+      // Generic .anim text elements in any section
+      animate(sec.querySelectorAll('.sec-label, .sec-h2, .sec-sub'),
+        {opacity:[0,1], y:[14,0]},
+        {duration:.45, delay:stagger(.1), easing:'ease-out'});
+    });
   });
 }, {threshold:0.12});
 document.querySelectorAll('.sec').forEach(sec => revealObs.observe(sec));
@@ -872,7 +942,14 @@ function renderNumbers() {
     <div class="num-block"><div class="big-num"><span id="cn3" data-val="${Math.round(over40/n*100)}">0</span><span style="font-size:.45em;color:var(--muted)">%</span></div><div class="num-label">Working over target (&gt;40h)</div><div class="num-sub">Time not mapped to outcomes</div></div>`;
   // trigger counter if already visible
   const c1=document.getElementById('cn1');
-  if (c1) { animateCount(c1,0,n,0,1.2); animateCount(document.getElementById('cn2'),0,avgH,1,1.4); animateCount(document.getElementById('cn3'),0,Math.round(over40/n*100),0,1.3); }
+  if (c1) {
+    animateCount(c1,0,n,0,1.2);
+    animateCount(document.getElementById('cn2'),0,avgH,1,1.4);
+    animateCount(document.getElementById('cn3'),0,Math.round(over40/n*100),0,1.3);
+    // Motion pulse on num blocks when data arrives
+    mx(({animate,stagger}) => animate('.num-block',
+      {scale:[1,1.04,1]},{duration:.4,delay:stagger(.15),easing:'ease-in-out'}));
+  }
 }
 
 function parseHours(str) {
@@ -912,6 +989,12 @@ function renderSignals() {
     </div>`;
   }).filter(Boolean).join('');
   grid.innerHTML=html||'<div style="color:var(--dim);font-size:13px;padding:40px;text-align:center;grid-column:1/-1">No survey data yet — check back after responses are submitted.</div>';
+  // Motion spring on avg badges when they appear
+  mx(({animate,stagger}) => {
+    setTimeout(() => animate('.signal-avg',
+      {scale:[0,1.1,1],opacity:[0,1]},
+      {duration:.5,delay:stagger(.12),easing:[0.34,1.56,0.64,1]}), 100);
+  });
 }
 
 async function loadData() {
