@@ -501,6 +501,65 @@ html.dark .vmom-chip{background:rgba(155,109,255,.1);border-color:rgba(155,109,2
 .mi-bar-track{background:var(--border);border-radius:99px;height:5px;overflow:hidden}
 .mi-bar-fill{height:100%;border-radius:99px;transition:width .5s ease}
 
+/* ── IDEAL 40 TAB ────────────────────────────────────────────── */
+.i40-roletabs{display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:28px;overflow-x:auto;scrollbar-width:none}
+.i40-roletabs::-webkit-scrollbar{display:none}
+.i40-rtab{padding:10px 20px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:color .15s,border-color .15s}
+.i40-rtab:hover{color:var(--accent)}
+.i40-rtab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:700}
+.i40-rpanel{display:none}.i40-rpanel.active{display:block}
+.i40-outcome-block{margin-bottom:32px}
+.i40-outcome-hdr{
+  display:flex;align-items:center;gap:12px;margin-bottom:14px;
+  padding:12px 16px;background:var(--accent2);border-radius:var(--r);
+  cursor:pointer;transition:opacity .15s;
+}
+.i40-outcome-hdr:hover{opacity:.9}
+html.dark .i40-outcome-hdr{background:rgba(0,200,255,.08);border:1px solid rgba(0,200,255,.15)}
+.i40-outcome-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.i40-outcome-name{font-size:14px;font-weight:700;color:#fff;flex:1}
+html.dark .i40-outcome-name{color:var(--white)}
+.i40-outcome-hrs{font-size:12px;font-weight:700;color:rgba(255,255,255,.7);background:rgba(255,255,255,.15);padding:3px 10px;border-radius:3px;white-space:nowrap}
+html.dark .i40-outcome-hrs{color:var(--accent);background:rgba(0,200,255,.12)}
+.i40-survey-badge{font-size:10px;font-weight:700;background:rgba(255,255,255,.2);color:#fff;padding:2px 8px;border-radius:3px;display:flex;align-items:center;gap:4px}
+html.dark .i40-survey-badge{background:rgba(155,109,255,.2);color:var(--purple)}
+.i40-act-table{width:100%;border-collapse:collapse;font-size:13px}
+.i40-act-table th{text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--dim);padding:6px 12px;border-bottom:2px solid var(--border);background:var(--s3)}
+.i40-act-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.i40-act-table tr:last-child td{border-bottom:none}
+.i40-act-table tr:hover td{background:rgba(1,118,211,.04)}
+html.dark .i40-act-table tr:hover td{background:rgba(255,255,255,.03)}
+.i40-act-name{font-weight:600;color:var(--white)}
+.i40-hrs-chip{display:inline-flex;align-items:center;justify-content:center;background:var(--accent2);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:3px;min-width:40px}
+html.dark .i40-hrs-chip{background:rgba(0,200,255,.1);color:var(--accent);border:1px solid rgba(0,200,255,.2)}
+.i40-kpi{font-size:11px;color:var(--muted);line-height:1.5;max-width:380px}
+.i40-survey-match{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;background:var(--green2);color:var(--green);border:1px solid var(--green-border);padding:2px 8px;border-radius:3px}
+.i40-totals{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;margin-bottom:28px}
+.i40-total-chip{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:12px 18px;display:flex;align-items:baseline;gap:6px;box-shadow:var(--shadow)}
+.i40-total-num{font-size:24px;font-weight:700;color:var(--accent)}
+.i40-total-lbl{font-size:11px;color:var(--muted)}
+
+/* ── SIGNAL OUTCOME BADGE ────────────────────────────────────── */
+.outcome-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;margin-top:4px;background:rgba(1,118,211,.1);color:var(--accent);border:1px solid rgba(1,118,211,.2)}
+html.dark .outcome-badge{background:rgba(0,200,255,.08);border-color:rgba(0,200,255,.2)}
+
+/* ── INFO TOOLTIP ────────────────────────────────────────────── */
+.info-icon{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--border2);color:var(--dim);font-size:10px;font-weight:700;cursor:pointer;position:relative;font-style:normal;flex-shrink:0}
+.info-icon:hover .info-tip{display:block}
+.info-tip{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--accent2);color:#fff;font-size:11px;line-height:1.5;padding:10px 12px;border-radius:6px;width:260px;z-index:300;box-shadow:0 4px 12px rgba(0,0,0,.2);font-weight:400;pointer-events:none}
+html.dark .info-tip{background:#1e2235;color:var(--white);border:1px solid var(--border2)}
+.info-tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--accent2)}
+html.dark .info-tip::after{border-top-color:#1e2235}
+
+/* ── SPEAKER NOTES ───────────────────────────────────────────── */
+.speaker-notes-btn{
+  display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;
+  padding:8px 16px;border-radius:4px;cursor:pointer;font-family:inherit;
+  background:var(--s1);border:1px solid var(--border2);color:var(--accent);
+  transition:background .15s,transform .1s;
+}
+.speaker-notes-btn:hover{background:var(--s3);transform:translateY(-1px)}
+
 /* ── FOOTER ──────────────────────────────────────────────────── */
 .page-footer{text-align:center;padding:28px 24px;border-top:1px solid var(--border);font-size:12px;color:var(--dim);margin-top:32px}
 .conf-tag{display:inline-flex;gap:6px;align-items:center;background:var(--orange2);border:1px solid rgba(224,116,22,.25);color:var(--orange);padding:4px 12px;border-radius:3px;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
@@ -535,6 +594,7 @@ html.dark .vmom-chip{background:rgba(155,109,255,.1);border-color:rgba(155,109,2
   <div class="tab active" data-tab="prework" onclick="switchTab('prework')"><span class="tab-icon">📋</span> Pre-Work</div>
   <div class="tab" data-tab="analytics" onclick="switchTab('analytics')"><span class="tab-icon">📊</span> Survey Analytics</div>
   <div class="tab" data-tab="workshop" onclick="switchTab('workshop')"><span class="tab-icon">🛠</span> Workshop</div>
+  <div class="tab" data-tab="ideal40" onclick="switchTab('ideal40')"><span class="tab-icon">⏱</span> Ideal 40</div>
   <div class="tab" data-tab="post" onclick="switchTab('post')"><span class="tab-icon">🎯</span> Post-Workshop</div>
 </div>
 
@@ -570,6 +630,10 @@ html.dark .vmom-chip{background:rgba(155,109,255,.1);border-color:rgba(155,109,2
         <div>
           <div class="sec-label anim">Role signals</div>
           <h2 class="sec-h2 anim">What moves the needle.<br><span style="color:var(--muted);font-size:0.6em;font-weight:400">And what drains it.</span></h2>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <span style="font-size:12px;color:var(--muted)">Mapped to Ideal 40 outcomes</span>
+            <span class="info-icon" style="position:relative">i<span class="info-tip"><b>How this is calculated:</b><br>Each survey answer is free text. The code splits it into individual activities, lowercases them, counts how many people said each one, and shows the top 3 (high-value) and top 2 (time-drains) by frequency. The × count = number of respondents who mentioned it. Outcome badges are mapped from the Ideal 40 framework.</span></span>
+          </div>
         </div>
         <div class="survey-links anim">
           <a class="survey-link" href="https://gdc-leadership.github.io/lead-with-impact/analysis.html" target="_blank">
@@ -679,7 +743,255 @@ html.dark .vmom-chip{background:rgba(155,109,255,.1);border-color:rgba(155,109,2
     </div>
   </div>
 
-  <!-- ── TAB 4: POST-WORKSHOP ── -->
+  <!-- ── TAB 4: IDEAL 40 ── -->
+  <div class="panel" id="tab-ideal40">
+    <div class="page-header anim">
+      <div>
+        <div class="ph-title">Ideal <em>40 Framework</em></div>
+        <div class="ph-sub">FY27 · Role → Outcome → V2MOM KPI → Activities · Hours per week</div>
+      </div>
+      <div class="ph-tags">
+        <span class="ph-tag">BP: 14h</span>
+        <span class="ph-tag">CL: 17h</span>
+        <span class="ph-tag">DP: 14h</span>
+        <span class="ph-tag">PM: 3h · L&U: 4h · Strat: 2h</span>
+      </div>
+    </div>
+
+    <!-- Role sub-tabs -->
+    <div class="i40-roletabs">
+      <div class="i40-rtab active" data-rtab="bp" onclick="switchRoleTab('bp')">🤝 Business Partner</div>
+      <div class="i40-rtab" data-rtab="cl" onclick="switchRoleTab('cl')">☁️ Cloud Leader</div>
+      <div class="i40-rtab" data-rtab="dp" onclick="switchRoleTab('dp')">🚀 Delivery Partner</div>
+      <div class="i40-rtab" data-rtab="shared" onclick="switchRoleTab('shared')">🌐 Shared Roles</div>
+    </div>
+
+    <!-- ── BP ── -->
+    <div class="i40-rpanel active" id="i40-bp">
+      <div class="i40-totals">
+        <div class="i40-total-chip"><span class="i40-total-num">14</span><span class="i40-total-lbl">hrs / week</span></div>
+        <div class="i40-total-chip"><span class="i40-total-num">728</span><span class="i40-total-lbl">hrs / year</span></div>
+        <div class="i40-total-chip"><span class="i40-total-num">3</span><span class="i40-total-lbl">outcomes</span></div>
+      </div>
+
+      <!-- Business Growth -->
+      <div class="i40-outcome-block">
+        <div class="i40-outcome-hdr">
+          <div class="i40-outcome-dot" style="background:#1b96ff"></div>
+          <div class="i40-outcome-name">Business Growth <span style="font-size:12px;opacity:.7">(33% of WW hours)</span></div>
+          <div class="i40-outcome-hrs">7h / week</div>
+          <div class="i40-survey-badge">📊 Survey matched</div>
+        </div>
+        <table class="i40-act-table">
+          <thead><tr><th>Activity</th><th>Hrs/wk</th><th>V2MOM KPI</th><th>Survey signal</th></tr></thead>
+          <tbody>
+            <tr><td><span class="i40-act-name">Deal Identification &amp; Tracking</span></td><td><span class="i40-hrs-chip">2h</span></td><td><div class="i40-kpi">100% coverage of deals Stage1 for identified &gt; $value / % threshold · Pre-Sales</div></td><td><span class="i40-survey-match">⬆ High-value</span></td></tr>
+            <tr><td><span class="i40-act-name">Relationship Building &amp; Cadences</span></td><td><span class="i40-hrs-chip">3h</span></td><td><div class="i40-kpi">Drive X% growth in GDC Contribution · Average OU T&amp;M Bill Rate &gt;= $X</div></td><td><span class="i40-survey-match">⬆ High-value</span></td></tr>
+            <tr><td><span class="i40-act-name">Deal Reviews (SPW + DD)</span></td><td><span class="i40-hrs-chip">2h</span></td><td><div class="i40-kpi">Average Architects T&amp;M Bill Rate &gt; $X · Partnership inclusion in Account Planning</div></td><td><span class="i40-survey-match">⬆ High-value</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Co-Ownership -->
+      <div class="i40-outcome-block">
+        <div class="i40-outcome-hdr">
+          <div class="i40-outcome-dot" style="background:#06a59a"></div>
+          <div class="i40-outcome-name">Co-Ownership</div>
+          <div class="i40-outcome-hrs">4h / week</div>
+          <div class="i40-survey-badge">📊 Survey matched</div>
+        </div>
+        <table class="i40-act-table">
+          <thead><tr><th>Activity</th><th>Hrs/wk</th><th>V2MOM KPI</th><th>Survey signal</th></tr></thead>
+          <tbody>
+            <tr><td><span class="i40-act-name">Customer Facing Showcases</span></td><td><span class="i40-hrs-chip">4h</span></td><td><div class="i40-kpi">Boost revenue &amp; leverage: Book more with GDC playbook · Sell Right for Delivery · 100% Co-Ownership for deals &gt;50% GDC</div></td><td><span class="i40-survey-match">⬆ High-value</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Brand & Relationship Building -->
+      <div class="i40-outcome-block">
+        <div class="i40-outcome-hdr">
+          <div class="i40-outcome-dot" style="background:#9050e9"></div>
+          <div class="i40-outcome-name">Brand &amp; Relationship Building</div>
+          <div class="i40-outcome-hrs">3h / week</div>
+        </div>
+        <table class="i40-act-table">
+          <thead><tr><th>Activity</th><th>Hrs/wk</th><th>V2MOM KPI</th><th>Survey signal</th></tr></thead>
+          <tbody>
+            <tr><td><span class="i40-act-name">Internal Meetings</span></td><td><span class="i40-hrs-chip">3h</span></td><td><div class="i40-kpi">Drive &amp; deliver X unique customer visit per quarter · 0 deviation from Customer Visit SOP</div></td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── CL ── -->
+    <div class="i40-rpanel" id="i40-cl">
+      <div class="i40-totals">
+        <div class="i40-total-chip"><span class="i40-total-num">17</span><span class="i40-total-lbl">hrs / week</span></div>
+        <div class="i40-total-chip"><span class="i40-total-num">884</span><span class="i40-total-lbl">hrs / year</span></div>
+        <div class="i40-total-chip"><span class="i40-total-num">3</span><span class="i40-total-lbl">outcomes</span></div>
+      </div>
+
+      <!-- Practice Build & Upliftment -->
+      <div class="i40-outcome-block">
+        <div class="i40-outcome-hdr">
+          <div class="i40-outcome-dot" style="background:#1b96ff"></div>
+          <div class="i40-outcome-name">Practice Build &amp; Upliftment</div>
+          <div class="i40-outcome-hrs">5h / week</div>
+          <div class="i40-survey-badge">📊 Survey matched</div>
+        </div>
+        <table class="i40-act-table">
+          <thead><tr><th>Activity</th><th>Hrs/wk</th><th>V2MOM KPI</th><th>Survey signal</th></tr></thead>
+          <tbody>
+            <tr><td><span class="i40-act-name">Connect with Product</span></td><td><span class="i40-hrs-chip">1h</span></td><td><div class="i40-kpi">Product evolution, Co-Engineering &amp; Customer Insights</div></td><td><span class="i40-survey-match">⬆ High-value</span></td></tr>
+            <tr><td><span class="i40-act-name">Participate in customer facing activities</span></td><td><span class="i40-hrs-chip">4h</span></td><td><div class="i40-kpi">Delivery Excellence goals — 100% adherence of Delivery Governance Processes</div></td><td><span class="i40-survey-match">⬆ High-value</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Delivery, Operational Excellence & Governance -->
+      <div class="i40-outcome-block">
+        <div class="i40-outcome-hdr">
+          <div class="i40-outcome-dot" style="background:#06a59a"></div>
+          <div class="i40-outcome-name">Delivery, Operational Excellence &amp; Governance</div>
+          <div class="i40-outcome-hrs">7h / week</div>
+          <div class="i40-survey-badge">📊 Survey matched</div>
+        </div>
+        <table class="i40-act-table">
+          <thead><tr><th>Activity</th><th>Hrs/wk</th><th>V2MOM KPI</th><th>Survey signal</th></tr></thead>
+          <tbody>
+            <tr><td><span class="i40-act-name">Delivery Governance, compliance adherence, &lt;1 DPD</span></td><td><span class="i40-hrs-chip">4h</span></td><td><div class="i40-kpi">Delivery Excellence / First Time Right · Ensure 100% escalation-free delivery · DPD &lt;0.1 for GDC PM Led Projects, &lt;0.2 for others · 100% adherence for sending WSRs</div></td><td><span class="i40-survey-match">⬆ High-value</span></td></tr>
+            <tr><td><span class="i40-act-name">Demand &amp; Supply Management, Ad-hoc requests</span></td><td><span class="i40-hrs-chip">2h</span></td><td><div class="i40-kpi">&gt;6% RR fulfilment (Optimised capacity with demand/supply forecast)</div></td><td>—</td></tr>
+            <tr><td><span class="i40-act-name">Workforce Util attainment, talent upskill, cross-skill and trainings</span></td><td><span class="i40-hrs-chip">2h</span></td><td><div class="i40-kpi">10% skill-based rejections for cloud</div></td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Agentic Transformation -->
+      <div class="i40-outcome-block">
+        <div class="i40-outcome-hdr">
+          <div class="i40-outcome-dot" style="background:#9050e9"></div>
+          <div class="i40-outcome-name">Agentic Transformation</div>
+          <div class="i40-outcome-hrs">5h / week</div>
+        </div>
+        <table class="i40-act-table">
+          <thead><tr><th>Activity</th><th>Hrs/wk</th><th>V2MOM KPI</th><th>Survey signal</th></tr></thead>
+          <tbody>
+            <tr><td><span class="i40-act-name">AI Native Delivery, Thought leadership and innovation</span></td><td><span class="i40-hrs-chip">5h</span></td><td><div class="i40-kpi">Leverage AI-led, productised delivery framework · Demonstrate 15–30% improvement in efficiency and time to deliver · H1: 20%, H2: 30%</div></td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── DP ── -->
+    <div class="i40-rpanel" id="i40-dp">
+      <div class="i40-totals">
+        <div class="i40-total-chip"><span class="i40-total-num">14</span><span class="i40-total-lbl">hrs / week</span></div>
+        <div class="i40-total-chip"><span class="i40-total-num">728</span><span class="i40-total-lbl">hrs / year</span></div>
+        <div class="i40-total-chip"><span class="i40-total-num">2</span><span class="i40-total-lbl">outcomes</span></div>
+      </div>
+
+      <!-- Brand & Relationship Building -->
+      <div class="i40-outcome-block">
+        <div class="i40-outcome-hdr">
+          <div class="i40-outcome-dot" style="background:#1b96ff"></div>
+          <div class="i40-outcome-name">Brand &amp; Relationship Building</div>
+          <div class="i40-outcome-hrs">6h / week</div>
+          <div class="i40-survey-badge">📊 Survey matched</div>
+        </div>
+        <table class="i40-act-table">
+          <thead><tr><th>Activity</th><th>Hrs/wk</th><th>V2MOM KPI</th><th>Survey signal</th></tr></thead>
+          <tbody>
+            <tr><td><span class="i40-act-name">Relationship building &amp; Cadences</span></td><td><span class="i40-hrs-chip">6h</span></td><td><div class="i40-kpi">EDP to drive collaboration with OU leaders · Co-own delivery KPIs with OU leaders · Ensure high accountability from GDC · Quarterly delivery cadence across GDC PM, TA and CLs per OU</div></td><td><span class="i40-survey-match">⬆ High-value</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Predictable Delivery -->
+      <div class="i40-outcome-block">
+        <div class="i40-outcome-hdr">
+          <div class="i40-outcome-dot" style="background:#06a59a"></div>
+          <div class="i40-outcome-name">Predictable Delivery</div>
+          <div class="i40-outcome-hrs">8h / week</div>
+          <div class="i40-survey-badge">📊 Survey matched</div>
+        </div>
+        <table class="i40-act-table">
+          <thead><tr><th>Activity</th><th>Hrs/wk</th><th>V2MOM KPI</th><th>Survey signal</th></tr></thead>
+          <tbody>
+            <tr><td><span class="i40-act-name">Program Governance — High watchlist Programs</span></td><td><span class="i40-hrs-chip">8h</span></td><td><div class="i40-kpi">First Time Right, Zero escalations · Trusted Partner to Co-own (GM, GM-1) · Actively contribute to Internal SteerCo · Own GDC delivery governance &amp; outcomes for OU</div></td><td><span class="i40-survey-match">⬆ High-value</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── SHARED ── -->
+    <div class="i40-rpanel" id="i40-shared">
+      <div class="i40-totals">
+        <div class="i40-total-chip"><span class="i40-total-num">3h</span><span class="i40-total-lbl">People Mgmt</span></div>
+        <div class="i40-total-chip"><span class="i40-total-num">4h</span><span class="i40-total-lbl">Learning &amp; Upskilling</span></div>
+        <div class="i40-total-chip"><span class="i40-total-num">2h</span><span class="i40-total-lbl">Strategy &amp; Future Planning</span></div>
+        <div class="i40-total-chip"><span class="i40-total-num">54h</span><span class="i40-total-lbl">Grand Total (all roles)</span></div>
+      </div>
+
+      <!-- People Management -->
+      <div class="i40-outcome-block">
+        <div class="i40-outcome-hdr">
+          <div class="i40-outcome-dot" style="background:#e07416"></div>
+          <div class="i40-outcome-name">People Management</div>
+          <div class="i40-outcome-hrs">3h / week · 156h / year</div>
+        </div>
+        <table class="i40-act-table">
+          <thead><tr><th>Activity</th><th>Hrs/wk</th><th>V2MOM KPI</th><th>Survey signal</th></tr></thead>
+          <tbody>
+            <tr><td><span class="i40-act-name">1. Engagement with directs &amp; span<br>2. Quarterly Check-Ins and 1:1s</span></td><td><span class="i40-hrs-chip">3h</span></td><td><div class="i40-kpi">100% adherence to compliance, timely trainings &amp; certifications · 100% V2MOM, IDP for all employees &gt;2 months · 100% Ranger for all employees &gt;3 months · AgentBlazers Champion &amp; Innovator: 100% completion for all employees &gt;3 months · 100% measurable and demonstrative adoption of SAI/AI tools and agents</div></td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Learning & Upskilling -->
+      <div class="i40-outcome-block">
+        <div class="i40-outcome-hdr">
+          <div class="i40-outcome-dot" style="background:#2e844a"></div>
+          <div class="i40-outcome-name">Continuous Learning &amp; Growth</div>
+          <div class="i40-outcome-hrs">4h / week · 208h / year</div>
+        </div>
+        <table class="i40-act-table">
+          <thead><tr><th>Activity</th><th>Hrs/wk</th><th>V2MOM KPI</th><th>Survey signal</th></tr></thead>
+          <tbody>
+            <tr><td><span class="i40-act-name">AI upskilling, hands-on tooling, new ways of working</span></td><td><span class="i40-hrs-chip">4h</span></td><td><div class="i40-kpi">As per Career Connect IDP Planning · AI Readiness</div></td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Strategy & Future Planning -->
+      <div class="i40-outcome-block">
+        <div class="i40-outcome-hdr">
+          <div class="i40-outcome-dot" style="background:#5867e8"></div>
+          <div class="i40-outcome-name">Strategy &amp; Future Planning</div>
+          <div class="i40-outcome-hrs">2h / week · 104h / year</div>
+        </div>
+        <table class="i40-act-table">
+          <thead><tr><th>Activity</th><th>Hrs/wk</th><th>V2MOM KPI</th><th>Survey signal</th></tr></thead>
+          <tbody>
+            <tr><td><span class="i40-act-name">Value add activities, Thought Leadership, Change Anticipation &amp; Management</span></td><td><span class="i40-hrs-chip">2h</span></td><td><div class="i40-kpi">N/A</div></td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Speaker Notes Download -->
+    <div class="block" style="margin-top:40px;padding-top:28px;border-top:1px solid var(--border)">
+      <div class="sec-label anim">Speaker notes</div>
+      <h2 class="sec-h2 anim">Download for presentation.</h2>
+      <p class="sec-sub anim">One-page PDF with talking points for each section of this workshop.</p>
+      <button class="speaker-notes-btn anim" onclick="downloadSpeakerNotes()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Speaker Notes (PDF)
+      </button>
+    </div>
+  </div>
+
+  <!-- ── TAB 5: POST-WORKSHOP ── -->
   <div class="panel" id="tab-post">
     <div class="page-header anim">
       <div>
@@ -949,6 +1261,57 @@ function renderAnalyticsMetrics() {
   }, 200);
 }
 
+// Ideal 40 outcome mapping — keyed by lowercase activity keywords
+const OUTCOME_MAP = {
+  'deal identification': {label:'Business Growth',color:'#1b96ff'},
+  'deal tracking':       {label:'Business Growth',color:'#1b96ff'},
+  'pipeline review':     {label:'Business Growth',color:'#1b96ff'},
+  'pipeline':            {label:'Business Growth',color:'#1b96ff'},
+  'presales':            {label:'Business Growth',color:'#1b96ff'},
+  'pre-sales':           {label:'Business Growth',color:'#1b96ff'},
+  'account planning':    {label:'Business Growth',color:'#1b96ff'},
+  'deal review':         {label:'Business Growth',color:'#1b96ff'},
+  'deal shaping':        {label:'Business Growth',color:'#1b96ff'},
+  'relationship building':{label:'Business Growth',color:'#1b96ff'},
+  'cadence':             {label:'Business Growth',color:'#1b96ff'},
+  'showcase':            {label:'Co-Ownership',color:'#06a59a'},
+  'co-ownership':        {label:'Co-Ownership',color:'#06a59a'},
+  'co ownership':        {label:'Co-Ownership',color:'#06a59a'},
+  'program health':      {label:'Co-Ownership',color:'#06a59a'},
+  'program governance':  {label:'Predictable Delivery',color:'#2e844a'},
+  'governance':          {label:'Predictable Delivery',color:'#2e844a'},
+  'delivery governance': {label:'Predictable Delivery',color:'#2e844a'},
+  'escalation':          {label:'Predictable Delivery',color:'#2e844a'},
+  'wsr':                 {label:'Predictable Delivery',color:'#2e844a'},
+  'dpd':                 {label:'Predictable Delivery',color:'#2e844a'},
+  'demand':              {label:'Operational Excellence',color:'#06a59a'},
+  'supply':              {label:'Operational Excellence',color:'#06a59a'},
+  'rr fulfilment':       {label:'Operational Excellence',color:'#06a59a'},
+  'workforce':           {label:'Operational Excellence',color:'#06a59a'},
+  'upskill':             {label:'Continuous Learning',color:'#2e844a'},
+  'training':            {label:'Continuous Learning',color:'#2e844a'},
+  'learning':            {label:'Continuous Learning',color:'#2e844a'},
+  'ai':                  {label:'Agentic Transformation',color:'#9050e9'},
+  'agentic':             {label:'Agentic Transformation',color:'#9050e9'},
+  'thought leadership':  {label:'Strategy & Future Planning',color:'#5867e8'},
+  'strategy':            {label:'Strategy & Future Planning',color:'#5867e8'},
+  '1:1':                 {label:'People Management',color:'#e07416'},
+  'coaching':            {label:'People Management',color:'#e07416'},
+  'idp':                 {label:'People Management',color:'#e07416'},
+  'hiring':              {label:'People Management',color:'#e07416'},
+  'connect with product':{label:'Practice Build & Upliftment',color:'#1b96ff'},
+  'product':             {label:'Practice Build & Upliftment',color:'#1b96ff'},
+  'practice':            {label:'Practice Build & Upliftment',color:'#1b96ff'},
+};
+
+function getOutcome(text) {
+  const t = text.toLowerCase();
+  for (const [kw, val] of Object.entries(OUTCOME_MAP)) {
+    if (t.includes(kw)) return val;
+  }
+  return null;
+}
+
 function renderSignals() {
   const ROLES=[
     {key:'BP',label:'Business Partner',icon:'🤝',hq:'BP_top3',lq:'BP_necessary2',hqid:'BP_hours'},
@@ -962,12 +1325,17 @@ function renderSignals() {
     const hi=top(r.hq,r.key,3),lo=top(r.lq,r.key,2);
     const avg=avgHours(r.hqid,r.key);
     const avgBadge=avg?`<span class="signal-avg">~${avg}h/wk avg</span>`:'';
+    function itemHtml(x, i, cls) {
+      const out = getOutcome(x.text);
+      const badge = out ? `<span class="outcome-badge" style="background:${out.color}18;color:${out.color};border-color:${out.color}33">${out.label}</span>` : '';
+      return `<div class="signal-item ${cls}"><span class="signal-rank">${i+1}</span><span style="flex:1"><span>${esc(x.text)}</span>${badge}</span><span class="signal-hits">${x.count}×</span></div>`;
+    }
     return `<div class="signal-card">
       <div class="signal-header"><div class="signal-header-left"><span class="signal-role-icon">${r.icon}</span><span class="signal-role-name">${r.label}</span></div>
       <div style="display:flex;align-items:center;gap:6px">${avgBadge}<span class="signal-count">${rc} respondent${rc!==1?'s':''}</span></div></div>
       <div class="signal-body">
-        <div class="signal-section"><div class="signal-sec-label up">⬆ Top 3 high-value</div>${hi.length?hi.map((x,i)=>`<div class="signal-item high"><span class="signal-rank">${i+1}</span><span>${esc(x.text)}</span><span class="signal-hits">${x.count}×</span></div>`).join(''):'<div class="signal-empty">No data yet</div>'}</div>
-        <div class="signal-section"><div class="signal-sec-label down">⬇ Top 2 time-drains</div>${lo.length?lo.map((x,i)=>`<div class="signal-item low"><span class="signal-rank">${i+1}</span><span>${esc(x.text)}</span><span class="signal-hits">${x.count}×</span></div>`).join(''):'<div class="signal-empty">No data yet</div>'}</div>
+        <div class="signal-section"><div class="signal-sec-label up">⬆ Top 3 high-value</div>${hi.length?hi.map((x,i)=>itemHtml(x,i,'high')).join(''):'<div class="signal-empty">No data yet</div>'}</div>
+        <div class="signal-section"><div class="signal-sec-label down">⬇ Top 2 time-drains</div>${lo.length?lo.map((x,i)=>itemHtml(x,i,'low')).join(''):'<div class="signal-empty">No data yet</div>'}</div>
       </div></div>`;
   }).filter(Boolean).join('');
   grid.innerHTML=html||'<div style="color:var(--dim);font-size:13px;padding:32px;text-align:center;grid-column:1/-1">No survey data yet.</div>';
@@ -991,6 +1359,146 @@ async function loadData() {
   }
 }
 loadData();
+
+// ── Ideal 40 role sub-tabs ────────────────────────────────────────
+function switchRoleTab(id) {
+  document.querySelectorAll('.i40-rtab').forEach(t => t.classList.toggle('active', t.dataset.rtab === id));
+  document.querySelectorAll('.i40-rpanel').forEach(p => p.classList.toggle('active', p.id === 'i40-' + id));
+}
+
+// ── Speaker Notes PDF ─────────────────────────────────────────────
+function downloadSpeakerNotes() {
+  const notes = `GDC LEAD WITH IMPACT — FY27
+Speaker Notes · July 2026
+═══════════════════════════════════════════════════════════════
+
+TAB 1 — PRE-WORK & SURVEY SNAPSHOT
+────────────────────────────────────
+Talking points:
+• Open by acknowledging the survey data — this is YOUR data, not a top-down framework.
+• 26 GDC Directors were invited. The response rate tells us how engaged the group is.
+• Avg hours/week: if it's above 40, that's the proof point — we're busy, but are we impactful?
+• "What moves the needle" — these are activities your peers rated as highest-value.
+  Not what's in a job description. What ACTUALLY drives outcomes.
+• Outcome badges show how each activity maps back to the Ideal 40 framework.
+  e.g. Pipeline Review → Business Growth. Program Health → Co-Ownership.
+• The methodology: free-text survey answers, split into activities, counted by frequency.
+  The × number = how many people mentioned it. Transparent, bottom-up signal.
+
+Key question to ask the room:
+  "Do your top 3 calendar blocks match what your peers said moves the needle?"
+
+═══════════════════════════════════════════════════════════════
+
+TAB 2 — SURVEY ANALYTICS
+────────────────────────────────────
+Talking points:
+• This tab shows the full analytics dashboard — live data, updated as responses come in.
+• Metrics strip: total respondents, response rate vs 26 invited, total answers,
+  avg questions answered per person, how many are over 40h/week.
+• Role breakdown bars show the split between BP, CL and DP respondents.
+• The iframe below shows the full analysis.html page — click "Open full screen"
+  for a cleaner view to share on screen during the workshop.
+
+Key question to ask the room:
+  "Which role feels most time-pressured based on these numbers?"
+
+═══════════════════════════════════════════════════════════════
+
+TAB 3 — WORKSHOP
+────────────────────────────────────
+Talking points:
+• 60 minutes. 5 phases. One output per person.
+• Phase 1 (Clear, 10 min): Don't skip this. Anchoring your 3 outcomes per role
+  is the foundation. Without it the canvas has no context.
+• Phase 2 (Aware, 20 min): The Ideal 40 tab is your reference here.
+  Every hour must map to an outcome, a stakeholder, or a capacity unlock.
+• Phase 3 (Ready, 10 min): The four levers are Stop, Delegate, Automate, Simplify.
+  Not "do it better" — actually remove it from your calendar.
+• Phase 4 (Willing, 10 min): The role-table test:
+  (1) Is this the highest-impact use of my time?
+  (2) Can only I do this? If not — why am I doing it?
+  (3) Does it connect to a V2MOM measure?
+• Phase 5 (Able, 10 min): The model only sticks if it's written down and shared.
+  A verbal commitment in a room is not accountability. The canvas is.
+
+Working groups:
+  Group 1 (Mentor: Saurabh Mehta): Nachiket, Jay Ram, Pankaj, Karthik, Jyothi
+  Group 2 (Mentor: Mohammad Mushfique): Reddy, Prashant, Vinod, Nishu
+  Group 3 (Mentor: Saroja Atchula): Eduardo, Soumya, Mani, Santosh
+  Group 4 (Mentor: Udit Gupta): Mallinath, Mayank, Sanjay, Ashok, Diti
+  Observers: Sanket, Ajay, Rejesh, Chirag
+
+Key question to ask the room:
+  "What is one thing on your calendar this week that fails all three role-table tests?"
+
+═══════════════════════════════════════════════════════════════
+
+TAB 4 — IDEAL 40 FRAMEWORK
+────────────────────────────────────
+This is the FY27 GDC reference model. Not aspirational — prescriptive.
+
+BP Role (14h / week · 728h / year):
+  → Business Growth (7h): Deal ID & Tracking (2h), Relationship Building (3h), Deal Reviews (2h)
+     KPI: 100% Stage1 coverage · Drive X% GDC contribution growth
+  → Co-Ownership (4h): Customer Facing Showcases (4h)
+     KPI: >50% GDC Co-Ownership · Sell Right for Delivery
+  → Brand & Relationship Building (3h): Internal Meetings (3h)
+     KPI: X unique customer visits per quarter
+
+CL Role (17h / week · 884h / year):
+  → Practice Build & Upliftment (5h): Connect with Product (1h), Customer Activities (4h)
+     KPI: Product evolution, Co-Engineering & Customer Insights
+  → Delivery, Operational Excellence & Governance (7h):
+     Delivery Governance <1 DPD (4h), Demand & Supply (2h), Workforce Util (2h)
+     KPI: First Time Right · 100% escalation-free · <0.1 DPD for GDC PM Led
+  → Agentic Transformation (5h): AI Native Delivery (5h)
+     KPI: 15–30% improvement in efficiency · H1: 20%, H2: 30%
+
+DP Role (14h / week · 728h / year):
+  → Brand & Relationship Building (6h): Relationship Building & Cadences (6h)
+     KPI: Co-own delivery KPIs with OU leaders · Quarterly delivery cadence
+  → Predictable Delivery (8h): Program Governance — High Watchlist Programs (8h)
+     KPI: First Time Right, Zero escalations · Trusted Partner to Co-own (GM, GM-1)
+
+Shared Roles (all directors):
+  → People Management (3h / 156h yr): Engagement & 1:1s — V2MOM, IDP, Ranger compliance
+  → Learning & Upskilling (4h / 208h yr): AI upskilling, hands-on tooling
+  → Strategy & Future Planning (2h / 104h yr): Thought Leadership, Change Management
+
+Grand Total: 54h across all roles (BP+CL = 40h, DP+CL = 40h)
+
+Key question to ask the room:
+  "Which outcome in your role gets zero calendar time right now?"
+
+═══════════════════════════════════════════════════════════════
+
+TAB 5 — POST-WORKSHOP
+────────────────────────────────────
+Talking points:
+• Everyone leaves with 4 things. Not intentions — artefacts.
+• Output 01 (Personal Ideal 40 Canvas): Fill it in on the canvas tab.
+  Total must equal 40h. If it doesn't, something is wrong.
+• Output 02 (Top 3 Time Shifts): Name the activity, name the shift
+  (Stop / Delegate / Automate / Simplify), name the date.
+• Output 03 (Calendar Reset): One structural change. Block it before you leave the room.
+• Output 04 (30-Day Pact): One measurable signal. One person who holds you to it. One date.
+
+V2MOM measures anchored: M1, M2, M4, M6
+
+Closing line:
+  "You don't get a second 40 hours. You get the same 40 — spent differently."
+
+═══════════════════════════════════════════════════════════════
+GDC Internal — Confidential · FY27 Lead with Impact · July 2026
+`;
+  const blob = new Blob([notes], {type: 'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'GDC_Lead_With_Impact_Speaker_Notes_FY27.txt';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+}
 
 // ── Canvas ────────────────────────────────────────────────────────
 function updateTotal() {
