@@ -1,0 +1,95 @@
+{
+  "respondentId": "V2-VPY4IZ",
+  "timestamp": "2026-07-20T06:48:09.244Z",
+  "roles": [
+    "BP",
+    "CL",
+    "OTHER"
+  ],
+  "responses": [
+    {
+      "qid": "total_hours",
+      "role": "general",
+      "question": "In a typical week, what is the total number of hours you work across all your roles combined?",
+      "answer": "45 hours / week"
+    },
+    {
+      "qid": "facetime_hours",
+      "role": "general",
+      "question": "How many hours per week do you spend face-to-face (or on calls) with customers — across presales and delivery?",
+      "answer": "5 hours / week"
+    },
+    {
+      "qid": "facetime_activities",
+      "role": "general",
+      "question": "What are the main activities that make up your customer-facing time?",
+      "answer": "1. Project & Executive Governance\nLead project health reviews, steering committees, and executive forums to surface risks, understand customer challenges, and drive timely mitigation.\n\n2. Strategic Technology Advisory\nStakeholder alignment across business and technology leadership.\n\n3. Agentic AI Advisory & Innovation\nGuide customers on their AI transformation through SEAP and SuperAgent advisory, solution showcases, and live demos that translate AI possibilities into tangible business outcomes."
+    },
+    {
+      "qid": "BP_hours",
+      "role": "BP",
+      "question": "How many hours per week do you typically spend on your Business Partner responsibilities?",
+      "answer": "20 hours / week"
+    },
+    {
+      "qid": "BP_top3",
+      "role": "BP",
+      "question": "In your Business Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. Pipeline & Opportunity Governance\nReview priority opportunities with Account Partners, Solution Engineers, and business leaders to track progress, resolve gaps, and drive timely follow-through.\n\n2. Opportunity Shaping & GDC Positioning\nShape strategic pursuits to increase GDC contribution, strengthen HIR/HVR positioning, and embed differentiated GDC capabilities early in the deal cycle.\n\n3. Pre-Sales Enablement & GTM Partnership\nSupport RFPs, customer requirements, practice alignment, and cross-functional coordination while partnering with GTM leadership to improve performance and introduce new GDC value propositions."
+    },
+    {
+      "qid": "BP_necessary2",
+      "role": "BP",
+      "question": "Still in your Business Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "1. Transactional Staffing & Coordination\nManage repeated staffing follow-ups, architect allocation gaps, fitment rejections, and low-level resource conflicts that should be owned by delivery, practice, and resource management teams.\n\n2. Manual Opportunity & Reporting Administration\nExtract opportunity details, chase fragmented updates, reconcile inconsistent pipeline and delivery data, and resolve data-quality issues instead of focusing on insights and strategic decision-making."
+    },
+    {
+      "qid": "CL_hours",
+      "role": "CL",
+      "question": "How many hours per week do you typically spend on your Cloud Leader responsibilities?",
+      "answer": "8 hours / week"
+    },
+    {
+      "qid": "CL_top3",
+      "role": "CL",
+      "question": "In your Cloud Leader role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. Business Planning & Operational Governance\nPartner with Business Partners and Operations to manage pipeline visibility, demand-supply forecasting, and capacity planning across clouds.\n\n2. Delivery Excellence & Portfolio Governance\nCollaborate with Delivery Partners and project teams to review project health, strengthen governance, and accelerate delivery outcomes.\n\n3. Practice Leadership & Strategic Initiatives\nSet direction and priorities for the practice, align leadership teams, and govern key initiatives across talent, enablement, hiring, One Salesforce, and innovation."
+    },
+    {
+      "qid": "CL_necessary2",
+      "role": "CL",
+      "question": "Still in your Cloud Leader role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "1. Staffing & Operational Overhead\nManage recurring demand-supply reviews, allocation decisions, and cross-functional staffing discussions that should largely remain with Operations, with Practice Leader involvement limited to HIR/HVR and governance escalations.\n\n2. Routine People & Talent Administration\nSpend significant time on basic career conversations and high volumes of interviews, reducing capacity for delivery governance and strategic practice leadership."
+    },
+    {
+      "qid": "OTHER_hours",
+      "role": "OTHER",
+      "question": "How many hours per week do you typically spend on your Other / Initiative responsibilities?",
+      "answer": "8 hours / week"
+    },
+    {
+      "qid": "OTHER_top3",
+      "role": "OTHER",
+      "question": "In your Other / Initiative role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "1. Architecture & AI Innovation\nDesign scalable AI-driven solutions and talent applications, while translating complex business challenges into architectures that deliver measurable outcomes.\n\n2. Stakeholder Management \nAct as the strategic bridge between initiative teams and other critical stakeholders aligning priorities, accelerating support, and leading high-impact activities. \n\n3. Team Leadership & Readiness\nDevelop the team through bringing ideas, resource alignment, and continuous innovation while strengthening the existing capability of the built tool."
+    },
+    {
+      "qid": "OTHER_necessary2",
+      "role": "OTHER",
+      "question": "Still in your Other / Initiative role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "1. Business Priority Recalibration\nFrequently redirect efforts in response to changing business priorities, resulting in rework, lost productivity, and limited visibility of the effort involved.\n\n2. High-Value Strategic Execution\nMaintain focus on activities that are considered meaningful and value-adding, with no significant low-value work currently identified."
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "Initiative Prioritization & Delegation\nManage a broad portfolio of initiatives through disciplined prioritization and delegation, ensuring Cloud Leader capacity remains focused on high-impact priorities while lower-priority activities are effectively owned by associates."
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "Balanced Cloud Leadership\nMaintain a well-balanced focus across business growth, delivery excellence, talent leadership, organizational engagement, and strategic initiatives to drive holistic cloud performance.\n\nDelegate Operational Coordination\nTransition routine coordination, scheduling, and status tracking to the team, enabling Director capacity to remain focused on strategic direction, decision-making, and high-impact outcomes."
+    }
+  ]
+}
