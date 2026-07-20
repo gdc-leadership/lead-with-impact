@@ -1158,7 +1158,7 @@ function renderNumbers() {
       <div class="stat-big"><span id="cn3">0</span><span style="font-size:.5em;color:var(--dim);font-weight:400">%</span></div>
       <div class="stat-label">Working over 40h/wk</div>
       <div class="stat-sub">Time not mapped to outcomes</div>
-      <div class="stat-drill" onclick="showOver40()">▸ See who's over 40h (${over40})</div>
+      <div class="stat-drill" onclick="showOver40()">▸ See what's not mapped (${over40} people)</div>
     </div>`;
   document.getElementById('numbers-grid').classList.add('revealed');
   animateCount(document.getElementById('cn1'),0,n,0,1.2);
@@ -1195,20 +1195,102 @@ function showHoursBreakdown() {
 }
 
 function showOver40() {
-  const data=getHrsData().filter(d=>d.h>40);
-  document.getElementById('modal-title').textContent='Working over 40h/wk ('+data.length+' people)';
-  document.getElementById('modal-body').innerHTML=`
-    <div class="modal-intro">These ${data.length} respondents report working more than 40 hours per week — hours <b>not mapped to outcomes</b>. The extra hours above 40 represent time spent outside the Ideal 40 model.</div>
-    ${data.map((d,i)=>{
-      const extra=d.h-40;
-      const pct=Math.round(d.h/Math.max(data[0].h,60)*100);
-      return `<div class="modal-item">
-        <span class="mi-rank">${i+1}</span>
-        <span class="mi-name">${d.label}</span>
-        <div class="mi-bar-wrap"><div class="mi-bar-track"><div class="mi-bar-fill" style="width:${pct}%;background:var(--red)"></div></div></div>
-        <span class="mi-hrs mi-over">${d.h}h <span style="font-size:10px;opacity:.7">(+${extra}h)</span></span>
-      </div>`;
-    }).join('')}`;
+  // People over 40h
+  const over40people = allData.filter(d => {
+    const r = d.responses && d.responses.find(r => r.qid === 'total_hours');
+    const h = r ? parseHours(r.answer) : NaN;
+    return !isNaN(h) && h > 40;
+  });
+
+  // Collect all "necessary but time-draining" activities from over-40h cohort
+  const DRAIN_QIDS = ['BP_necessary2','CL_necessary2','DP_necessary2'];
+  const drainLines = over40people.flatMap(d =>
+    DRAIN_QIDS.flatMap(qid => {
+      const r = d.responses && d.responses.find(r => r.qid === qid);
+      return r ? parseLines(r.answer) : [];
+    })
+  );
+  const drainFreq = freqCount(drainLines).slice(0, 10);
+
+  // Also collect high-value (top3) from over-40h cohort to show what IS mapped
+  const HV_QIDS = ['BP_top3','CL_top3','DP_top3'];
+  const hvLines = over40people.flatMap(d =>
+    HV_QIDS.flatMap(qid => {
+      const r = d.responses && d.responses.find(r => r.qid === qid);
+      return r ? parseLines(r.answer) : [];
+    })
+  );
+  const hvFreq = freqCount(hvLines).slice(0, 5);
+
+  // Hours list
+  const hrsData = getHrsData().filter(d => d.h > 40);
+  const maxH = hrsData.length ? hrsData[0].h : 50;
+
+  document.getElementById('modal-title').textContent = 'Over 40h/wk — what\'s eating the extra time?';
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-intro">
+      <b>${over40people.length} directors</b> report working over 40h/week.
+      The extra hours above 40 are the gap — time spent on activities <b>not mapped to outcomes</b> in the Ideal 40 framework.
+      Below is what this cohort says is necessary but time-draining.
+    </div>
+
+    <div style="margin-bottom:18px">
+      ${hrsData.map((d,i) => {
+        const extra = d.h - 40;
+        const pct = Math.round(d.h / Math.max(maxH, 50) * 100);
+        return `<div class="modal-item">
+          <span class="mi-rank">${i+1}</span>
+          <span class="mi-name">${d.label}</span>
+          <div class="mi-bar-wrap"><div class="mi-bar-track"><div class="mi-bar-fill" style="width:${pct}%;background:var(--red)"></div></div></div>
+          <span class="mi-hrs mi-over">${d.h}h <span style="font-size:10px;opacity:.65">(+${extra}h over)</span></span>
+        </div>`;
+      }).join('')}
+    </div>
+
+    ${drainFreq.length ? `
+    <div style="border-top:1px solid var(--border);padding-top:16px;margin-bottom:16px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--red);margin-bottom:10px">
+        ⬇ What they say drains their time (from this cohort)
+      </div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:10px">
+        These are "necessary but time-draining" activities reported by the over-40h group.
+        Activities <b>not in the Ideal 40</b> are flagged — these are your unmapped hours.
+      </div>
+      ${drainFreq.map((x, i) => {
+        const out = getOutcome(x.text);
+        const mapped = !!out;
+        const badge = mapped
+          ? `<span style="font-size:10px;font-weight:700;background:${out.color}18;color:${out.color};border:1px solid ${out.color}33;padding:1px 7px;border-radius:3px;flex-shrink:0">${out.label}</span>`
+          : `<span style="font-size:10px;font-weight:700;background:var(--red2);color:var(--red);border:1px solid var(--red-border);padding:1px 7px;border-radius:3px;flex-shrink:0">⚠ Not in Ideal 40</span>`;
+        return `<div class="modal-item" style="border-left:3px solid ${mapped ? 'var(--orange)' : 'var(--red)'}">
+          <span class="mi-rank">${i+1}</span>
+          <span style="flex:1;font-size:12px;color:var(--white)">${esc(x.text)}</span>
+          ${badge}
+          <span style="font-size:11px;font-weight:700;color:var(--dim);flex-shrink:0">${x.count}×</span>
+        </div>`;
+      }).join('')}
+    </div>` : ''}
+
+    ${hvFreq.length ? `
+    <div style="border-top:1px solid var(--border);padding-top:16px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--green);margin-bottom:10px">
+        ⬆ What they value most (same cohort)
+      </div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:10px">High-value activities this cohort also reported — these ARE mapped to outcomes.</div>
+      ${hvFreq.map((x, i) => {
+        const out = getOutcome(x.text);
+        const badge = out
+          ? `<span style="font-size:10px;font-weight:700;background:${out.color}18;color:${out.color};border:1px solid ${out.color}33;padding:1px 7px;border-radius:3px;flex-shrink:0">${out.label}</span>`
+          : '';
+        return `<div class="modal-item" style="border-left:3px solid var(--green)">
+          <span class="mi-rank">${i+1}</span>
+          <span style="flex:1;font-size:12px;color:var(--white)">${esc(x.text)}</span>
+          ${badge}
+          <span style="font-size:11px;font-weight:700;color:var(--dim);flex-shrink:0">${x.count}×</span>
+        </div>`;
+      }).join('')}
+    </div>` : ''}
+  `;
   document.getElementById('hours-modal').classList.add('active');
 }
 
