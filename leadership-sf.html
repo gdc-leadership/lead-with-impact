@@ -628,18 +628,18 @@ html.dark .info-tip::after{border-top-color:#1e2235}
 
 <!-- TAB BAR -->
 <div class="tabbar">
-  <div class="tab active" data-tab="prework" onclick="switchTab('prework')"><span class="tab-icon">📋</span> Pre-Work</div>
+  <div class="tab active" data-tab="team" onclick="switchTab('team')"><span class="tab-icon">👥</span> Initiative Team</div>
+  <div class="tab" data-tab="prework" onclick="switchTab('prework')"><span class="tab-icon">📋</span> Pre-Work</div>
   <div class="tab" data-tab="analytics" onclick="switchTab('analytics')"><span class="tab-icon">📊</span> Survey Analytics</div>
   <div class="tab" data-tab="workshop" onclick="switchTab('workshop')"><span class="tab-icon">🛠</span> Workshop</div>
   <div class="tab" data-tab="ideal40" onclick="switchTab('ideal40')"><span class="tab-icon">⏱</span> Ideal 40</div>
   <div class="tab" data-tab="post" onclick="switchTab('post')"><span class="tab-icon">🎯</span> Post-Workshop</div>
-  <div class="tab" data-tab="team" onclick="switchTab('team')"><span class="tab-icon">👥</span> Initiative Team</div>
 </div>
 
 <div class="panels">
 
   <!-- ── TAB 1: PRE-WORK ── -->
-  <div class="panel active" id="tab-prework">
+  <div class="panel" id="tab-prework">
     <div class="page-header anim">
       <div>
         <div class="ph-title">Leadership <em>Prioritisation</em></div>
@@ -1099,7 +1099,7 @@ html.dark .info-tip::after{border-top-color:#1e2235}
   </div>
 
   <!-- ── TAB: INITIATIVE TEAM ── -->
-  <div class="panel" id="tab-team">
+  <div class="panel active" id="tab-team">
     <div class="page-header anim">
       <div>
         <div class="ph-title">Initiative <em>Team</em></div>
@@ -1235,7 +1235,7 @@ function revealPanel(panel) {
     }, 50);
   } catch(e){}
 }
-window.addEventListener('load', () => revealPanel(document.getElementById('tab-prework')));
+window.addEventListener('load', () => revealPanel(document.getElementById('tab-team')));
 
 // ── Counter ───────────────────────────────────────────────────────
 function animateCount(el, from, to, decimals, dur) {
