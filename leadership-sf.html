@@ -1271,7 +1271,7 @@ function renderNumbers() {
   const avgH=hrs.length?hrs.reduce((a,b)=>a+b,0)/hrs.length:0;
   const over40=hrs.filter(h=>h>40).length;
   document.getElementById('numbers-grid').innerHTML=`
-    <div class="stat-tile"><div class="stat-big"><span id="cn1">0</span></div><div class="stat-label">Directors surveyed</div><div class="stat-sub">Anonymous · FY27</div></div>
+    <div class="stat-tile"><div class="stat-big"><span id="cn1">0</span></div><div class="stat-label">Directors +</div><div class="stat-sub">Anonymous · FY27</div></div>
     <div class="stat-tile" style="position:relative">
       <div class="stat-big"><span id="cn2">0</span><span style="font-size:.5em;color:var(--dim);font-weight:400">h</span></div>
       <div class="stat-label">Avg hours per week</div>
