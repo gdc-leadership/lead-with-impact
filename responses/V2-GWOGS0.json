@@ -1,0 +1,76 @@
+{
+  "respondentId": "V2-GWOGS0",
+  "timestamp": "2026-07-20T05:54:16.313Z",
+  "roles": [
+    "BP",
+    "CL"
+  ],
+  "responses": [
+    {
+      "qid": "total_hours",
+      "role": "general",
+      "question": "In a typical week, what is the total number of hours you work across all your roles combined?",
+      "answer": "40 hours / week"
+    },
+    {
+      "qid": "facetime_hours",
+      "role": "general",
+      "question": "How many hours per week do you spend face-to-face (or on calls) with customers — across presales and delivery?",
+      "answer": "10 hours / week"
+    },
+    {
+      "qid": "facetime_activities",
+      "role": "general",
+      "question": "What are the main activities that make up your customer-facing time?",
+      "answer": "Pre-Sales: 2-3 hrs with in region AP's and their Leaders\nInternal Teams with DP: 5-6hrs \nMy own Project Teams: 8-10hrs\nOther BP and CL Activities: 10hrs\nMisc: 5-6"
+    },
+    {
+      "qid": "BP_hours",
+      "role": "BP",
+      "question": "How many hours per week do you typically spend on your Business Partner responsibilities?",
+      "answer": "10 hours / week"
+    },
+    {
+      "qid": "BP_top3",
+      "role": "BP",
+      "question": "In your Business Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Pipeline and Oppty Review\nReview with AP's and Leads on the top opptiers\nProgram Health Review with BP teams\nDiscussion with AP's and SE's (in-region)\nSupport for upcoming oppties as and where required"
+    },
+    {
+      "qid": "BP_necessary2",
+      "role": "BP",
+      "question": "Still in your Business Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Review each oppty and cull out the details, but I have started to use the BP Agent instead and my own slack skills to automate this."
+    },
+    {
+      "qid": "CL_hours",
+      "role": "CL",
+      "question": "How many hours per week do you typically spend on your Cloud Leader responsibilities?",
+      "answer": "20 hours / week"
+    },
+    {
+      "qid": "CL_top3",
+      "role": "CL",
+      "question": "In your Cloud Leader role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "I am new in this role, so for now\n1. Transition for CG and EnU\n2. Team Manager connects\n3. Architect COE connect\n5. Extended Team Connect\n6. Planning for each program review"
+    },
+    {
+      "qid": "CL_necessary2",
+      "role": "CL",
+      "question": "Still in your Cloud Leader role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "None at the moment for me, still transitioning so all good. I am trying to automate whereever possible."
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "Need my BP Associates to be much more proactive, sometimes doing their job and the legwork slows down the entire function. This is the biggest point in the BP side. CL for CG and EnU are fine"
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "Spend most time on\nBP\n1. Pipe review, cull out and focus on key accounts, engage proactively and meaningfully with AP's and Leads, pitch GDC assets and influence deals\nCL\n1. Program review\n2. People \n\nStop Doing\nBP\n1. Dig out each oppty in pipe myself for review, that could best be done at BP Associate level\nCL\n1. Nothing for now"
+    }
+  ]
+}
