@@ -459,6 +459,48 @@ html.dark .vmom-chip{background:rgba(155,109,255,.1);border-color:rgba(155,109,2
 .revealed .j-card:nth-child(4),.revealed .g-card:nth-child(4),.revealed .output-card:nth-child(4),.revealed .m-tile:nth-child(4){transition-delay:.22s}
 .revealed .g-card:nth-child(5),.revealed .m-tile:nth-child(5){transition-delay:.28s}
 
+/* ── TOOLTIP / MODAL ─────────────────────────────────────────── */
+.stat-tile{position:relative;cursor:default}
+.stat-drill{font-size:11px;font-weight:700;color:var(--accent);cursor:pointer;margin-top:6px;display:inline-flex;align-items:center;gap:3px;border-bottom:1px dashed var(--accent);line-height:1}
+.stat-drill:hover{opacity:.75}
+.tooltip-box{
+  display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:var(--s1);border:1px solid var(--border2);border-radius:var(--r);
+  padding:12px 14px;z-index:500;min-width:220px;max-width:280px;box-shadow:0 8px 24px rgba(0,0,0,.18);
+  text-align:left;
+}
+.tooltip-box::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:6px solid transparent;border-top-color:var(--border2)}
+.tooltip-box.active{display:block}
+.tooltip-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--dim);margin-bottom:8px}
+.tooltip-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid var(--border);font-size:12px;gap:12px}
+.tooltip-row:last-child{border-bottom:none}
+.tooltip-row .tr-label{color:var(--muted);font-size:11px}
+.tooltip-row .tr-val{font-weight:700;color:var(--white);font-size:12px;white-space:nowrap}
+.tr-bar{height:4px;border-radius:2px;margin-top:3px}
+/* Modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:600;align-items:center;justify-content:center}
+.modal-overlay.active{display:flex}
+.modal-box{
+  background:var(--s1);border:1px solid var(--border);border-radius:var(--r);
+  max-width:480px;width:90%;max-height:80vh;overflow-y:auto;box-shadow:0 16px 48px rgba(0,0,0,.25);
+}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--s1);z-index:1}
+.modal-title{font-size:14px;font-weight:700;color:var(--white)}
+.modal-close{background:none;border:none;font-size:18px;color:var(--dim);cursor:pointer;line-height:1;padding:2px 6px;border-radius:4px}
+.modal-close:hover{background:var(--s3);color:var(--white)}
+.modal-body{padding:16px 20px}
+.modal-intro{font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.5}
+.modal-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:4px;margin-bottom:6px;background:var(--s3);border:1px solid var(--border)}
+.mi-rank{font-size:11px;font-weight:700;color:var(--dim);width:18px;flex-shrink:0}
+.mi-name{flex:1;font-size:12px;color:var(--muted);font-style:italic}
+.mi-hrs{font-size:14px;font-weight:700;white-space:nowrap}
+.mi-over{color:var(--red)}
+.mi-at{color:var(--green)}
+.mi-bar-wrap{width:80px;flex-shrink:0}
+.mi-bar-track{background:var(--border);border-radius:99px;height:5px;overflow:hidden}
+.mi-bar-fill{height:100%;border-radius:99px;transition:width .5s ease}
+
 /* ── FOOTER ──────────────────────────────────────────────────── */
 .page-footer{text-align:center;padding:28px 24px;border-top:1px solid var(--border);font-size:12px;color:var(--dim);margin-top:32px}
 .conf-tag{display:inline-flex;gap:6px;align-items:center;background:var(--orange2);border:1px solid rgba(224,116,22,.25);color:var(--orange);padding:4px 12px;border-radius:3px;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
@@ -698,6 +740,17 @@ html.dark .vmom-chip{background:rgba(155,109,255,.1);border-color:rgba(155,109,2
   <div>FY27 Lead with Impact · Leadership Prioritisation · Salesforce GDC · July 2026</div>
 </footer>
 
+<!-- MODAL: hours breakdown -->
+<div class="modal-overlay" id="hours-modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title" id="modal-title">Hours breakdown</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
 <script>
 // ── Dark mode toggle (Salesforce light = default) ─────────────────
 function toggleMode() {
@@ -777,18 +830,80 @@ function avgHours(qid,rk){
 
 function renderNumbers() {
   const n=allData.length; if(!n) return;
-  const hrs=allData.map(d=>{const r=d.responses&&d.responses.find(r=>r.qid==='total_hours');return r?parseHours(r.answer):NaN}).filter(v=>!isNaN(v));
+  const hrsData=allData.map(d=>{const r=d.responses&&d.responses.find(r=>r.qid==='total_hours');return{h:r?parseHours(r.answer):NaN}}).filter(v=>!isNaN(v.h)&&v.h>0);
+  const hrs=hrsData.map(d=>d.h);
   const avgH=hrs.length?hrs.reduce((a,b)=>a+b,0)/hrs.length:0;
   const over40=hrs.filter(h=>h>40).length;
   document.getElementById('numbers-grid').innerHTML=`
-    <div class="stat-tile"><div class="stat-big"><span id="cn1" data-val="${n}">0</span></div><div class="stat-label">Directors surveyed</div><div class="stat-sub">Anonymous · FY27</div></div>
-    <div class="stat-tile"><div class="stat-big"><span id="cn2" data-val="${avgH.toFixed(1)}">0</span><span style="font-size:.5em;color:var(--dim);font-weight:400">h</span></div><div class="stat-label">Avg hours per week</div><div class="stat-sub">${over40>0?over40+' of '+n+' over 40h':'Target: 40h / week'}</div></div>
-    <div class="stat-tile"><div class="stat-big"><span id="cn3" data-val="${Math.round(over40/n*100)}">0</span><span style="font-size:.5em;color:var(--dim);font-weight:400">%</span></div><div class="stat-label">Working over 40h/wk</div><div class="stat-sub">Time not mapped to outcomes</div></div>`;
+    <div class="stat-tile"><div class="stat-big"><span id="cn1">0</span></div><div class="stat-label">Directors surveyed</div><div class="stat-sub">Anonymous · FY27</div></div>
+    <div class="stat-tile" style="position:relative">
+      <div class="stat-big"><span id="cn2">0</span><span style="font-size:.5em;color:var(--dim);font-weight:400">h</span></div>
+      <div class="stat-label">Avg hours per week</div>
+      <div class="stat-sub">${over40>0?over40+' of '+hrs.length+' over 40h':'Target: 40h / week'}</div>
+      <div class="stat-drill" onclick="showHoursBreakdown()">▸ See all ${hrs.length} responses</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-big"><span id="cn3">0</span><span style="font-size:.5em;color:var(--dim);font-weight:400">%</span></div>
+      <div class="stat-label">Working over 40h/wk</div>
+      <div class="stat-sub">Time not mapped to outcomes</div>
+      <div class="stat-drill" onclick="showOver40()">▸ See who's over 40h (${over40})</div>
+    </div>`;
   document.getElementById('numbers-grid').classList.add('revealed');
   animateCount(document.getElementById('cn1'),0,n,0,1.2);
   animateCount(document.getElementById('cn2'),0,avgH,1,1.4);
-  animateCount(document.getElementById('cn3'),0,Math.round(over40/n*100),0,1.3);
+  animateCount(document.getElementById('cn3'),0,Math.round(over40/hrs.length*100),0,1.3);
 }
+
+function getHrsData() {
+  return allData.map((d,i)=>{
+    const r=d.responses&&d.responses.find(r=>r.qid==='total_hours');
+    const h=r?parseHours(r.answer):NaN;
+    return{h,label:'Respondent '+(i+1)};
+  }).filter(v=>!isNaN(v.h)&&v.h>0).sort((a,b)=>b.h-a.h);
+}
+
+function showHoursBreakdown() {
+  const data=getHrsData();
+  const avg=(data.reduce((s,d)=>s+d.h,0)/data.length).toFixed(1);
+  const max=data[0].h;
+  document.getElementById('modal-title').textContent='All hours responses ('+data.length+' people)';
+  document.getElementById('modal-body').innerHTML=`
+    <div class="modal-intro">Each bar shows one person's reported total weekly hours. Average: <b>${avg}h</b>. Anonymous — responses sorted highest first.</div>
+    ${data.map((d,i)=>{
+      const pct=Math.round(d.h/Math.max(max,60)*100);
+      const color=d.h>40?'var(--red)':d.h===40?'var(--green)':'var(--accent)';
+      return `<div class="modal-item">
+        <span class="mi-rank">${i+1}</span>
+        <span class="mi-name">${d.label}</span>
+        <div class="mi-bar-wrap"><div class="mi-bar-track"><div class="mi-bar-fill" style="width:${pct}%;background:${color}"></div></div></div>
+        <span class="mi-hrs ${d.h>40?'mi-over':d.h===40?'mi-at':''}">${d.h}h</span>
+      </div>`;
+    }).join('')}`;
+  document.getElementById('hours-modal').classList.add('active');
+}
+
+function showOver40() {
+  const data=getHrsData().filter(d=>d.h>40);
+  document.getElementById('modal-title').textContent='Working over 40h/wk ('+data.length+' people)';
+  document.getElementById('modal-body').innerHTML=`
+    <div class="modal-intro">These ${data.length} respondents report working more than 40 hours per week — hours <b>not mapped to outcomes</b>. The extra hours above 40 represent time spent outside the Ideal 40 model.</div>
+    ${data.map((d,i)=>{
+      const extra=d.h-40;
+      const pct=Math.round(d.h/Math.max(data[0].h,60)*100);
+      return `<div class="modal-item">
+        <span class="mi-rank">${i+1}</span>
+        <span class="mi-name">${d.label}</span>
+        <div class="mi-bar-wrap"><div class="mi-bar-track"><div class="mi-bar-fill" style="width:${pct}%;background:var(--red)"></div></div></div>
+        <span class="mi-hrs mi-over">${d.h}h <span style="font-size:10px;opacity:.7">(+${extra}h)</span></span>
+      </div>`;
+    }).join('')}`;
+  document.getElementById('hours-modal').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('hours-modal').classList.remove('active');
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
 
 function renderAnalyticsMetrics() {
   const n = allData.length; if (!n) return;
