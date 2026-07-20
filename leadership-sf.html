@@ -1199,7 +1199,7 @@ function getHrsData() {
   }).filter(v=>!isNaN(v.h)&&v.h>0).sort((a,b)=>b.h-a.h);
 }
 
-function showRespondent(idx, backFn) {
+function showRespondent(idx, backFnName) {
   const d = allData[idx];
   if (!d) return;
 
@@ -1267,7 +1267,7 @@ function showRespondent(idx, backFn) {
 
   document.getElementById('modal-title').textContent = 'Respondent ' + (idx + 1) + ' — Hours breakdown';
   document.getElementById('modal-body').innerHTML = `
-    <div class="resp-back" onclick="(${backFn.toString()})()">← Back to list</div>
+    <div class="resp-back" onclick="${backFnName}()">← Back to list</div>
 
     <!-- Hours total + stacked bar -->
     <div style="background:var(--s3);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:16px">
@@ -1308,7 +1308,7 @@ function showHoursBreakdown() {
     ${data.map((d,i)=>{
       const pct=Math.round(d.h/Math.max(max,60)*100);
       const color=d.h>40?'var(--red)':d.h===40?'var(--green)':'var(--accent)';
-      return `<div class="modal-item mi-clickable" onclick="showRespondent(${d.idx}, showHoursBreakdown)">
+      return `<div class="modal-item mi-clickable" onclick="showRespondent(${d.idx}, 'showHoursBreakdown')">
         <span class="mi-rank">${i+1}</span>
         <span class="mi-name">${d.label} <span style="font-size:10px;opacity:.5">▸ view</span></span>
         <div class="mi-bar-wrap"><div class="mi-bar-track"><div class="mi-bar-fill" style="width:${pct}%;background:${color}"></div></div></div>
@@ -1363,7 +1363,7 @@ function showOver40() {
       ${hrsData.map((d,i) => {
         const extra = d.h - 40;
         const pct = Math.round(d.h / Math.max(maxH, 50) * 100);
-        return `<div class="modal-item mi-clickable" onclick="showRespondent(${d.idx}, showOver40)">
+        return `<div class="modal-item mi-clickable" onclick="showRespondent(${d.idx}, 'showOver40')">
           <span class="mi-rank">${i+1}</span>
           <span class="mi-name">${d.label} <span style="font-size:10px;opacity:.5">▸ view</span></span>
           <div class="mi-bar-wrap"><div class="mi-bar-track"><div class="mi-bar-fill" style="width:${pct}%;background:var(--red)"></div></div></div>
