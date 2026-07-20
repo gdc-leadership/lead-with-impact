@@ -633,6 +633,7 @@ html.dark .info-tip::after{border-top-color:#1e2235}
   <div class="tab" data-tab="workshop" onclick="switchTab('workshop')"><span class="tab-icon">🛠</span> Workshop</div>
   <div class="tab" data-tab="ideal40" onclick="switchTab('ideal40')"><span class="tab-icon">⏱</span> Ideal 40</div>
   <div class="tab" data-tab="post" onclick="switchTab('post')"><span class="tab-icon">🎯</span> Post-Workshop</div>
+  <div class="tab" data-tab="team" onclick="switchTab('team')"><span class="tab-icon">👥</span> Initiative Team</div>
 </div>
 
 <div class="panels">
@@ -1094,6 +1095,78 @@ html.dark .info-tip::after{border-top-color:#1e2235}
         <div class="commit-row"><div class="commit-lbl">30-day check-in</div><input class="commit-input" type="date"></div>
         <button class="save-cta" onclick="window.print()">⎙ Save as PDF</button>
       </div>
+    </div>
+  </div>
+
+  <!-- ── TAB: INITIATIVE TEAM ── -->
+  <div class="panel" id="tab-team">
+    <div class="page-header anim">
+      <div>
+        <div class="ph-title">Initiative <em>Team</em></div>
+        <div class="ph-sub">GDC Lead with Impact FY27 · Programme team members</div>
+      </div>
+      <div class="ph-tags">
+        <span class="ph-tag">4 Members</span>
+        <span class="ph-tag">GDC EMEA Central</span>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="sec-label anim">Who we are</div>
+      <h2 class="sec-h2 anim">The people behind this initiative.</h2>
+      <p class="sec-sub anim">Designing, facilitating and owning the Lead with Impact programme for GDC Directors.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:8px" class="revealed">
+
+        <div class="j-card" style="border-top-color:#0176d3">
+          <div style="font-size:32px;margin-bottom:12px">👤</div>
+          <div class="j-name" style="font-size:18px">Sanket Deshpande</div>
+          <div class="j-time">Initiative Lead</div>
+          <div class="j-badge" style="background:#0176d3">GDC Leadership</div>
+          <p class="j-desc" style="margin-top:8px">Programme ownership · Stakeholder alignment · Director engagement</p>
+        </div>
+
+        <div class="j-card" style="border-top-color:#06a59a">
+          <div style="font-size:32px;margin-bottom:12px">👤</div>
+          <div class="j-name" style="font-size:18px">Ajay Sharma</div>
+          <div class="j-time">Initiative Member</div>
+          <div class="j-badge" style="background:#06a59a">GDC Leadership</div>
+          <p class="j-desc" style="margin-top:8px">Workshop design · Facilitation · Post-workshop follow-through</p>
+        </div>
+
+        <div class="j-card" style="border-top-color:#2e844a">
+          <div style="font-size:32px;margin-bottom:12px">👤</div>
+          <div class="j-name" style="font-size:18px">Rejesh Kumar</div>
+          <div class="j-time">Initiative Member</div>
+          <div class="j-badge" style="background:#2e844a">GDC Leadership</div>
+          <p class="j-desc" style="margin-top:8px">Survey design · Analytics · Digital tools &amp; Agentforce</p>
+        </div>
+
+        <div class="j-card" style="border-top-color:#9050e9">
+          <div style="font-size:32px;margin-bottom:12px">👤</div>
+          <div class="j-name" style="font-size:18px">Chirag Garg</div>
+          <div class="j-time">Initiative Member</div>
+          <div class="j-badge" style="background:#9050e9">GDC Leadership</div>
+          <p class="j-desc" style="margin-top:8px">Content strategy · Ideal 40 framework · V2MOM alignment</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="block" style="margin-top:40px">
+      <div class="sec-label anim">What we built</div>
+      <h2 class="sec-h2 anim">The initiative at a glance.</h2>
+      <div class="steps-list anim">
+        <div class="step-item"><div class="s-num sn1">1</div><div><div class="s-label">Survey design &amp; distribution</div><div class="s-desc">11-question anonymous survey sent to 26 GDC Directors · Covering BP, CL and DP roles · Hosted on GitHub Pages</div></div></div>
+        <div class="step-item"><div class="s-num sn2">2</div><div><div class="s-label">Ideal 40 framework</div><div class="s-desc">Mapped all activities to FY27 V2MOM outcomes · BP: 14h · CL: 17h · DP: 14h · Shared: 9h</div></div></div>
+        <div class="step-item"><div class="s-num sn3">3</div><div><div class="s-label">Live analytics dashboard</div><div class="s-desc">Real-time aggregation of survey responses · Outcome mapping · Unmapped activity detection</div></div></div>
+        <div class="step-item"><div class="s-num sn4">4</div><div><div class="s-label">60-minute in-room workshop</div><div class="s-desc">4 working groups · 5 phases · One Ideal 40 canvas per director · 30-day commitment pact</div></div></div>
+        <div class="step-item"><div class="s-num sn5">5</div><div><div class="s-label">Post-workshop accountability</div><div class="s-desc">30-day check-in · Impact pact · Calendar reset · V2MOM measures anchored</div></div></div>
+      </div>
+    </div>
+
+    <div class="north-star anim" style="margin-top:32px">
+      <b>FY27 Goal:</b> Every GDC Director operates within the Ideal 40 — time mapped to outcomes, not consumed by activity.
     </div>
   </div>
 
