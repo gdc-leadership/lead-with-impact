@@ -1197,65 +1197,99 @@ function getHrsData() {
 function showRespondent(idx, backFn) {
   const d = allData[idx];
   if (!d) return;
-  const totalR = d.responses && d.responses.find(r => r.qid === 'total_hours');
-  const facetimeR = d.responses && d.responses.find(r => r.qid === 'facetime_hours');
-  const totalH = totalR ? parseHours(totalR.answer) : null;
-  const facetimeH = facetimeR ? parseHours(facetimeR.answer) : null;
-  const roles = d.roles || [];
 
-  const QID_MAP = [
-    {qid:'BP_top3',      label:'BP — Top 3 high-value activities',      role:'BP', cls:'high', color:'#0176d3'},
-    {qid:'BP_necessary2',label:'BP — Top 2 time-drains',                role:'BP', cls:'low',  color:'#ba0517'},
-    {qid:'BP_hours',     label:'BP — Avg hours in BP role',             role:'BP', cls:'',     color:'#0176d3'},
-    {qid:'CL_top3',      label:'CL — Top 3 high-value activities',      role:'CL', cls:'high', color:'#06a59a'},
-    {qid:'CL_necessary2',label:'CL — Top 2 time-drains',                role:'CL', cls:'low',  color:'#ba0517'},
-    {qid:'CL_hours',     label:'CL — Avg hours in CL role',             role:'CL', cls:'',     color:'#06a59a'},
-    {qid:'DP_top3',      label:'DP — Top 3 high-value activities',      role:'DP', cls:'high', color:'#2e844a'},
-    {qid:'DP_necessary2',label:'DP — Top 2 time-drains',                role:'DP', cls:'low',  color:'#ba0517'},
-    {qid:'DP_hours',     label:'DP — Avg hours in DP role',             role:'DP', cls:'',     color:'#2e844a'},
-    {qid:'total_hours',  label:'Total weekly hours',                    role:'',   cls:'',     color:'#706e6b'},
-    {qid:'facetime_hours',label:'Weekly face-time hours',               role:'',   cls:'',     color:'#706e6b'},
+  // Pull all hours fields
+  const getH = qid => { const r = d.responses && d.responses.find(r => r.qid === qid); return r ? parseHours(r.answer) : null; };
+  const totalH    = getH('total_hours');
+  const facetimeH = getH('facetime_hours');
+  const bpH       = getH('BP_hours');
+  const clH       = getH('CL_hours');
+  const dpH       = getH('DP_hours');
+
+  // Hours from role fields may not sum perfectly to total — use total as truth
+  // Build stacked bar: BP + CL + DP + remainder (unmapped)
+  const ROLE_HRS = [
+    {label:'BP', h:bpH||0, color:'#0176d3'},
+    {label:'CL', h:clH||0, color:'#06a59a'},
+    {label:'DP', h:dpH||0, color:'#2e844a'},
+  ].filter(r => r.h > 0);
+  const roleSum = ROLE_HRS.reduce((s,r) => s+r.h, 0);
+  const unmapped = totalH && totalH > roleSum ? totalH - roleSum : 0;
+  const barTotal = totalH || roleSum || 1;
+
+  const stackedBar = [...ROLE_HRS, ...(unmapped > 0 ? [{label:'Unmapped', h:unmapped, color:'#ba0517'}] : [])]
+    .map(r => `<div title="${r.label}: ${r.h}h" style="flex:${r.h};background:${r.color};height:100%;min-width:2px;position:relative">
+      ${r.h / barTotal > 0.12 ? `<span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;white-space:nowrap">${r.label} ${r.h}h</span>` : ''}
+    </div>`).join('');
+
+  // Per-role activity sections
+  const ROLE_SECTIONS = [
+    {role:'BP', color:'#0176d3', label:'Business Partner', hqid:'BP_top3', lqid:'BP_necessary2'},
+    {role:'CL', color:'#06a59a', label:'Cloud Leader',     hqid:'CL_top3', lqid:'CL_necessary2'},
+    {role:'DP', color:'#2e844a', label:'Delivery Partner', hqid:'DP_top3', lqid:'DP_necessary2'},
   ];
 
-  const roleChips = roles.map(r =>
-    `<span class="resp-role-chip rrc-${r.toLowerCase()}">${r}</span>`
-  ).join('');
-
-  const sections = QID_MAP.map(q => {
-    const resp = d.responses && d.responses.find(r => r.qid === q.qid);
-    if (!resp || !resp.answer) return '';
-    const lines = parseLines(resp.answer);
-    const isActivity = q.cls === 'high' || q.cls === 'low';
-    const content = isActivity && lines.length
-      ? lines.map(l => {
-          const out = getOutcome(l);
-          const badge = out
-            ? `<span class="ra-out" style="background:${out.color}18;color:${out.color};border:1px solid ${out.color}33">${out.label}</span>`
-            : (q.cls === 'low' ? `<span class="ra-out" style="background:var(--red2);color:var(--red);border:1px solid var(--red-border)">⚠ Check Ideal 40</span>` : '');
-          return `<div class="ra-line"><div class="ra-dot" style="background:${q.color}"></div><span style="flex:1">${esc(l)}</span>${badge}</div>`;
-        }).join('')
-      : `<div style="padding:4px 0;color:var(--muted)">${esc(resp.answer)}</div>`;
-    return `<div class="resp-section">
-      <div class="resp-section-label">${q.label}</div>
-      <div class="resp-answer">${content}</div>
+  const activitySections = ROLE_SECTIONS.map(rs => {
+    const hv = d.responses && d.responses.find(r => r.qid === rs.hqid);
+    const ld = d.responses && d.responses.find(r => r.qid === rs.lqid);
+    const hvLines = hv ? parseLines(hv.answer) : [];
+    const ldLines = ld ? parseLines(ld.answer) : [];
+    if (!hvLines.length && !ldLines.length) return '';
+    const roleH = getH(rs.role + '_hours');
+    return `<div style="margin-bottom:16px;border:1px solid var(--border);border-radius:var(--r);overflow:hidden">
+      <div style="background:${rs.color};padding:8px 12px;display:flex;align-items:center;justify-content:space-between">
+        <span style="font-size:12px;font-weight:700;color:#fff">${rs.label}</span>
+        ${roleH ? `<span style="font-size:11px;font-weight:700;color:rgba(255,255,255,.8);background:rgba(0,0,0,.2);padding:2px 9px;border-radius:3px">${roleH}h/wk</span>` : ''}
+      </div>
+      <div style="padding:10px 12px">
+        ${hvLines.length ? `<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--green);margin-bottom:6px">⬆ High-value</div>
+          ${hvLines.map(l => {
+            const out = getOutcome(l);
+            const badge = out ? `<span style="font-size:10px;font-weight:700;background:${out.color}18;color:${out.color};border:1px solid ${out.color}33;padding:1px 7px;border-radius:3px;flex-shrink:0">${out.label}</span>` : '';
+            return `<div class="ra-line"><div class="ra-dot" style="background:${rs.color}"></div><span style="flex:1;font-size:12px">${esc(l)}</span>${badge}</div>`;
+          }).join('')}` : ''}
+        ${ldLines.length ? `<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--red);margin-bottom:6px;margin-top:${hvLines.length?'10px':'0'}">⬇ Time-drains</div>
+          ${ldLines.map(l => {
+            const out = getOutcome(l);
+            const badge = out
+              ? `<span style="font-size:10px;font-weight:700;background:${out.color}18;color:${out.color};border:1px solid ${out.color}33;padding:1px 7px;border-radius:3px;flex-shrink:0">${out.label}</span>`
+              : `<span style="font-size:10px;font-weight:700;background:var(--red2);color:var(--red);border:1px solid var(--red-border);padding:1px 7px;border-radius:3px;flex-shrink:0">⚠ Not in Ideal 40</span>`;
+            return `<div class="ra-line"><div class="ra-dot" style="background:var(--red)"></div><span style="flex:1;font-size:12px">${esc(l)}</span>${badge}</div>`;
+          }).join('')}` : ''}
+      </div>
     </div>`;
   }).filter(Boolean).join('');
 
-  document.getElementById('modal-title').textContent = 'Respondent ' + (idx + 1) + ' — Full survey';
+  document.getElementById('modal-title').textContent = 'Respondent ' + (idx + 1) + ' — Hours breakdown';
   document.getElementById('modal-body').innerHTML = `
-    <div class="resp-back" onclick="(${backFn.toString()})()">← Back</div>
-    <div class="resp-header">
-      <div>
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--dim);margin-bottom:6px">Roles</div>
-        <div class="resp-roles">${roleChips || '<span style="color:var(--dim);font-size:12px">Not specified</span>'}</div>
+    <div class="resp-back" onclick="(${backFn.toString()})()">← Back to list</div>
+
+    <!-- Hours total + stacked bar -->
+    <div style="background:var(--s3);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:16px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px">
+        <div>
+          <span style="font-size:36px;font-weight:700;color:${totalH && totalH > 40 ? 'var(--red)' : 'var(--green)'};line-height:1">${totalH || roleSum || '—'}h</span>
+          <span style="font-size:13px;color:var(--muted);margin-left:6px">/ week total</span>
+        </div>
+        ${totalH && totalH > 40
+          ? `<span style="font-size:12px;font-weight:700;background:var(--red2);color:var(--red);border:1px solid var(--red-border);padding:4px 12px;border-radius:4px">+${totalH-40}h over Ideal 40</span>`
+          : `<span style="font-size:12px;font-weight:700;background:var(--green2);color:var(--green);border:1px solid var(--green-border);padding:4px 12px;border-radius:4px">✓ Within target</span>`
+        }
       </div>
-      <div style="text-align:right">
-        <div class="resp-hrs ${totalH && totalH <= 40 ? 'ok' : ''}">${totalH ? totalH + 'h/wk' : '—'}</div>
-        <div style="font-size:11px;color:var(--dim)">${totalH && totalH > 40 ? '+' + (totalH - 40) + 'h over target' : totalH === 40 ? 'On target' : 'Total hours'}</div>
-        ${facetimeH ? `<div style="font-size:11px;color:var(--muted);margin-top:3px">${facetimeH}h face-time</div>` : ''}
+
+      <!-- Stacked bar -->
+      <div style="display:flex;height:32px;border-radius:4px;overflow:hidden;border:1px solid var(--border)">
+        ${stackedBar}
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+        ${ROLE_HRS.map(r => `<span style="font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:2px;background:${r.color};display:inline-block"></span>${r.label}: <b style="color:var(--white)">${r.h}h</b></span>`).join('')}
+        ${unmapped > 0 ? `<span style="font-size:11px;color:var(--red);display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:2px;background:var(--red);display:inline-block"></span>Unmapped: <b>${unmapped}h</b></span>` : ''}
+        ${facetimeH ? `<span style="font-size:11px;color:var(--muted);margin-left:auto">Face-time: <b style="color:var(--white)">${facetimeH}h</b></span>` : ''}
       </div>
     </div>
-    ${sections || '<div style="color:var(--dim);font-size:13px;padding:16px 0">No detailed responses recorded.</div>'}
+
+    <!-- Per-role activity breakdown -->
+    ${activitySections || '<div style="color:var(--dim);font-size:13px;padding:12px 0">No activity detail recorded.</div>'}
   `;
 }
 
