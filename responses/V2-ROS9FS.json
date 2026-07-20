@@ -1,0 +1,57 @@
+{
+  "respondentId": "V2-ROS9FS",
+  "timestamp": "2026-07-20T05:56:38.056Z",
+  "roles": [
+    "DP"
+  ],
+  "responses": [
+    {
+      "qid": "total_hours",
+      "role": "general",
+      "question": "In a typical week, what is the total number of hours you work across all your roles combined?",
+      "answer": "50 hours / week"
+    },
+    {
+      "qid": "facetime_hours",
+      "role": "general",
+      "question": "How many hours per week do you spend face-to-face (or on calls) with customers — across presales and delivery?",
+      "answer": "15 hours / week"
+    },
+    {
+      "qid": "facetime_activities",
+      "role": "general",
+      "question": "What are the main activities that make up your customer-facing time?",
+      "answer": "Design Authority Calls - advise clients on architectural decisions that drive long term business impact\nProject Steering Committee Calls - Help flag risks and mitigation strategies to clients to keep programs on track\nAd-hoc Advisory Interventions - Advise clients on bespoke problems, pertaining to blockers in realizing platform RoI and maximizing adoption"
+    },
+    {
+      "qid": "DP_hours",
+      "role": "DP",
+      "question": "How many hours per week do you typically spend on your Delivery Partner responsibilities?",
+      "answer": "35 hours / week"
+    },
+    {
+      "qid": "DP_top3",
+      "role": "DP",
+      "question": "In your Delivery Partner role, what are the top 3 activities where you spend most of your time and feel you add real value?",
+      "answer": "Advise clients on delivery risks brought about by sub-optimal design, underutilizing platform capabilities and building technical debt\nAdvise clients on their roadmap and transformation journeys to accelerate business value realization \nHelp clients infuse latest platform capabilities into their thinking so as to future-proof their Salesforce investments and drive impact sooner"
+    },
+    {
+      "qid": "DP_necessary2",
+      "role": "DP",
+      "question": "Still in your Delivery Partner role — what are 2 activities you regularly have to do, but feel are low-value or unproductive?",
+      "answer": "Documentation of weekly statuses, activities performed for the client etc which aren't directly client asks and aren't reviewed regularly, yet feel like overhead and low-value"
+    },
+    {
+      "qid": "biggest_constraint",
+      "role": "general",
+      "question": "What is the single biggest thing that prevents you from spending time on what matters most in your role?",
+      "answer": "Same as before - documentation of reports and statuses. When done at reasonable frequencies is still doable, but when asked for on a weekly basis feels overkill and time not properly utilized"
+    },
+    {
+      "qid": "ideal_shift",
+      "role": "general",
+      "question": "If you could redesign your week, what would you spend significantly more time on — and what would you hand off or stop doing?",
+      "answer": "More time harvesting client intelligence from across the firm and using them in day to day activities. Redistribute time spent with clients on solving their biggest problems and helping them govern their programs"
+    }
+  ]
+}
