@@ -627,9 +627,9 @@ html.dark .info-tip::after{border-top-color:#1e2235}
         <div class="ph-title">Leadership <em>Prioritisation</em></div>
         <div class="ph-sub">Complete the survey before the workshop · July 2026</div>
       </div>
-      <div class="ph-tags">
-        <span class="ph-tag">26 Directors</span>
-        <span class="ph-tag">40 Hours / Week</span>
+      <div class="ph-tags" id="prework-tags">
+        <span class="ph-tag" id="tag-responded">— / 26 responded</span>
+        <span class="ph-tag" id="tag-avghrs">— avg hrs/wk</span>
         <a class="ph-tag" href="https://docs.google.com/spreadsheets/d/1GNY6D-Oe4EcG4pZ17tnC682XAn57Kvg7cFuDyMQZ6mA/edit?gid=891544301#gid=891544301" target="_blank" style="text-decoration:none;cursor:pointer">FY27 V2MOM ↗</a>
       </div>
     </div>
@@ -1181,6 +1181,11 @@ function renderNumbers() {
       <div class="stat-drill" onclick="showOver40()">▸ See what's not mapped (${over40} people)</div>
     </div>`;
   document.getElementById('numbers-grid').classList.add('revealed');
+  // Sync header tags with live data
+  const t1 = document.getElementById('tag-responded');
+  const t2 = document.getElementById('tag-avghrs');
+  if (t1) t1.textContent = n + ' / 26 responded';
+  if (t2) t2.textContent = avgH.toFixed(1) + 'h avg · ' + over40 + ' over 40h';
   animateCount(document.getElementById('cn1'),0,n,0,1.2);
   animateCount(document.getElementById('cn2'),0,avgH,1,1.4);
   animateCount(document.getElementById('cn3'),0,Math.round(over40/hrs.length*100),0,1.3);
