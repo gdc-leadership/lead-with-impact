@@ -571,6 +571,23 @@ html.dark .info-tip{background:#1e2235;color:var(--white);border:1px solid var(-
 .info-tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--accent2)}
 html.dark .info-tip::after{border-top-color:#1e2235}
 
+/* ── UNMAPPED TABLE ──────────────────────────────────────────── */
+.unmapped-group{margin-bottom:20px}
+.unmapped-group-hdr{
+  display:flex;align-items:center;gap:10px;padding:8px 12px;
+  border-radius:var(--r) var(--r) 0 0;font-size:12px;font-weight:700;color:#fff;
+}
+.unmapped-table{width:100%;border-collapse:collapse;font-size:12px;border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r) var(--r);overflow:hidden}
+.unmapped-table th{text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--dim);padding:7px 12px;background:var(--s3);border-bottom:1px solid var(--border)}
+.unmapped-table td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--muted)}
+.unmapped-table tr:last-child td{border-bottom:none}
+.unmapped-table tr:hover td{background:rgba(186,5,23,.04)}
+.unmapped-freq{display:inline-flex;align-items:center;justify-content:center;background:var(--red2);color:var(--red);border:1px solid var(--red-border);font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;white-space:nowrap}
+.unmapped-type{display:inline-flex;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;white-space:nowrap}
+.unmapped-type.drain{background:var(--red2);color:var(--red);border:1px solid var(--red-border)}
+.unmapped-type.highval{background:var(--orange2);color:var(--orange);border:1px solid rgba(224,116,22,.3)}
+.unmapped-empty{padding:20px;text-align:center;color:var(--dim);font-size:12px;font-style:italic;background:var(--s1);border:1px solid var(--border);border-radius:var(--r)}
+
 /* ── SPEAKER NOTES ───────────────────────────────────────────── */
 .speaker-notes-btn{
   display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;
@@ -694,6 +711,21 @@ html.dark .info-tip::after{border-top-color:#1e2235}
     <!-- Role breakdown bars -->
     <div class="role-bar-row revealed" id="role-bars">
       <div class="role-bar-item"><div class="rb-top"><span class="rb-name">Loading roles…</span></div><div class="rb-track"><div class="rb-fill" style="width:0%;background:#0176d3"></div></div></div>
+    </div>
+
+    <!-- Unmapped activities -->
+    <div class="block" style="margin-bottom:28px">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px">
+        <div>
+          <div class="sec-label">Unmapped activities</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:4px">Activities reported in the survey that don't match any Ideal 40 outcome — first candidates to Stop, Delegate or Automate.</div>
+        </div>
+        <button class="speaker-notes-btn" onclick="downloadUnmapped()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download as CSV
+        </button>
+      </div>
+      <div id="unmapped-panel" style="color:var(--dim);font-size:13px">Loading…</div>
     </div>
 
     <!-- iframe -->
@@ -1295,6 +1327,39 @@ function showRespondent(idx, backFnName) {
 
     <!-- Per-role activity breakdown -->
     ${activitySections || '<div style="color:var(--dim);font-size:13px;padding:12px 0">No activity detail recorded.</div>'}
+
+    <!-- Unmapped for this respondent -->
+    ${(()=>{
+      const BUCKETS = [
+        {role:'BP',label:'Business Partner',color:'#0176d3',qids:['BP_top3','BP_necessary2']},
+        {role:'CL',label:'Cloud Leader',color:'#06a59a',qids:['CL_top3','CL_necessary2']},
+        {role:'DP',label:'Delivery Partner',color:'#2e844a',qids:['DP_top3','DP_necessary2']},
+      ];
+      const unmapped = [];
+      BUCKETS.forEach(b => {
+        b.qids.forEach(qid => {
+          const r = d.responses && d.responses.find(r => r.qid === qid);
+          if (!r) return;
+          parseLines(r.answer).forEach(l => {
+            if (!getOutcome(l)) unmapped.push({role:b.label, color:b.color, text:l,
+              type: qid.includes('necessary') ? 'Time-drain' : 'High-value'});
+          });
+        });
+      });
+      if (!unmapped.length) return '';
+      return `<div style="border-top:2px solid var(--red);margin-top:16px;padding-top:14px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--red);margin-bottom:10px">
+          ⚠ Unmapped activities (${unmapped.length}) — not in Ideal 40
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:10px">These activities were reported by this respondent but don't match any Ideal 40 outcome. First candidates to Stop, Delegate or Automate.</div>
+        ${unmapped.map(u => `<div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border-radius:4px;margin-bottom:5px;background:var(--red2);border-left:3px solid var(--red)">
+          <span style="width:6px;height:6px;border-radius:50%;background:${u.color};flex-shrink:0;margin-top:5px"></span>
+          <span style="flex:1;font-size:12px;color:var(--white)">${esc(u.text)}</span>
+          <span style="font-size:10px;font-weight:700;background:rgba(186,5,23,.15);color:var(--red);padding:1px 7px;border-radius:3px;flex-shrink:0">${u.type}</span>
+          <span style="font-size:10px;color:var(--dim);flex-shrink:0;padding-left:6px">${u.role}</span>
+        </div>`).join('')}
+      </div>`;
+    })()}
   `;
 }
 
@@ -1549,6 +1614,85 @@ function renderSignals() {
   grid.classList.add('revealed');
 }
 
+function getUnmappedActivities() {
+  // Returns [{role, type, text, count, respondents}] for all activities with no Ideal 40 match
+  const BUCKETS = [
+    {role:'BP', label:'Business Partner', color:'#0176d3', qids:[
+      {qid:'BP_top3', type:'High-value'},
+      {qid:'BP_necessary2', type:'Time-drain'},
+    ]},
+    {role:'CL', label:'Cloud Leader', color:'#06a59a', qids:[
+      {qid:'CL_top3', type:'High-value'},
+      {qid:'CL_necessary2', type:'Time-drain'},
+    ]},
+    {role:'DP', label:'Delivery Partner', color:'#2e844a', qids:[
+      {qid:'DP_top3', type:'High-value'},
+      {qid:'DP_necessary2', type:'Time-drain'},
+    ]},
+  ];
+  return BUCKETS.map(b => {
+    const rows = [];
+    b.qids.forEach(q => {
+      // Collect all lines for this qid across all respondents
+      const lineMap = {}; // text → set of respondent indices
+      allData.forEach((d, i) => {
+        const r = d.responses && d.responses.find(r => r.qid === q.qid);
+        if (!r) return;
+        parseLines(r.answer).forEach(l => {
+          if (getOutcome(l)) return; // mapped — skip
+          const key = l.toLowerCase().trim();
+          if (!lineMap[key]) lineMap[key] = {text: l, respondents: new Set()};
+          lineMap[key].respondents.add(i);
+        });
+      });
+      Object.values(lineMap).forEach(v => {
+        rows.push({type: q.type, text: v.text, count: v.respondents.size});
+      });
+    });
+    return {role: b.role, label: b.label, color: b.color, rows: rows.sort((a,b) => b.count - a.count)};
+  }).filter(b => b.rows.length > 0);
+}
+
+function renderUnmapped() {
+  const panel = document.getElementById('unmapped-panel');
+  if (!panel || !allData.length) return;
+  const buckets = getUnmappedActivities();
+  if (!buckets.length) {
+    panel.innerHTML = '<div class="unmapped-empty">No unmapped activities found — all survey responses matched to Ideal 40 outcomes.</div>';
+    return;
+  }
+  panel.innerHTML = buckets.map(b => `
+    <div class="unmapped-group">
+      <div class="unmapped-group-hdr" style="background:${b.color}">
+        ${b.label} — ${b.rows.length} unmapped activit${b.rows.length === 1 ? 'y' : 'ies'}
+      </div>
+      <table class="unmapped-table">
+        <thead><tr><th>Activity</th><th>Type</th><th>Mentioned by</th></tr></thead>
+        <tbody>
+          ${b.rows.map(r => `<tr>
+            <td style="color:var(--white)">${esc(r.text)}</td>
+            <td><span class="unmapped-type ${r.type === 'Time-drain' ? 'drain' : 'highval'}">${r.type}</span></td>
+            <td><span class="unmapped-freq">${r.count} person${r.count !== 1 ? 's' : ''}</span></td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`).join('');
+}
+
+function downloadUnmapped() {
+  const buckets = getUnmappedActivities();
+  if (!buckets.length) { alert('No unmapped activities found.'); return; }
+  const rows = [['Role','Type','Activity','Mentioned by (people)']];
+  buckets.forEach(b => b.rows.forEach(r => rows.push([b.label, r.type, r.text, r.count])));
+  const csv = rows.map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(',')).join('\n');
+  const blob = new Blob([csv], {type: 'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'GDC_Unmapped_Activities_FY27.csv';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+
 async function loadData() {
   try {
     const res=await fetch(`https://api.github.com/repos/${GH_REPO}/contents/responses`,{headers:{Authorization:`token ${GH_TOKEN}`}});
@@ -1560,6 +1704,7 @@ async function loadData() {
     renderNumbers();
     renderSignals();
     renderAnalyticsMetrics();
+    renderUnmapped();
   } catch(e) {
     const g=document.getElementById('numbers-grid');
     if(g) g.innerHTML='<div class="stat-tile" style="grid-column:1/-1;padding:28px;text-align:center"><div style="color:var(--dim);font-size:13px">Survey data unavailable.</div></div>';
